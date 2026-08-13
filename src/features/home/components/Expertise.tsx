@@ -1,6 +1,13 @@
 import { Box, Flex, Grid, Heading, Text, VStack } from "@chakra-ui/react";
 import { FaCode, FaMicrochip, FaPeopleGroup } from "react-icons/fa6";
 import type { IconType } from "react-icons";
+import {
+  cores,
+  raio,
+  sombras,
+  transicao,
+  layout,
+} from "../../../lib/tema/tokens";
 
 interface CardExpertiseProps {
   Icone: IconType;
@@ -14,8 +21,8 @@ interface CardExpertiseProps {
 const itensExpertise: CardExpertiseProps[] = [
   {
     Icone: FaCode,
-    iconeBg: "rgba(99, 102, 241, 0.2)",
-    iconeColor: "#818cf8",
+    iconeBg: cores.secundaria.sutil,
+    iconeColor: cores.secundaria.DEFAULT,
     titulo: "Arquitetura & Clean Code",
     descricao:
       "Microsserviços escaláveis, Hexagonal Architecture, NestJS, Node.js, Fastify e React.",
@@ -32,8 +39,8 @@ const itensExpertise: CardExpertiseProps[] = [
   },
   {
     Icone: FaPeopleGroup,
-    iconeBg: "rgba(34, 197, 94, 0.15)",
-    iconeColor: "#4ade80",
+    iconeBg: cores.sucesso.sutil,
+    iconeColor: cores.sucesso.claro,
     titulo: "Liderança Inclusiva",
     descricao:
       "Co-idealizador das iniciativas Potenc[IA] e Guardiões Digitais para democratização da tecnologia.",
@@ -55,18 +62,17 @@ function CardExpertise({
       aria-label={titulo}
       direction="column"
       gap="5"
-      bg="#13131a"
-      border="1px solid #1e1e2e"
-      borderRadius="2xl"
+      bg={cores.bg.card}
+      border={`1px solid ${cores.borda.sutil}`}
+      borderRadius={raio["2xl"]}
       p="8"
-      transition="border-color 0.3s, transform 0.3s, box-shadow 0.3s"
+      transition={transicao.lenta}
       _hover={{
-        borderColor: "rgba(124, 58, 237, 0.4)",
+        borderColor: cores.primaria.borda,
         transform: "translateY(-4px)",
-        boxShadow: "0 0 40px rgba(124, 58, 237, 0.12)",
+        boxShadow: sombras.destaque,
       }}
     >
-      {/* Ícone com fundo colorido */}
       <Box
         display="inline-flex"
         alignItems="center"
@@ -74,22 +80,26 @@ function CardExpertise({
         w="48px"
         h="48px"
         bg={iconeBg}
-        borderRadius="xl"
+        borderRadius={raio.xl}
         flexShrink={0}
         aria-hidden="true"
       >
         <Box as={Icone} fontSize="22px" color={iconeColor} />
       </Box>
 
-      <Heading as="h3" fontSize="lg" fontWeight="700" color="#f3f4f6">
+      <Heading
+        as="h3"
+        fontSize="lg"
+        fontWeight="700"
+        color={cores.texto.titulo}
+      >
         {titulo}
       </Heading>
 
-      <Text fontSize="sm" color="#6b7280" lineHeight="1.7" flex={1}>
+      <Text fontSize="sm" color={cores.texto.corpo} lineHeight="1.7" flex={1}>
         {descricao}
       </Text>
 
-      {/* Tags de tecnologia */}
       <Flex
         flexWrap="wrap"
         gap="2"
@@ -102,12 +112,12 @@ function CardExpertise({
             as="span"
             fontSize="xs"
             fontWeight="500"
-            color="#a855f7"
-            bg="rgba(124, 58, 237, 0.1)"
-            border="1px solid rgba(124, 58, 237, 0.3)"
+            color={cores.primaria.claro}
+            bg={cores.primaria.sutil}
+            border={`1px solid ${cores.primaria.borda}`}
             px="2.5"
             py="1"
-            borderRadius="full"
+            borderRadius={raio.full}
             whiteSpace="nowrap"
           >
             {tec}
@@ -126,16 +136,16 @@ export function Expertise() {
       aria-labelledby="expertise-titulo"
       py={{ base: "16", md: "24" }}
       px={{ base: "6", md: "12", lg: "24" }}
-      bg="#0a0a0f"
+      bg={cores.bg.sutil}
     >
-      <Box maxW="1200px" mx="auto">
+      <Box maxW={layout.maxWidth} mx="auto">
         <VStack gap="4" mb={{ base: "10", md: "14" }} textAlign="center">
           <Text
             fontSize="xs"
             fontWeight="700"
             letterSpacing="1.5px"
             textTransform="uppercase"
-            color="#a855f7"
+            color={cores.primaria.claro}
           >
             Expertise
           </Text>
@@ -146,12 +156,17 @@ export function Expertise() {
             fontSize={{ base: "3xl", md: "4xl" }}
             fontWeight="800"
             letterSpacing="-1px"
-            color="#f3f4f6"
+            color={cores.texto.titulo}
           >
             O que eu faço
           </Heading>
 
-          <Text fontSize="md" color="#6b7280" maxW="480px" lineHeight="1.6">
+          <Text
+            fontSize="md"
+            color={cores.texto.corpo}
+            maxW="480px"
+            lineHeight="1.6"
+          >
             Combinando engenharia de alta performance com estratégia de negócio
             e impacto humano.
           </Text>

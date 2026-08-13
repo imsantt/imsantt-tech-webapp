@@ -1,40 +1,44 @@
 import { defineConfig } from "@chakra-ui/react";
+import { cores, tipografia, sombras } from "./tokens";
 
 export const configCores = defineConfig({
   theme: {
     tokens: {
       colors: {
         marca: {
-          400: { value: "#a855f7" },
-          500: { value: "#9333ea" },
-          600: { value: "#7c3aed" },
+          400: { value: cores.primaria.claro },
+          500: { value: cores.primaria.hover },
+          600: { value: cores.primaria.DEFAULT },
+          700: { value: cores.primaria.escuro },
         },
       },
       fonts: {
-        body: { value: "'Inter', system-ui, sans-serif" },
-        heading: { value: "'Inter', system-ui, sans-serif" },
+        body: { value: tipografia.familia.sans },
+        heading: { value: tipografia.familia.sans },
       },
       shadows: {
-        destaque: { value: "0 0 40px rgba(124, 58, 237, 0.15)" },
-        botao: { value: "0 8px 30px rgba(124, 58, 237, 0.4)" },
+        destaque: { value: sombras.destaque },
+        botao: { value: sombras.botao },
+        input: { value: sombras.input },
       },
     },
 
     semanticTokens: {
       colors: {
-        // Nomes únicos com prefixo "im" para não colidir com defaultConfig
-        "im.fundo": { value: "#0a0a0f" },
-        "im.fundo.sutil": { value: "#111118" },
-        "im.fundo.card": { value: "#16161f" },
-        "im.borda": { value: "#2a2a3a" },
-        "im.borda.acento": { value: "rgba(124, 58, 237, 0.4)" },
-        "im.texto": { value: "#9ca3af" },
-        "im.titulo": { value: "#f3f4f6" },
-        "im.acento": { value: "#7c3aed" },
-        "im.acento.hover": { value: "#9333ea" },
-        "im.acento.sutil": { value: "rgba(124, 58, 237, 0.1)" },
-        "im.acento.fg": { value: "#a855f7" },
-        "im.texto.sutil": { value: "rgba(156, 163, 175, 0.6)" },
+        "im.fundo": { value: cores.bg.base },
+        "im.fundo.sutil": { value: cores.bg.sutil },
+        "im.fundo.card": { value: cores.bg.card },
+        "im.fundo.elevado": { value: cores.bg.elevado },
+        "im.borda": { value: cores.borda.DEFAULT },
+        "im.borda.sutil": { value: cores.borda.sutil },
+        "im.borda.acento": { value: cores.primaria.borda },
+        "im.texto": { value: cores.texto.corpo },
+        "im.texto.sutil": { value: cores.texto.sutil },
+        "im.titulo": { value: cores.texto.titulo },
+        "im.acento": { value: cores.primaria.DEFAULT },
+        "im.acento.hover": { value: cores.primaria.hover },
+        "im.acento.claro": { value: cores.primaria.claro },
+        "im.acento.sutil": { value: cores.primaria.sutil },
       },
     },
   },

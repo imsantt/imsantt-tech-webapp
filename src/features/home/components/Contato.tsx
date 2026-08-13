@@ -9,6 +9,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import { cores, raio, sombras, layout } from "../../../lib/tema/tokens";
 
 interface DadosFormulario {
   nome: string;
@@ -19,16 +20,16 @@ interface DadosFormulario {
 const estadoInicial: DadosFormulario = { nome: "", email: "", mensagem: "" };
 
 const estiloEntrada = {
-  bg: "#111118",
+  bg: cores.bg.sutil,
   border: "1px solid",
-  borderColor: "#2a2a3a",
-  borderRadius: "xl",
-  color: "#f3f4f6",
+  borderColor: cores.borda.DEFAULT,
+  borderRadius: raio.xl,
+  color: cores.texto.titulo,
   fontSize: "sm",
-  _placeholder: { color: "rgba(156,163,175,0.5)" },
+  _placeholder: { color: cores.texto.sutil },
   _focus: {
-    borderColor: "#a855f7",
-    boxShadow: "0 0 0 3px rgba(124, 58, 237, 0.15)",
+    borderColor: cores.primaria.claro,
+    boxShadow: sombras.input,
     outline: "none",
   },
 };
@@ -50,16 +51,16 @@ export function Contato() {
       aria-labelledby="contato-titulo"
       py={{ base: "16", md: "24" }}
       px="6"
-      bg="#0a0a0f"
+      bg={cores.bg.base}
     >
-      <Box maxW="680px" mx="auto">
+      <Box maxW={layout.maxWidthEstrito} mx="auto">
         <VStack gap="4" mb={{ base: "10", md: "14" }} textAlign="center">
           <Text
             fontSize="xs"
             fontWeight="700"
             letterSpacing="1.5px"
             textTransform="uppercase"
-            color="#a855f7"
+            color={cores.primaria.claro}
           >
             Contato
           </Text>
@@ -69,30 +70,30 @@ export function Contato() {
             fontSize={{ base: "3xl", md: "4xl" }}
             fontWeight="700"
             letterSpacing="-1px"
-            color="#f3f4f6"
+            color={cores.texto.titulo}
           >
             Vamos conversar
           </Heading>
-          <Text fontSize="md" color="#9ca3af" lineHeight="1.6">
+          <Text fontSize="md" color={cores.texto.corpo} lineHeight="1.6">
             Tem um projeto em mente ou quer trocar uma ideia? Manda uma
             mensagem.
           </Text>
         </VStack>
 
         <Box
-          bg="#16161f"
-          border="1px solid #2a2a3a"
-          borderRadius="2xl"
+          bg={cores.bg.card}
+          border={`1px solid ${cores.borda.DEFAULT}`}
+          borderRadius={raio["2xl"]}
           p={{ base: "6", md: "10" }}
         >
-          {/* Banner de feature em desenvolvimento */}
+          {/* Banner em desenvolvimento */}
           <Box
             display="flex"
             alignItems="flex-start"
             gap="3"
-            bg="rgba(124, 58, 237, 0.08)"
-            border="1px solid rgba(124, 58, 237, 0.3)"
-            borderRadius="xl"
+            bg={cores.primaria.sutil}
+            border={`1px solid ${cores.primaria.borda}`}
+            borderRadius={raio.xl}
             px="4"
             py="3"
             mb="6"
@@ -101,17 +102,22 @@ export function Contato() {
               🚧
             </Box>
             <Box>
-              <Text fontSize="sm" fontWeight="600" color="#f3f4f6" mb="0.5">
+              <Text
+                fontSize="sm"
+                fontWeight="600"
+                color={cores.texto.titulo}
+                mb="0.5"
+              >
                 Feature em desenvolvimento
               </Text>
-              <Text fontSize="xs" color="#9ca3af" lineHeight="1.5">
+              <Text fontSize="xs" color={cores.texto.corpo} lineHeight="1.5">
                 O envio de mensagens ainda está sendo implementado. Em breve
                 você poderá entrar em contato diretamente por aqui.
               </Text>
             </Box>
           </Box>
 
-          {/* Formulário nativo desabilitado */}
+          {/* Formulário desabilitado */}
           <form
             noValidate
             aria-label="Formulário de contato"
@@ -128,7 +134,7 @@ export function Contato() {
               <Field.Label
                 fontSize="sm"
                 fontWeight="500"
-                color="#f3f4f6"
+                color={cores.texto.titulo}
                 mb="2"
               >
                 Nome
@@ -150,7 +156,7 @@ export function Contato() {
               <Field.Label
                 fontSize="sm"
                 fontWeight="500"
-                color="#f3f4f6"
+                color={cores.texto.titulo}
                 mb="2"
               >
                 E-mail
@@ -172,7 +178,7 @@ export function Contato() {
               <Field.Label
                 fontSize="sm"
                 fontWeight="500"
-                color="#f3f4f6"
+                color={cores.texto.titulo}
                 mb="2"
               >
                 Mensagem
@@ -192,12 +198,12 @@ export function Contato() {
 
             <Button
               type="submit"
-              bg="#7c3aed"
-              color="white"
+              bg={cores.primaria.DEFAULT}
+              color={cores.branco}
               fontWeight="600"
               size="lg"
               px="8"
-              borderRadius="xl"
+              borderRadius={raio.xl}
               alignSelf="flex-start"
               disabled
               tabIndex={-1}

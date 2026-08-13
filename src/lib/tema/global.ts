@@ -1,13 +1,14 @@
 import { defineConfig } from "@chakra-ui/react";
+import { cores, tipografia, raio, transicao } from "./tokens";
 
 export const configGlobal = defineConfig({
   globalCss: {
     body: {
-      background: "#0a0a0f",
-      color: "#9ca3af",
-      fontFamily: "'Inter', system-ui, sans-serif",
-      fontSize: "16px",
-      lineHeight: "1.6",
+      background: cores.bg.base,
+      color: cores.texto.corpo,
+      fontFamily: tipografia.familia.sans,
+      fontSize: tipografia.tamanho.base,
+      lineHeight: String(tipografia.alturaLinha.corpo),
     },
 
     "#root": {
@@ -20,15 +21,15 @@ export const configGlobal = defineConfig({
       position: "absolute",
       top: "-100%",
       left: 0,
-      background: "#7c3aed",
-      color: "white",
-      fontSize: "14px",
-      fontWeight: "600",
+      background: cores.primaria.DEFAULT,
+      color: cores.branco,
+      fontSize: tipografia.tamanho.sm,
+      fontWeight: String(tipografia.peso.semibold),
       padding: "12px 24px",
-      borderRadius: "0 0 8px 0",
+      borderRadius: `0 0 ${raio.lg} 0`,
       zIndex: 9999,
       textDecoration: "none",
-      transition: "top 0.2s",
+      transition: transicao.rapida,
       "&:focus": { top: 0 },
     },
   },

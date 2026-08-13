@@ -2,6 +2,13 @@ import { useState } from "react";
 import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import { FiDownload } from "react-icons/fi";
 import heroImg from "../../../assets/robert santos profile.png";
+import {
+  cores,
+  sombras,
+  raio,
+  transicao,
+  layout,
+} from "../../../lib/tema/tokens";
 
 export function Hero() {
   const [baixando, setBaixando] = useState(false);
@@ -15,7 +22,6 @@ export function Hero() {
 
   const aoClicarBaixar = () => {
     setBaixando(true);
-    // Feedback visual por 2s
     setTimeout(() => setBaixando(false), 2000);
   };
 
@@ -28,7 +34,7 @@ export function Hero() {
       display="flex"
       alignItems="center"
       px={{ base: "6", md: "12", lg: "24" }}
-      bg="#0a0a0f"
+      bg={cores.bg.base}
       position="relative"
       overflow="hidden"
     >
@@ -45,7 +51,7 @@ export function Hero() {
       />
 
       <Flex
-        maxW="1200px"
+        maxW={layout.maxWidth}
         mx="auto"
         w="full"
         align="center"
@@ -71,12 +77,12 @@ export function Hero() {
             gap="2"
             fontSize="xs"
             fontWeight="600"
-            color="#a855f7"
-            bg="rgba(124, 58, 237, 0.12)"
-            border="1px solid rgba(124, 58, 237, 0.35)"
+            color={cores.primaria.claro}
+            bg={cores.primaria.sutil}
+            border={`1px solid ${cores.primaria.borda}`}
             px="3.5"
             py="1.5"
-            borderRadius="full"
+            borderRadius={raio.full}
             w="fit-content"
             mx={{ base: "auto", md: "0" }}
           >
@@ -91,13 +97,13 @@ export function Hero() {
             fontWeight="800"
             letterSpacing="-2px"
             lineHeight="1.0"
-            color="#f3f4f6"
+            color={cores.texto.titulo}
           >
             Robert{" "}
             <Box
               as="span"
               style={{
-                background: "linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)",
+                background: `linear-gradient(135deg, ${cores.primaria.claro} 0%, ${cores.primaria.DEFAULT} 100%)`,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -108,7 +114,7 @@ export function Hero() {
           </Heading>
 
           {/* Descrição */}
-          <Text fontSize="md" lineHeight="1.7" color="#9ca3af">
+          <Text fontSize="md" lineHeight="1.7" color={cores.texto.corpo}>
             Engenheiro de Software Sênior &amp; Arquiteto. Elo entre tecnologia
             de alta performance, inteligência artificial, objetivos de negócio e
             desenvolvimento de pessoas.
@@ -127,14 +133,14 @@ export function Hero() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                backgroundColor: "#7c3aed",
-                color: "white",
+                backgroundColor: cores.primaria.DEFAULT,
+                color: cores.branco,
                 fontWeight: 600,
                 fontSize: "16px",
                 padding: "12px 24px",
-                borderRadius: "8px",
+                borderRadius: raio.lg,
                 textDecoration: "none",
-                transition: "background 0.2s, transform 0.2s, box-shadow 0.2s",
+                transition: transicao.elevacao,
               }}
             >
               Ver Experiências <span aria-hidden="true">↗</span>
@@ -149,19 +155,19 @@ export function Hero() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                color: baixando ? "#a855f7" : "#f3f4f6",
+                color: baixando ? cores.primaria.claro : cores.texto.titulo,
                 fontWeight: 600,
                 fontSize: "16px",
                 padding: "12px 24px",
-                borderRadius: "8px",
+                borderRadius: raio.lg,
                 border: baixando
-                  ? "1px solid rgba(124,58,237,0.6)"
-                  : "1px solid rgba(255,255,255,0.2)",
+                  ? `1px solid ${cores.primaria.bordaForte}`
+                  : `1px solid ${cores.borda.hover}`,
                 backgroundColor: baixando
-                  ? "rgba(124,58,237,0.1)"
-                  : "transparent",
+                  ? cores.primaria.sutil
+                  : cores.transparente,
                 textDecoration: "none",
-                transition: "all 0.3s",
+                transition: transicao.lenta,
               }}
             >
               <FiDownload size={16} />
@@ -185,7 +191,7 @@ export function Hero() {
             w={{ base: "280px", md: "380px" }}
             h={{ base: "280px", md: "380px" }}
             background="radial-gradient(circle, rgba(124,58,237,0.55) 0%, transparent 68%)"
-            borderRadius="full"
+            borderRadius={raio.full}
             filter="blur(24px)"
             pointerEvents="none"
           />
@@ -194,12 +200,13 @@ export function Hero() {
             alt="Foto de Robert Santos"
             w={{ base: "240px", md: "340px" }}
             h={{ base: "240px", md: "340px" }}
-            borderRadius="full"
+            borderRadius={raio.full}
             objectFit="cover"
             objectPosition="top center"
-            border="2px solid rgba(124, 58, 237, 0.5)"
+            border={`2px solid ${cores.primaria.bordaForte}`}
             position="relative"
             zIndex={1}
+            boxShadow={sombras.destaque}
           />
         </Box>
       </Flex>

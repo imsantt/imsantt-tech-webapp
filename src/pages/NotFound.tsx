@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
+import { cores, raio, transicao } from "../lib/tema/tokens";
 
 export function NotFound() {
   return (
@@ -7,7 +8,7 @@ export function NotFound() {
       as="main"
       id="conteudo-principal"
       minH="100svh"
-      bg="#0a0a0f"
+      bg={cores.bg.base}
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -24,7 +25,7 @@ export function NotFound() {
           letterSpacing="-4px"
           lineHeight="1"
           style={{
-            background: "linear-gradient(135deg, #f3f4f6 0%, #7c3aed 100%)",
+            background: `linear-gradient(135deg, ${cores.texto.titulo} 0%, ${cores.primaria.DEFAULT} 100%)`,
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -36,13 +37,13 @@ export function NotFound() {
         <Heading
           as="h1"
           fontSize={{ base: "2xl", md: "3xl" }}
-          color="#f3f4f6"
+          color={cores.texto.titulo}
           fontWeight="600"
         >
           Página não encontrada
         </Heading>
 
-        <Text color="#9ca3af" fontSize="md" lineHeight="1.6">
+        <Text color={cores.texto.corpo} fontSize="md" lineHeight="1.6">
           Parece que essa rota não existe. Talvez tenha sido movida ou o
           endereço esteja errado.
         </Text>
@@ -53,15 +54,15 @@ export function NotFound() {
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
-            backgroundColor: "#7c3aed",
-            color: "white",
+            backgroundColor: cores.primaria.DEFAULT,
+            color: cores.branco,
             fontWeight: 600,
             fontSize: "16px",
             padding: "12px 28px",
-            borderRadius: "12px",
+            borderRadius: raio.xl,
             textDecoration: "none",
             marginTop: "8px",
-            transition: "background 0.2s, transform 0.2s, box-shadow 0.2s",
+            transition: transicao.elevacao,
           }}
         >
           Voltar para o início
