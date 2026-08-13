@@ -104,62 +104,51 @@ export function Hero() {
             desenvolvimento de pessoas.
           </Text>
 
-          {/* CTAs — usando <a> nativo estilizado */}
+          {/* CTAs */}
           <HStack
             gap="3"
             flexWrap="wrap"
             justify={{ base: "center", md: "flex-start" }}
           >
-            <Box
-              as="a"
+            <a
               href="#expertise"
               onClick={aoClicarVerExperiencias}
-              display="inline-flex"
-              alignItems="center"
-              gap="2"
-              bg="#7c3aed"
-              color="white"
-              fontWeight="600"
-              fontSize="md"
-              px="6"
-              py="3"
-              borderRadius="lg"
-              textDecoration="none"
-              transition="background 0.2s, transform 0.2s, box-shadow 0.2s"
-              _hover={{
-                bg: "#9333ea",
-                transform: "translateY(-2px)",
-                boxShadow: "0 8px 30px rgba(124,58,237,0.45)",
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                backgroundColor: "#7c3aed",
+                color: "white",
+                fontWeight: 600,
+                fontSize: "16px",
+                padding: "12px 24px",
+                borderRadius: "8px",
+                textDecoration: "none",
+                transition: "background 0.2s, transform 0.2s, box-shadow 0.2s",
               }}
             >
-              Ver Experiências{" "}
-              <Box as="span" aria-hidden="true" fontSize="sm">
-                ↗
-              </Box>
-            </Box>
+              Ver Experiências <span aria-hidden="true">↗</span>
+            </a>
 
-            <Box
-              as="a"
+            <a
               href="/curriculo.pdf"
-              display="inline-flex"
-              alignItems="center"
-              color="#f3f4f6"
-              fontWeight="600"
-              fontSize="md"
-              px="6"
-              py="3"
-              borderRadius="lg"
-              border="1px solid rgba(255,255,255,0.2)"
-              textDecoration="none"
-              transition="all 0.2s"
-              _hover={{
-                bg: "rgba(255,255,255,0.06)",
-                borderColor: "rgba(255,255,255,0.35)",
-                transform: "translateY(-2px)",
+              download
+              aria-label="Baixar currículo em PDF"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                color: "#f3f4f6",
+                fontWeight: 600,
+                fontSize: "16px",
+                padding: "12px 24px",
+                borderRadius: "8px",
+                border: "1px solid rgba(255,255,255,0.2)",
+                textDecoration: "none",
+                transition: "all 0.2s",
               }}
             >
               Baixar Currículo
-            </Box>
+            </a>
           </HStack>
         </Flex>
 
