@@ -108,6 +108,7 @@ export function Hero() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                fontWeight: `${tipografia.peso.normal}`,
               }}
             >
               Santos
@@ -115,10 +116,17 @@ export function Hero() {
           </Heading>
 
           {/* Descrição */}
-          <Text fontSize="md" lineHeight="1.7" color={cores.texto.corpo}>
-            Engenheiro de Software Sênior &amp; Arquiteto. Elo entre tecnologia
-            de alta performance, inteligência artificial, objetivos de negócio e
-            desenvolvimento de pessoas.
+          <Text
+            fontSize="md"
+            lineHeight="1.7"
+            textAlign="justify"
+            color={cores.texto.corpo}
+          >
+            Engenheiro de Software Sênior &amp; Arquiteto de Sistemas com foco
+            em microsserviços escaláveis, inteligência artificial e computação
+            em nuvem. Conecto engenharia de alta performance, estratégia de
+            negócio e desenvolvimento de pessoas para entregar soluções que
+            geram impacto real e transformam equipes.
           </Text>
 
           {/* CTAs */}
