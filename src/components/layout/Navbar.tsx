@@ -41,29 +41,29 @@ export function Navbar() {
       borderColor={rolado ? "#2a2a3a" : "transparent"}
       bg={rolado ? "rgba(10, 10, 15, 0.88)" : "transparent"}
       backdropFilter={rolado ? "blur(16px)" : "none"}
-      style={{ WebkitBackdropFilter: rolado ? "blur(16px)" : "none" }}
       transition="background 0.3s, border-color 0.3s, padding 0.3s"
     >
       <HStack maxW="1200px" mx="auto" px="6" gap="10" align="center">
         {/* Logo */}
-        <Box
-          as={Link}
+        <Link
           to="/"
           aria-label="IMSANTT.DEV - Ir para o início"
           onClick={() => setMenuAberto(false)}
-          fontSize="lg"
-          fontWeight="700"
-          color="#f3f4f6"
-          letterSpacing="-0.5px"
-          whiteSpace="nowrap"
-          textDecoration="none"
-          flexShrink={0}
+          style={{ textDecoration: "none", flexShrink: 0 }}
         >
-          IMSANTT
-          <Box as="span" color="#a855f7">
-            .DEV
+          <Box
+            fontSize="lg"
+            fontWeight="700"
+            color="#f3f4f6"
+            letterSpacing="-0.5px"
+            whiteSpace="nowrap"
+          >
+            IMSANTT
+            <Box as="span" color="#a855f7">
+              .DEV
+            </Box>
           </Box>
-        </Box>
+        </Link>
 
         {/* Nav desktop */}
         <Box

@@ -43,11 +43,6 @@ export function Contato() {
     setFormulario((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🚧 Envio real ainda não implementado — será conectado ao Supabase Edge Function
-  const aoEnviar = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <Box
       as="section"
@@ -116,17 +111,18 @@ export function Contato() {
             </Box>
           </Box>
 
-          <Box
-            as="form"
-            onSubmit={aoEnviar}
+          {/* Formulário nativo desabilitado */}
+          <form
             noValidate
             aria-label="Formulário de contato"
-            display="flex"
-            flexDirection="column"
-            gap="6"
-            opacity={0.5}
-            pointerEvents="none"
             aria-disabled="true"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+              opacity: 0.5,
+              pointerEvents: "none",
+            }}
           >
             <Field.Root>
               <Field.Label
@@ -209,7 +205,7 @@ export function Contato() {
             >
               Enviar mensagem
             </Button>
-          </Box>
+          </form>
         </Box>
       </Box>
     </Box>

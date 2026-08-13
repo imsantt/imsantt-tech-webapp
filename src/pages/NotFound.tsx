@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 
 export function NotFound() {
   return (
@@ -47,25 +47,25 @@ export function NotFound() {
           endereço esteja errado.
         </Text>
 
-        <Button
-          as={Link}
+        <Link
           to="/"
-          mt="2"
-          bg="#7c3aed"
-          color="white"
-          fontWeight="600"
-          size="lg"
-          px="7"
-          borderRadius="xl"
-          _hover={{
-            bg: "#9333ea",
-            transform: "translateY(-2px)",
-            boxShadow: "0 8px 30px rgba(124,58,237,0.4)",
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            backgroundColor: "#7c3aed",
+            color: "white",
+            fontWeight: 600,
+            fontSize: "16px",
+            padding: "12px 28px",
+            borderRadius: "12px",
+            textDecoration: "none",
+            marginTop: "8px",
+            transition: "background 0.2s, transform 0.2s, box-shadow 0.2s",
           }}
-          transition="background 0.2s, transform 0.2s, box-shadow 0.2s"
         >
           Voltar para o início
-        </Button>
+        </Link>
       </VStack>
     </Box>
   );

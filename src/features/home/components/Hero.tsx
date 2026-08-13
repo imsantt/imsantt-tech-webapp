@@ -1,16 +1,8 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import heroImg from "../../../assets/robert santos profile.png";
 
 export function Hero() {
-  const aoClicarVerExperiencias = (e: React.MouseEvent) => {
+  const aoClicarVerExperiencias = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     document
       .getElementById("expertise")
@@ -53,7 +45,7 @@ export function Hero() {
         pt={{ base: "28", md: "0" }}
         pb={{ base: "16", md: "0" }}
       >
-        {/* ── Coluna de texto ── */}
+        {/* Coluna de texto */}
         <Flex
           direction="column"
           gap="6"
@@ -64,7 +56,6 @@ export function Hero() {
           {/* Badge */}
           <Box
             as="span"
-            role="text"
             display="inline-flex"
             alignItems="center"
             gap="2"
@@ -113,68 +104,72 @@ export function Hero() {
             desenvolvimento de pessoas.
           </Text>
 
-          {/* CTAs */}
+          {/* CTAs — usando <a> nativo estilizado */}
           <HStack
             gap="3"
             flexWrap="wrap"
             justify={{ base: "center", md: "flex-start" }}
           >
-            <Button
+            <Box
               as="a"
               href="#expertise"
               onClick={aoClicarVerExperiencias}
+              display="inline-flex"
+              alignItems="center"
+              gap="2"
               bg="#7c3aed"
               color="white"
               fontWeight="600"
-              size="lg"
+              fontSize="md"
               px="6"
+              py="3"
               borderRadius="lg"
-              gap="2"
+              textDecoration="none"
+              transition="background 0.2s, transform 0.2s, box-shadow 0.2s"
               _hover={{
                 bg: "#9333ea",
                 transform: "translateY(-2px)",
                 boxShadow: "0 8px 30px rgba(124,58,237,0.45)",
               }}
-              transition="background 0.2s, transform 0.2s, box-shadow 0.2s"
             >
               Ver Experiências{" "}
               <Box as="span" aria-hidden="true" fontSize="sm">
                 ↗
               </Box>
-            </Button>
+            </Box>
 
-            <Button
+            <Box
               as="a"
               href="/curriculo.pdf"
-              download
-              aria-label="Baixar currículo em PDF"
-              variant="outline"
+              display="inline-flex"
+              alignItems="center"
               color="#f3f4f6"
-              borderColor="rgba(255,255,255,0.2)"
               fontWeight="600"
-              size="lg"
+              fontSize="md"
               px="6"
+              py="3"
               borderRadius="lg"
+              border="1px solid rgba(255,255,255,0.2)"
+              textDecoration="none"
+              transition="all 0.2s"
               _hover={{
                 bg: "rgba(255,255,255,0.06)",
                 borderColor: "rgba(255,255,255,0.35)",
                 transform: "translateY(-2px)",
               }}
-              transition="all 0.2s"
             >
               Baixar Currículo
-            </Button>
+            </Box>
           </HStack>
         </Flex>
 
-        {/* ── Imagem ── */}
+        {/* Imagem */}
         <Box
           position="relative"
           flexShrink={0}
           zIndex={1}
           mx={{ base: "auto", md: "0" }}
         >
-          {/* Glow roxo atrás do círculo */}
           <Box
             position="absolute"
             top="50%"

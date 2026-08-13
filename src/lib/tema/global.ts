@@ -8,8 +8,6 @@ export const configGlobal = defineConfig({
       fontFamily: "'Inter', system-ui, sans-serif",
       fontSize: "16px",
       lineHeight: "1.6",
-      WebkitFontSmoothing: "antialiased",
-      MozOsxFontSmoothing: "grayscale",
     },
 
     "#root": {
