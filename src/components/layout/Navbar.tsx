@@ -60,7 +60,7 @@ export function Navbar() {
           >
             IMSANTT
             <Box as="span" color="#a855f7">
-              .DEV
+              .TECH
             </Box>
           </Box>
         </Link>
