@@ -1,5 +1,5 @@
 import { Box, Image } from "@chakra-ui/react";
-import { cores } from "../../lib/tema/tokens";
+import { cores, tipografia } from "../../lib/tema/tokens";
 
 interface LogoProps {
   tamanhoIcone?: string;
@@ -15,7 +15,7 @@ export function Logo({
       <Box
         as="span"
         fontSize={tamanhoFonte}
-        fontWeight="300"
+        fontWeight={tipografia.peso.light}
         color={cores.texto.titulo}
         letterSpacing="-0.5px"
       >
@@ -34,7 +34,7 @@ export function Logo({
       <Box
         as="span"
         fontSize={tamanhoFonte}
-        fontWeight="500"
+        fontWeight={tipografia.peso.normal}
         color={cores.primaria.claro}
         letterSpacing="-0.5px"
       >
