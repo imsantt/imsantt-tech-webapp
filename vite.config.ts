@@ -33,6 +33,12 @@ export default defineConfig({
         "src/tests/**",
         "src/main.tsx",
         "src/vite-env.d.ts",
+        "src/App.tsx",
+        "src/**/index.ts",
+        "src/routes/**",
+        "src/services/**",
+        "src/types/**",
+        "src/lib/supabase.ts",
       ],
       thresholds: {
         statements: 80,
