@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import {
   renderComProviders,
   screen,
@@ -55,5 +55,21 @@ describe("Hero", () => {
     renderComProviders(<Hero />);
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toHaveAttribute("id", "hero-titulo");
+  });
+
+  it("deve chamar scrollIntoView ao clicar em Ver Experiências", () => {
+    const scrollIntoViewMock = vi.fn();
+    vi.spyOn(document, "getElementById").mockReturnValue({
+      scrollIntoView: scrollIntoViewMock,
+    } as unknown as HTMLElement);
+
+    renderComProviders(<Hero />);
+    const link = screen.getByText(/Ver Experiências/);
+    fireEvent.click(link.closest("a")!);
+
+    expect(document.getElementById).toHaveBeenCalledWith("expertise");
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: "smooth" });
+
+    vi.restoreAllMocks();
   });
 });

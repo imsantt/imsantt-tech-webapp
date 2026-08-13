@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { renderComProviders, screen } from "../../../../tests/helpers";
+import {
+  renderComProviders,
+  screen,
+  fireEvent,
+} from "../../../../tests/helpers";
 import { Contato } from "./Contato";
 
 describe("Contato", () => {
@@ -42,5 +46,29 @@ describe("Contato", () => {
       name: "Vamos conversar",
     });
     expect(heading).toHaveAttribute("id", "contato-titulo");
+  });
+
+  it("deve atualizar valor do input ao digitar (aoAlterar)", () => {
+    renderComProviders(<Contato />);
+    // jsdom ignora pointer-events, então conseguimos interagir
+    const inputNome = screen.getByPlaceholderText("Seu nome completo");
+    fireEvent.change(inputNome, { target: { value: "Robert", name: "nome" } });
+    expect(inputNome).toHaveValue("Robert");
+  });
+
+  it("deve atualizar valor do email ao digitar", () => {
+    renderComProviders(<Contato />);
+    const inputEmail = screen.getByPlaceholderText("seu@email.com");
+    fireEvent.change(inputEmail, {
+      target: { value: "teste@email.com", name: "email" },
+    });
+    expect(inputEmail).toHaveValue("teste@email.com");
+  });
+
+  it("deve atualizar valor da mensagem ao digitar", () => {
+    renderComProviders(<Contato />);
+    const textarea = screen.getByPlaceholderText(/Conte um pouco/);
+    fireEvent.change(textarea, { target: { value: "Olá!", name: "mensagem" } });
+    expect(textarea).toHaveValue("Olá!");
   });
 });

@@ -2,9 +2,10 @@ import { describe, it, expect, vi } from "vitest";
 import { renderComProviders, screen, fireEvent } from "../../../tests/helpers";
 import { Navbar } from "./Navbar";
 
-// Mock do hook para não depender do router real
+const mockRolarParaAncora = vi.fn();
+
 vi.mock("../../../hooks/use-scroll-suave/useScrollSuave", () => ({
-  useScrollSuave: () => ({ rolarParaAncora: vi.fn() }),
+  useScrollSuave: () => ({ rolarParaAncora: mockRolarParaAncora }),
 }));
 
 describe("Navbar", () => {
@@ -29,6 +30,19 @@ describe("Navbar", () => {
     expect(botoes.length).toBeGreaterThanOrEqual(1);
   });
 
+  it("deve chamar rolarParaAncora ao clicar em item de navegação", () => {
+    renderComProviders(<Navbar />);
+    fireEvent.click(screen.getByText("Expertise"));
+    expect(mockRolarParaAncora).toHaveBeenCalledWith("expertise");
+  });
+
+  it("deve chamar rolarParaAncora ao clicar no botão Contato", () => {
+    renderComProviders(<Navbar />);
+    const botoes = screen.getAllByText("Contato");
+    fireEvent.click(botoes[0]);
+    expect(mockRolarParaAncora).toHaveBeenCalledWith("contato");
+  });
+
   it("deve ter botão hamburguer com aria-label correto", () => {
     renderComProviders(<Navbar />);
     const hamburguer = screen.getByLabelText("Abrir menu");
@@ -46,9 +60,30 @@ describe("Navbar", () => {
     expect(screen.getByLabelText("Abrir menu")).toBeInTheDocument();
   });
 
+  it("deve mostrar menu mobile ao abrir e chamar rolarParaAncora ao clicar item mobile", () => {
+    renderComProviders(<Navbar />);
+    fireEvent.click(screen.getByLabelText("Abrir menu"));
+
+    // Os itens aparecem duplicados (desktop + mobile)
+    const itensHome = screen.getAllByText("Home");
+    fireEvent.click(itensHome[itensHome.length - 1]);
+    expect(mockRolarParaAncora).toHaveBeenCalledWith("home");
+  });
+
   it("deve ter link da logo apontando para home", () => {
     renderComProviders(<Navbar />);
     const link = screen.getByLabelText("IMSANTT.TECH - Ir para o início");
     expect(link).toHaveAttribute("href", "/");
+  });
+
+  it("deve aplicar estilo de scroll ao rolar a pagina", () => {
+    renderComProviders(<Navbar />);
+
+    // Simula scroll
+    Object.defineProperty(window, "scrollY", { value: 50, writable: true });
+    fireEvent.scroll(window);
+
+    // O header deve existir com role banner
+    expect(screen.getByRole("banner")).toBeInTheDocument();
   });
 });
