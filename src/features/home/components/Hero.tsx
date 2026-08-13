@@ -1,12 +1,22 @@
+import { useState } from "react";
 import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
+import { FiDownload } from "react-icons/fi";
 import heroImg from "../../../assets/robert santos profile.png";
 
 export function Hero() {
+  const [baixando, setBaixando] = useState(false);
+
   const aoClicarVerExperiencias = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     document
       .getElementById("expertise")
       ?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const aoClicarBaixar = () => {
+    setBaixando(true);
+    // Feedback visual por 2s
+    setTimeout(() => setBaixando(false), 2000);
   };
 
   return (
@@ -131,23 +141,31 @@ export function Hero() {
             </a>
 
             <a
-              href="/curriculo.pdf"
-              download
+              href="/curriculo-robert-santos.pdf"
+              download="curriculo-robert-santos.pdf"
               aria-label="Baixar currículo em PDF"
+              onClick={aoClicarBaixar}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                color: "#f3f4f6",
+                gap: "8px",
+                color: baixando ? "#a855f7" : "#f3f4f6",
                 fontWeight: 600,
                 fontSize: "16px",
                 padding: "12px 24px",
                 borderRadius: "8px",
-                border: "1px solid rgba(255,255,255,0.2)",
+                border: baixando
+                  ? "1px solid rgba(124,58,237,0.6)"
+                  : "1px solid rgba(255,255,255,0.2)",
+                backgroundColor: baixando
+                  ? "rgba(124,58,237,0.1)"
+                  : "transparent",
                 textDecoration: "none",
-                transition: "all 0.2s",
+                transition: "all 0.3s",
               }}
             >
-              Baixar Currículo
+              <FiDownload size={16} />
+              {baixando ? "Download iniciado!" : "Baixar Currículo"}
             </a>
           </HStack>
         </Flex>
