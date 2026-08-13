@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import { FiDownload } from "react-icons/fi";
-import heroImg from "../../../assets/robert santos profile.png";
+import heroImg from "../../../../assets/robert santos profile.png";
 import {
   cores,
   sombras,
   raio,
   transicao,
   layout,
-} from "../../../lib/tema/tokens";
+  tipografia,
+} from "../../../../lib/tema/tokens";
 
 export function Hero() {
   const [baixando, setBaixando] = useState(false);
@@ -94,7 +95,7 @@ export function Hero() {
             as="h1"
             id="hero-titulo"
             fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
-            fontWeight="800"
+            fontWeight={tipografia.peso.light}
             letterSpacing="-2px"
             lineHeight="1.0"
             color={cores.texto.titulo}

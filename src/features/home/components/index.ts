@@ -1,3 +1,3 @@
-export { Hero } from "./Hero";
-export { Expertise } from "./Expertise";
-export { Contato } from "./Contato";
+export { Hero } from "./hero/Hero";
+export { Expertise } from "./expertise/Expertise";
+export { Contato } from "./contato/Contato";

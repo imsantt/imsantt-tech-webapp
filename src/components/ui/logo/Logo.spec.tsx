@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { renderComProviders, screen } from "../../tests/helpers";
+import { renderComProviders, screen } from "../../../tests/helpers";
 import { Logo } from "./Logo";
 
 describe("Logo", () => {
@@ -13,8 +13,9 @@ describe("Logo", () => {
   it("deve renderizar imagem da logo como decorativa (aria-hidden)", () => {
     renderComProviders(<Logo />);
 
-    const img = screen.getByRole("img", { hidden: true });
-    expect(img).toHaveAttribute("aria-hidden", "true");
+    const img = document.querySelector("img[aria-hidden='true']");
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute("alt", "");
   });
 
   it("deve aceitar props de tamanho customizado", () => {

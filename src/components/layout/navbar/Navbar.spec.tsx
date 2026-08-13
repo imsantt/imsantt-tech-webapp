@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderComProviders, screen, fireEvent } from "../../tests/helpers";
+import { renderComProviders, screen, fireEvent } from "../../../tests/helpers";
 import { Navbar } from "./Navbar";
 
 // Mock do hook para não depender do router real
-vi.mock("../../hooks/useScrollSuave", () => ({
+vi.mock("../../../hooks/use-scroll-suave/useScrollSuave", () => ({
   useScrollSuave: () => ({ rolarParaAncora: vi.fn() }),
 }));
 

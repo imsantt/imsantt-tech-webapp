@@ -7,7 +7,7 @@ import {
   sombras,
   transicao,
   layout,
-} from "../../../lib/tema/tokens";
+} from "../../../../lib/tema/tokens";
 
 interface CardExpertiseProps {
   Icone: IconType;

@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { renderComProviders, screen, fireEvent } from "../../../tests/helpers";
+import {
+  renderComProviders,
+  screen,
+  fireEvent,
+} from "../../../../tests/helpers";
 import { Hero } from "./Hero";
 
 describe("Hero", () => {
