@@ -4,8 +4,14 @@ updates:
     directory: "/"
     target-branch: "stage"
     schedule:
+<<<<<<< Updated upstream
       interval: "daily"
     open-pull-requests-limit: 10
+=======
+      interval: "weekly" # Mudamos para semanal para não poluir o repositório todo dia
+      day: "monday"
+    open-pull-requests-limit: 5 # Limita a no máximo 5 PRs abertos
+>>>>>>> Stashed changes
     labels:
       - "dependencies"
       - "automerge"
@@ -17,6 +23,21 @@ updates:
         update-types:
           - "minor"
           - "patch"
+
+    # Agrupa atualizações para gerar MENOS Pull Requests
+    groups:
+      dependencies-patch-minor:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+
+    # Ignora atualizações MAJOR automáticas (ex: Vitest v3 -> v4, TS v6 -> v7)
+    # assim ele só atualiza o que for seguro (patch e minor)
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
