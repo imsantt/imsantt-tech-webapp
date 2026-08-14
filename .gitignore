@@ -20,6 +20,9 @@ dist-ssr
 # Coverage
 coverage/
 
+# Security docs (sensitive)
+docs/seguranca/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

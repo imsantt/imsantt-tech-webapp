@@ -1,0 +1,87 @@
+/**
+ * Utilitários de validação e sanitização.
+ * Usar em qualquer input de usuário antes de enviar ao backend.
+ */
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_NOME = 100;
+const MAX_EMAIL = 254;
+const MAX_MENSAGEM = 2000;
+
+export interface ErroValidacao {
+  campo: string;
+  mensagem: string;
+}
+
+export interface DadosContato {
+  nome: string;
+  email: string;
+  mensagem: string;
+}
+
+/**
+ * Remove HTML tags e caracteres perigosos de uma string.
+ */
+export function sanitizar(valor: string): string {
+  return valor
+    .replace(/[<>]/g, "") // Remove < e >
+    .replace(/javascript:/gi, "") // Remove javascript: protocol
+    .replace(/on\w+=/gi, "") // Remove event handlers (onclick=, etc)
+    .trim();
+}
+
+/**
+ * Valida dados do formulário de contato.
+ * Retorna array vazio se válido, ou lista de erros.
+ */
+export function validarContato(dados: DadosContato): ErroValidacao[] {
+  const erros: ErroValidacao[] = [];
+
+  // Nome
+  const nome = dados.nome.trim();
+  if (!nome) {
+    erros.push({ campo: "nome", mensagem: "Nome é obrigatório" });
+  } else if (nome.length > MAX_NOME) {
+    erros.push({
+      campo: "nome",
+      mensagem: `Nome deve ter no máximo ${MAX_NOME} caracteres`,
+    });
+  }
+
+  // Email
+  const email = dados.email.trim().toLowerCase();
+  if (!email) {
+    erros.push({ campo: "email", mensagem: "E-mail é obrigatório" });
+  } else if (!EMAIL_REGEX.test(email)) {
+    erros.push({ campo: "email", mensagem: "E-mail inválido" });
+  } else if (email.length > MAX_EMAIL) {
+    erros.push({
+      campo: "email",
+      mensagem: `E-mail deve ter no máximo ${MAX_EMAIL} caracteres`,
+    });
+  }
+
+  // Mensagem
+  const mensagem = dados.mensagem.trim();
+  if (!mensagem) {
+    erros.push({ campo: "mensagem", mensagem: "Mensagem é obrigatória" });
+  } else if (mensagem.length > MAX_MENSAGEM) {
+    erros.push({
+      campo: "mensagem",
+      mensagem: `Mensagem deve ter no máximo ${MAX_MENSAGEM} caracteres`,
+    });
+  }
+
+  return erros;
+}
+
+/**
+ * Sanitiza todos os campos de um objeto de contato.
+ */
+export function sanitizarContato(dados: DadosContato): DadosContato {
+  return {
+    nome: sanitizar(dados.nome),
+    email: sanitizar(dados.email).toLowerCase(),
+    mensagem: sanitizar(dados.mensagem),
+  };
+}

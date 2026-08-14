@@ -32,5 +32,9 @@ export const configGlobal = defineConfig({
       transition: transicao.rapida,
       "&:focus": { top: 0 },
     },
+
+    "@keyframes spin": {
+      to: { transform: "rotate(360deg)" },
+    },
   },
 });
