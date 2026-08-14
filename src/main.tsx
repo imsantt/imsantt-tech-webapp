@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { sistema } from "./lib/tema";
+import "./index.css";
 import App from "./App.tsx";
 
 // Força dark mode no atributo HTML — Chakra v3 lê data-theme para aplicar tokens

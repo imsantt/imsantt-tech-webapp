@@ -2,21 +2,30 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "stage"
     schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
+      interval: "daily"
+    open-pull-requests-limit: 10
     labels:
       - "dependencies"
+      - "automerge"
     commit-message:
       prefix: "chore(deps)"
+    groups:
+      # Agrupa patches e minors para reduzir noise
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
+    target-branch: "stage"
     schedule:
       interval: "weekly"
       day: "monday"
     labels:
       - "ci"
+      - "automerge"
     commit-message:
       prefix: "ci(actions)"
