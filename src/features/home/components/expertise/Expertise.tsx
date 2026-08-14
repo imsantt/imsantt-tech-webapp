@@ -43,8 +43,8 @@ const itensExpertise: CardExpertiseProps[] = [
     iconeColor: cores.sucesso.claro,
     titulo: "Liderança Inclusiva",
     descricao:
-      "Co-idealizador das iniciativas Potenc[IA] e Guardiões Digitais para democratização da tecnologia.",
-    tecnologias: ["Mentoria", "Potenc[IA]", "Guardiões Digitais", "EDI"],
+      "Co-idealizador das iniciativas Pret[IA] e Guardiões Digitais para democratização da tecnologia.",
+    tecnologias: ["Mentoria", "Pret[IA]", "Guardiões Digitais", "EDI"],
   },
 ];
 

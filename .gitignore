@@ -23,6 +23,9 @@ coverage/
 # Security docs (sensitive)
 docs/seguranca/
 
+# Project analysis docs (internal review)
+docs/analises/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
