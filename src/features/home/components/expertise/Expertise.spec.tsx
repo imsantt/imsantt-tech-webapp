@@ -30,7 +30,7 @@ describe("Expertise", () => {
     renderComProviders(<Expertise />);
     expect(screen.getByText("NestJS")).toBeInTheDocument();
     expect(screen.getByText("Terraform")).toBeInTheDocument();
-    expect(screen.getByText("Potenc[IA]")).toBeInTheDocument();
+    expect(screen.getByText("Pret[IA]")).toBeInTheDocument();
   });
 
   it("deve ter heading h2 com id para aria-labelledby", () => {
