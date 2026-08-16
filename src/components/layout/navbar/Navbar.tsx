@@ -7,8 +7,8 @@ import { cores, layout, transicao } from "../../../lib/tema/tokens";
 
 const itensNavegacao = [
   { rotulo: "Home", ancora: "home" },
-  { rotulo: "Trajetória", ancora: "trajetoria" },
   { rotulo: "Expertise", ancora: "expertise" },
+  { rotulo: "Trajetória", ancora: "trajetoria" },
   { rotulo: "Projetos", ancora: "projetos" },
   { rotulo: "Impacto Social", ancora: "impacto-social" },
 ];

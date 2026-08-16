@@ -4,8 +4,8 @@ export function Home() {
   return (
     <main id="conteudo-principal">
       <Hero />
-      <Trajetoria />
       <Expertise />
+      <Trajetoria />
       <Contato />
     </main>
   );

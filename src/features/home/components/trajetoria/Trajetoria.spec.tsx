@@ -22,10 +22,17 @@ describe("Trajetoria", () => {
     expect(screen.getByText("Atual")).toBeInTheDocument();
   });
 
-  it("deve renderizar periodos das experiencias", () => {
+  it("deve renderizar cargos das experiencias", () => {
     renderComProviders(<Trajetoria />);
-    expect(screen.getByText("Nov 2023 – Presente")).toBeInTheDocument();
-    expect(screen.getByText("Jul 2022 – Abr 2023")).toBeInTheDocument();
+    expect(
+      screen.getByText(/Engenheiro de Software Fullstack Sr/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Instrutor em Desenvolvimento Web/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Analista Desenvolvedor Fullstack/),
+    ).toBeInTheDocument();
   });
 
   it("deve renderizar tecnologias nos cards", () => {
@@ -43,9 +50,13 @@ describe("Trajetoria", () => {
     expect(heading).toHaveAttribute("id", "trajetoria-titulo");
   });
 
-  it("deve renderizar botoes de navegacao do carrossel", () => {
+  it("deve renderizar o rotulo Trajetoria", () => {
     renderComProviders(<Trajetoria />);
-    expect(screen.getByLabelText("Rolar para esquerda")).toBeInTheDocument();
-    expect(screen.getByLabelText("Rolar para direita")).toBeInTheDocument();
+    expect(screen.getByText("Trajetória")).toBeInTheDocument();
+  });
+
+  it("deve renderizar descricao do subtitulo com anos dinamicos", () => {
+    renderComProviders(<Trajetoria />);
+    expect(screen.getByText(/anos construindo software/)).toBeInTheDocument();
   });
 });
