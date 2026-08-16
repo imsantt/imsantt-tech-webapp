@@ -35,21 +35,32 @@ export function CardExperienciaFooter({
       </Flex>
 
       {/* Link ver detalhes */}
-      <HStack
-        gap="1.5"
-        color={cores.primaria.claro}
-        fontSize="sm"
-        fontWeight="500"
-        cursor="pointer"
-        opacity={0.7}
-        mt="auto"
-        _hover={{ opacity: 1 }}
-        transition={transicao.rapida}
-        onClick={onVerDetalhes}
-      >
-        <Text>Ver detalhes</Text>
-        <Box as={FiExternalLink} fontSize="14px" />
-      </HStack>
+      {onVerDetalhes && (
+        <HStack
+          as="button"
+          type="button"
+          gap="1.5"
+          color={cores.primaria.claro}
+          fontSize="sm"
+          fontWeight="500"
+          cursor="pointer"
+          opacity={0.7}
+          mt="auto"
+          _hover={{ opacity: 1 }}
+          _focusVisible={{
+            outline: `2px solid ${cores.primaria.borda}`,
+            outlineOffset: "2px",
+          }}
+          transition={transicao.rapida}
+          onClick={onVerDetalhes}
+          background="transparent"
+          border="none"
+          p="0"
+        >
+          <Text>Ver detalhes</Text>
+          <Box as={FiExternalLink} fontSize="14px" />
+        </HStack>
+      )}
     </>
   );
 }
