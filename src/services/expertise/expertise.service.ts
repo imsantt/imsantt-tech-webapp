@@ -1,5 +1,5 @@
 import { FaCode, FaMicrochip, FaPeopleGroup } from "react-icons/fa6";
-import type { Expertise } from "../types/expertise";
+import type { Expertise } from "../../types/expertise";
 import { cores } from "../../lib/tema/tokens";
 
 /**
