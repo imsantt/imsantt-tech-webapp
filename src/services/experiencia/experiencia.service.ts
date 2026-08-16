@@ -64,7 +64,9 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export async function listarExperiencias(): Promise<Experiencia[]> {
   await delay(300); // Simula fetch
-  return MOCK_EXPERIENCIAS;
+  return [...MOCK_EXPERIENCIAS].sort(
+    (a, b) => b.dataInicio.toMillis() - a.dataInicio.toMillis(),
+  );
 }
 
 export async function buscarExperienciaPorId(

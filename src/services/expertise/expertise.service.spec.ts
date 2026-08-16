@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { listarExpertises } from "../expertise.service";
+import { listarExpertises } from "./expertise.service";
 
 describe("expertise.service", () => {
   describe("listarExpertises", () => {

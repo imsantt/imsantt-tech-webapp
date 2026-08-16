@@ -28,9 +28,10 @@ describe("experiencia.service", () => {
     it("experiencias devem estar ordenadas por data (mais recente primeiro)", async () => {
       const resultado = await listarExperiencias();
       for (let i = 0; i < resultado.length - 1; i++) {
-        expect(resultado[i].dataInicio >= resultado[i + 1].dataInicio).toBe(
-          true,
-        );
+        expect(
+          resultado[i].dataInicio.toMillis() >=
+            resultado[i + 1].dataInicio.toMillis(),
+        ).toBe(true);
       }
     });
 
