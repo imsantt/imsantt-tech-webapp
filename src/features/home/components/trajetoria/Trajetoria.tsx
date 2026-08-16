@@ -1,10 +1,13 @@
 import { Box, Grid, Heading, Text, VStack } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { CardExperiencia } from "../../../../components/ui/card-experiencia";
-import { experiencias } from "../../data/experiencias";
+import { CardSkeleton } from "../../../../components/ui/card-skeleton/CardSkeleton";
+import { ErrorBoundary } from "../../../../components/ui/error-boundary/ErrorBoundary";
+import { useExperiencias } from "../../../../hooks/use-experiencias/useExperiencias";
 import { cores, layout } from "../../../../lib/tema/tokens";
 
-export function Trajetoria() {
+function TrajetoriaConteudo() {
+  const { experiencias, isLoading, isError } = useExperiencias();
   const anosExperiencia = DateTime.now().get("year") - 2019;
 
   return (
@@ -67,11 +70,35 @@ export function Trajetoria() {
           }}
           gap="5"
         >
-          {experiencias.map((exp) => (
-            <CardExperiencia key={exp.id} exp={exp} />
-          ))}
+          {isLoading && (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          )}
+
+          {isError && (
+            <Text color={cores.erro.claro} fontSize="sm">
+              Não foi possível carregar as experiências.
+            </Text>
+          )}
+
+          {!isLoading &&
+            !isError &&
+            experiencias.map((exp) => (
+              <CardExperiencia key={exp.id} exp={exp} />
+            ))}
         </Grid>
       </Box>
     </Box>
+  );
+}
+
+export function Trajetoria() {
+  return (
+    <ErrorBoundary>
+      <TrajetoriaConteudo />
+    </ErrorBoundary>
   );
 }
