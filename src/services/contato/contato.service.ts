@@ -1,4 +1,4 @@
-import type { MensagemContato } from "../types";
+import type { MensagemContato } from "../../types";
 
 /**
  * Envia uma mensagem de contato.

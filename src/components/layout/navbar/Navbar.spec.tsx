@@ -4,7 +4,7 @@ import { Navbar } from "./Navbar";
 
 const mockRolarParaAncora = vi.fn();
 
-vi.mock("../../../hooks/use-scroll-suave/useScrollSuave", () => ({
+vi.mock("../../../hooks/use-scroll-suave/useScrollSuave.hook", () => ({
   useScrollSuave: () => ({ rolarParaAncora: mockRolarParaAncora }),
 }));
 

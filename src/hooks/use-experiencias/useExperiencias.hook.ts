@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { listarExperiencias } from "../../services/experiencia.service";
+import { listarExperiencias } from "../../services/experiencia/experiencia.service";
 import type { Experiencia } from "../../types/experiencia";
 
 const CACHE_KEY = "experiencias";

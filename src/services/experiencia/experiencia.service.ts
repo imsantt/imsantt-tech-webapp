@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import type { Experiencia } from "../types/experiencia";
+import type { Experiencia } from "../../types/experiencia";
 
 /**
  * Service de experiências profissionais.

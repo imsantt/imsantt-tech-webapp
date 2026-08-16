@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { listarExpertises } from "../../services/expertise.service";
+import { listarExpertises } from "../../services/expertise/expertise.service";
 import type { Expertise } from "../../types/expertise";
 
 const CACHE_KEY = "expertises";

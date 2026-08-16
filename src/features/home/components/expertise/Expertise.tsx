@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, Heading, Text, VStack } from "@chakra-ui/react";
 import { CardSkeleton } from "../../../../components/ui/card-skeleton/CardSkeleton";
 import { ErrorBoundary } from "../../../../components/ui/error-boundary/ErrorBoundary";
-import { useExpertises } from "../../../../hooks/use-expertises/useExpertises";
+import { useExpertises } from "../../../../hooks/use-expertises/useExpertises.hook";
 import {
   cores,
   raio,
