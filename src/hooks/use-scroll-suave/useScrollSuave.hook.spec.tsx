@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { useScrollSuave } from "./useScrollSuave";
+import { useScrollSuave } from "./useScrollSuave.hook";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter>{children}</MemoryRouter>

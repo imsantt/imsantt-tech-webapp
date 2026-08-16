@@ -209,6 +209,19 @@ export const tokens = {
     navbarAltura: "4.5rem", // 72px
     navbarAlturaMenor: "3.5rem", // 56px
   },
+
+  // ─── Componentes (constantes de UI reutilizáveis) ────────────────────────────
+
+  componentes: {
+    card: {
+      altura: "23.75rem", // 380px
+      tituloMinAltura: "2.6em",
+      descricaoMaxChars: 750,
+      descricaoMaxLinhas: 5,
+      tituloMaxLinhas: 2,
+      maxTags: 6,
+    },
+  },
 } as const;
 
 /** Atalhos para tokens mais usados */
@@ -220,4 +233,5 @@ export const {
   sombras,
   transicao,
   layout,
+  componentes,
 } = tokens;

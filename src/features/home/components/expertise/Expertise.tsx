@@ -1,6 +1,7 @@
 import { Box, Flex, Grid, Heading, Text, VStack } from "@chakra-ui/react";
-import { FaCode, FaMicrochip, FaPeopleGroup } from "react-icons/fa6";
-import type { IconType } from "react-icons";
+import { CardSkeleton } from "../../../../components/ui/card-skeleton/CardSkeleton";
+import { ErrorBoundary } from "../../../../components/ui/error-boundary/ErrorBoundary";
+import { useExpertises } from "../../../../hooks/use-expertises/useExpertises.hook";
 import {
   cores,
   raio,
@@ -8,58 +9,15 @@ import {
   transicao,
   layout,
 } from "../../../../lib/tema/tokens";
+import type { Expertise as ExpertiseType } from "../../../../types/expertise";
 
-interface CardExpertiseProps {
-  Icone: IconType;
-  iconeBg: string;
-  iconeColor: string;
-  titulo: string;
-  descricao: string;
-  tecnologias: string[];
-}
+function CardExpertise({ item }: { item: ExpertiseType }) {
+  const Icone = item.icone;
 
-const itensExpertise: CardExpertiseProps[] = [
-  {
-    Icone: FaCode,
-    iconeBg: cores.secundaria.sutil,
-    iconeColor: cores.secundaria.DEFAULT,
-    titulo: "Arquitetura & Clean Code",
-    descricao:
-      "Microsserviços escaláveis, Hexagonal Architecture, NestJS, Node.js, Fastify e React.",
-    tecnologias: ["NestJS", "Node.js", "Fastify", "React", "Hexagonal Arch"],
-  },
-  {
-    Icone: FaMicrochip,
-    iconeBg: "rgba(168, 85, 247, 0.2)",
-    iconeColor: "#c084fc",
-    titulo: "Estratégia de IA & Cloud",
-    descricao:
-      "Ecossistemas nativos em nuvem (AWS Serverless, Terraform) integrados a inteligência artificial.",
-    tecnologias: ["AWS Lambda", "Terraform", "Serverless", "LLMs", "RAG"],
-  },
-  {
-    Icone: FaPeopleGroup,
-    iconeBg: cores.sucesso.sutil,
-    iconeColor: cores.sucesso.claro,
-    titulo: "Liderança Inclusiva",
-    descricao:
-      "Co-idealizador das iniciativas Pret[IA] e Guardiões Digitais para democratização da tecnologia.",
-    tecnologias: ["Mentoria", "Pret[IA]", "Guardiões Digitais", "EDI"],
-  },
-];
-
-function CardExpertise({
-  Icone,
-  iconeBg,
-  iconeColor,
-  titulo,
-  descricao,
-  tecnologias,
-}: CardExpertiseProps) {
   return (
     <Flex
       as="article"
-      aria-label={titulo}
+      aria-label={item.titulo}
       direction="column"
       gap="5"
       bg={cores.bg.card}
@@ -79,12 +37,12 @@ function CardExpertise({
         justifyContent="center"
         w="48px"
         h="48px"
-        bg={iconeBg}
+        bg={item.iconeBg}
         borderRadius={raio.xl}
         flexShrink={0}
         aria-hidden="true"
       >
-        <Box as={Icone} fontSize="22px" color={iconeColor} />
+        <Box as={Icone} fontSize="22px" color={item.iconeColor} />
       </Box>
 
       <Heading
@@ -93,11 +51,11 @@ function CardExpertise({
         fontWeight="700"
         color={cores.texto.titulo}
       >
-        {titulo}
+        {item.titulo}
       </Heading>
 
       <Text fontSize="sm" color={cores.texto.corpo} lineHeight="1.7" flex={1}>
-        {descricao}
+        {item.descricao}
       </Text>
 
       <Flex
@@ -106,7 +64,7 @@ function CardExpertise({
         mt="1"
         aria-label="Tecnologias relacionadas"
       >
-        {tecnologias.map((tec) => (
+        {item.tecnologias.map((tec) => (
           <Box
             key={tec}
             as="span"
@@ -128,7 +86,9 @@ function CardExpertise({
   );
 }
 
-export function Expertise() {
+function ExpertiseConteudo() {
+  const { expertises, isLoading, isError } = useExpertises();
+
   return (
     <Box
       as="section"
@@ -173,11 +133,35 @@ export function Expertise() {
         </VStack>
 
         <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap="5">
-          {itensExpertise.map((item) => (
-            <CardExpertise key={item.titulo} {...item} />
-          ))}
+          {isLoading && (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          )}
+
+          {isError && (
+            <Text color={cores.erro.claro} fontSize="sm">
+              Não foi possível carregar as competências.
+            </Text>
+          )}
+
+          {!isLoading &&
+            !isError &&
+            expertises.map((item) => (
+              <CardExpertise key={item.id} item={item} />
+            ))}
         </Grid>
       </Box>
     </Box>
+  );
+}
+
+export function Expertise() {
+  return (
+    <ErrorBoundary>
+      <ExpertiseConteudo />
+    </ErrorBoundary>
   );
 }

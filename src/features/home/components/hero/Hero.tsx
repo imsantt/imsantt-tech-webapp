@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import { FiDownload } from "react-icons/fi";
-import heroImg from "../../../../assets/robert santos profile.png";
+import heroImg from "../../../../assets/profile.jpg";
 import {
   cores,
   sombras,
