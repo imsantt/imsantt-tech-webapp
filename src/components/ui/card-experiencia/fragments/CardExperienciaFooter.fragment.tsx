@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, chakra, Flex, Text } from "@chakra-ui/react";
 import { FiExternalLink } from "react-icons/fi";
 import { cores, raio, transicao } from "../../../../lib/tema/tokens";
 
@@ -35,32 +35,34 @@ export function CardExperienciaFooter({
       </Flex>
 
       {/* Link ver detalhes */}
-      {onVerDetalhes && (
-        <HStack
-          as="button"
-          type="button"
-          gap="1.5"
-          color={cores.primaria.claro}
-          fontSize="sm"
-          fontWeight="500"
-          cursor="pointer"
-          opacity={0.7}
-          mt="auto"
-          _hover={{ opacity: 1 }}
-          _focusVisible={{
-            outline: `2px solid ${cores.primaria.borda}`,
-            outlineOffset: "2px",
-          }}
-          transition={transicao.rapida}
-          onClick={onVerDetalhes}
-          background="transparent"
-          border="none"
-          p="0"
-        >
-          <Text>Ver detalhes</Text>
-          <Box as={FiExternalLink} fontSize="14px" />
-        </HStack>
-      )}
+      {onVerDetalhes && (
+        <chakra.button
+          type="button"
+          gap="1.5"
+          color={cores.primaria.claro}
+          fontSize="sm"
+          fontWeight="500"
+          cursor="pointer"
+          opacity={0.7}
+          mt="auto"
+          display="inline-flex"
+          alignItems="center"
+          _hover={{ opacity: 1 }}
+          _focusVisible={{
+            outline: `2px solid ${cores.primaria.borda}`,
+            outlineOffset: "2px",
+          }}
+          transition={transicao.rapida}
+          onClick={onVerDetalhes}
+          background="transparent"
+          border="none"
+          p="0"
+          w="fit-content"
+        >
+          <Text>Ver detalhes</Text>
+          <Box as={FiExternalLink} fontSize="14px" />
+        </chakra.button>
+      )}
     </>
   );
 }
