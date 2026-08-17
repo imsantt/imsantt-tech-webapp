@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import { FiDownload } from "react-icons/fi";
-import heroImg from "../../../../assets/profile.jpg";
+import heroImg from "../../../../assets/profile.webp";
 import {
   cores,
   sombras,
@@ -207,6 +207,9 @@ export function Hero() {
           <Image
             src={heroImg}
             alt="Foto de Robert Santos"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             w={{ base: "240px", md: "340px" }}
             h={{ base: "240px", md: "340px" }}
             borderRadius={raio.full}
