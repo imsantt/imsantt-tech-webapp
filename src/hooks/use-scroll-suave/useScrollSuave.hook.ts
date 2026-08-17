@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /**
@@ -8,18 +9,21 @@ export function useScrollSuave() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const rolarParaAncora = (ancora: string) => {
-    const executarScroll = () => {
-      document.getElementById(ancora)?.scrollIntoView({ behavior: "smooth" });
-    };
+  const rolarParaAncora = useCallback(
+    (ancora: string) => {
+      const executarScroll = () => {
+        document.getElementById(ancora)?.scrollIntoView({ behavior: "smooth" });
+      };
 
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(executarScroll, 120);
-    } else {
-      executarScroll();
-    }
-  };
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(executarScroll, 120);
+      } else {
+        executarScroll();
+      }
+    },
+    [location.pathname, navigate],
+  );
 
   return { rolarParaAncora };
 }
