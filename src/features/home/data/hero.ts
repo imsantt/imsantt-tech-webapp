@@ -11,7 +11,7 @@ export const heroContent = {
     "Engenheiro de Software Sênior & Arquiteto de Sistemas com foco em microsserviços escaláveis, inteligência artificial e computação em nuvem. Conecto engenharia de alta performance, estratégia de negócio e desenvolvimento de pessoas para entregar soluções que geram impacto real e transformam equipes.",
   ctaPrimario: {
     texto: "Ver Experiências",
-    ancora: "expertise",
+    ancora: "habilidades",
   },
   ctaSecundario: {
     texto: "Baixar Currículo",
