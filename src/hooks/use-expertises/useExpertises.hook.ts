@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import { listarExpertises } from "../../services/expertise/expertise.service";
-import type { Expertise } from "../../types/expertise";
+import { listarExpertises } from "@/services/expertise/expertise.service";
+import type { Expertise } from "@/types/expertise";
 
 const CACHE_KEY = "expertises";
 

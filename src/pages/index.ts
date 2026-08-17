@@ -4,4 +4,6 @@ export const Home = lazy(() =>
   import("../features/home/Home").then((m) => ({ default: m.Home })),
 );
 
-export { NotFound } from "./not-found/NotFound";
+export const NotFound = lazy(() =>
+  import("./not-found/NotFound").then((m) => ({ default: m.NotFound })),
+);

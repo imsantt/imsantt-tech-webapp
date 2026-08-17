@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { cores, raio } from "../../../lib/tema/tokens";
+import { cores, raio } from "@/lib/tema/tokens";
+import { logger } from "@/lib/logger";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -30,8 +31,11 @@ export class ErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Futuro: enviar para serviço de monitoramento (Sentry, etc)
-    console.error("[ErrorBoundary]", error, errorInfo);
+    logger.error("Erro capturado pelo ErrorBoundary", {
+      erro: error.message,
+      stack: error.stack,
+      componentStack: errorInfo.componentStack,
+    });
   }
 
   render() {

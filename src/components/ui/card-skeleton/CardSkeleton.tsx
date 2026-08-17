@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { cores, raio, componentes } from "../../../lib/tema/tokens";
+import { cores, raio, componentes } from "@/lib/tema/tokens";
 
 /**
  * Skeleton placeholder para cards em estado de loading.

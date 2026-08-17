@@ -2,11 +2,11 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import { sistema } from "../../../../lib/tema";
+import { sistema } from "@/lib/tema";
 import { Expertise } from "./Expertise";
 
 // Mock do hook diretamente
-vi.mock("../../../../hooks/use-expertises/useExpertises.hook", () => ({
+vi.mock("@/hooks/use-expertises/useExpertises.hook", () => ({
   useExpertises: () => ({
     expertises: [
       {

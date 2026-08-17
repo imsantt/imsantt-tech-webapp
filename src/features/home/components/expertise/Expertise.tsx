@@ -1,17 +1,16 @@
+import { memo } from "react";
 import { Box, Flex, Grid, Heading, Text, VStack } from "@chakra-ui/react";
-import { CardSkeleton } from "../../../../components/ui/card-skeleton/CardSkeleton";
-import { ErrorBoundary } from "../../../../components/ui/error-boundary/ErrorBoundary";
-import { useExpertises } from "../../../../hooks/use-expertises/useExpertises.hook";
-import {
-  cores,
-  raio,
-  sombras,
-  transicao,
-  layout,
-} from "../../../../lib/tema/tokens";
-import type { Expertise as ExpertiseType } from "../../../../types/expertise";
+import { CardSkeleton } from "@/components/ui/card-skeleton/CardSkeleton";
+import { ErrorBoundary } from "@/components/ui/error-boundary/ErrorBoundary";
+import { useExpertises } from "@/hooks/use-expertises/useExpertises.hook";
+import { cores, raio, sombras, transicao, layout } from "@/lib/tema/tokens";
+import type { Expertise as ExpertiseType } from "@/types/expertise";
 
-function CardExpertise({ item }: { item: ExpertiseType }) {
+const CardExpertise = memo(function CardExpertise({
+  item,
+}: {
+  item: ExpertiseType;
+}) {
   const Icone = item.icone;
 
   return (
@@ -84,7 +83,7 @@ function CardExpertise({ item }: { item: ExpertiseType }) {
       </Flex>
     </Flex>
   );
-}
+});
 
 function ExpertiseConteudo() {
   const { expertises, isLoading, isError } = useExpertises();

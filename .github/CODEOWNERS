@@ -1,0 +1,7 @@
+# Responsável por todo o repositório
+* @imsantt
+
+# Segurança e CI requer aprovação explícita
+.github/ @imsantt
+public/_headers @imsantt
+SECURITY.md @imsantt

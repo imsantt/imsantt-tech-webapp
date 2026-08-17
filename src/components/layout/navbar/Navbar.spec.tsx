@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderComProviders, screen, fireEvent } from "../../../tests/helpers";
+import { renderComProviders, screen, fireEvent } from "@/tests/helpers";
 import { Navbar } from "./Navbar";
 
 const mockRolarParaAncora = vi.fn();

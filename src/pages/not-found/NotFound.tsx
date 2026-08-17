@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { cores, raio, transicao } from "../../lib/tema/tokens";
+import { cores, raio, transicao } from "@/lib/tema/tokens";
 
 export function NotFound() {
   return (
