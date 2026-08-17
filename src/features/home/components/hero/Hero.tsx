@@ -23,7 +23,7 @@ export function Hero() {
   const aoClicarVerExperiencias = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     document
-      .getElementById("expertise")
+      .getElementById("habilidades")
       ?.scrollIntoView({ behavior: "smooth" });
   };
 

@@ -21,10 +21,10 @@ describe("Hero", () => {
     ).toBeInTheDocument();
   });
 
-  it("deve ter link de Ver Experiências apontando para #expertise", () => {
+  it("deve ter link de Ver Experiências apontando para #habilidades", () => {
     renderComProviders(<Hero />);
     const link = screen.getByText(/Ver Experiências/);
-    expect(link.closest("a")).toHaveAttribute("href", "#expertise");
+    expect(link.closest("a")).toHaveAttribute("href", "#habilidades");
   });
 
   it("deve ter link de Baixar Currículo com download", () => {
@@ -63,7 +63,7 @@ describe("Hero", () => {
     const link = screen.getByText(/Ver Experiências/);
     fireEvent.click(link.closest("a")!);
 
-    expect(document.getElementById).toHaveBeenCalledWith("expertise");
+    expect(document.getElementById).toHaveBeenCalledWith("habilidades");
     expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: "smooth" });
 
     vi.restoreAllMocks();

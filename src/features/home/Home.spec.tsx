@@ -3,7 +3,7 @@ import { renderComProviders, screen } from "@/tests/helpers";
 import { Home } from "./Home";
 
 describe("Home", () => {
-  it("deve renderizar as tres secoes (Hero, Expertise, Contato)", () => {
+  it("deve renderizar as tres secoes (Hero, Habilidades, Contato)", () => {
     renderComProviders(<Home />);
     expect(screen.getByText("Robert")).toBeInTheDocument();
     expect(screen.getByText("O que eu faço")).toBeInTheDocument();
