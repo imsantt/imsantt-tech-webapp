@@ -1,5 +1,5 @@
 import { Box, Image } from "@chakra-ui/react";
-import { cores, tipografia } from "../../../lib/tema/tokens";
+import { cores, tipografia } from "@/lib/tema/tokens";
 
 interface LogoProps {
   tamanhoIcone?: string;

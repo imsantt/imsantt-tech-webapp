@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import type { ExperienciaProps } from "../../../components/ui/card-experiencia";
+import type { ExperienciaProps } from "@/components/ui/card-experiencia";
 
 /**
  * Dados de experiência profissional.

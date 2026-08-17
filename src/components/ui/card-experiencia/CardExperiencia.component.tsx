@@ -7,7 +7,7 @@ import {
   sombras,
   transicao,
   componentes,
-} from "../../../lib/tema/tokens";
+} from "@/lib/tema/tokens";
 import { CardExperienciaHeader } from "./fragments/CardExperienciaHeader.fragment";
 import { CardExperienciaFooter } from "./fragments/CardExperienciaFooter.fragment";
 

@@ -1,10 +1,10 @@
 import { Box, Grid, Heading, Text, VStack } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import { CardExperiencia } from "../../../../components/ui/card-experiencia";
-import { CardSkeleton } from "../../../../components/ui/card-skeleton/CardSkeleton";
-import { ErrorBoundary } from "../../../../components/ui/error-boundary/ErrorBoundary";
-import { useExperiencias } from "../../../../hooks/use-experiencias/useExperiencias.hook";
-import { cores, layout } from "../../../../lib/tema/tokens";
+import { CardExperiencia } from "@/components/ui/card-experiencia";
+import { CardSkeleton } from "@/components/ui/card-skeleton/CardSkeleton";
+import { ErrorBoundary } from "@/components/ui/error-boundary/ErrorBoundary";
+import { useExperiencias } from "@/hooks/use-experiencias/useExperiencias.hook";
+import { cores, layout } from "@/lib/tema/tokens";
 
 function TrajetoriaConteudo() {
   const { experiencias, isLoading, isError } = useExperiencias();

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Flex, HStack } from "@chakra-ui/react";
-import { useScrollSuave } from "../../../hooks/use-scroll-suave/useScrollSuave.hook";
-import { Logo } from "../../ui/logo/Logo";
-import { cores, layout, transicao } from "../../../lib/tema/tokens";
+import { useScrollSuave } from "@/hooks/use-scroll-suave/useScrollSuave.hook";
+import { Logo } from "@/components/ui/logo/Logo";
+import { cores, layout, transicao } from "@/lib/tema/tokens";
 
 const itensNavegacao = [
   { rotulo: "Home", ancora: "home" },

@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { cores, raio } from "../../../lib/tema/tokens";
+import { cores, raio } from "@/lib/tema/tokens";
 
 interface ErrorBoundaryProps {
   children: ReactNode;

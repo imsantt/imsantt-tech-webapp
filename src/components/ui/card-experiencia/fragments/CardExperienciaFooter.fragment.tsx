@@ -1,6 +1,6 @@
 import { Box, chakra, Flex, Text } from "@chakra-ui/react";
 import { FiExternalLink } from "react-icons/fi";
-import { cores, raio, transicao } from "../../../../lib/tema/tokens";
+import { cores, raio, transicao } from "@/lib/tema/tokens";
 
 interface CardExperienciaFooterProps {
   tecnologias: string[];

@@ -9,7 +9,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { cores, raio, sombras, layout } from "../../../../lib/tema/tokens";
+import { cores, raio, sombras, layout } from "@/lib/tema/tokens";
 
 interface DadosFormulario {
   nome: string;

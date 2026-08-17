@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import { FiDownload } from "react-icons/fi";
-import heroImg from "../../../../assets/profile.webp";
+import heroImg from "@/assets/profile.webp";
 import {
   cores,
   sombras,
@@ -9,7 +9,7 @@ import {
   transicao,
   layout,
   tipografia,
-} from "../../../../lib/tema/tokens";
+} from "@/lib/tema/tokens";
 
 export function Hero() {
   const [baixando, setBaixando] = useState(false);
