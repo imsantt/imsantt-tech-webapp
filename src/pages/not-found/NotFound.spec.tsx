@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { renderComProviders, screen } from "../../tests/helpers";
+import { renderComProviders, screen } from "@/tests/helpers";
 import { NotFound } from "./NotFound";
 
 describe("NotFound (404)", () => {

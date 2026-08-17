@@ -3,6 +3,8 @@
  * Usar em qualquer input de usuário antes de enviar ao backend.
  */
 
+import type { MensagemContato } from "@/types/contato";
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_NOME = 100;
 const MAX_EMAIL = 254;
@@ -10,12 +12,6 @@ const MAX_MENSAGEM = 2000;
 
 export interface ErroValidacao {
   campo: string;
-  mensagem: string;
-}
-
-export interface DadosContato {
-  nome: string;
-  email: string;
   mensagem: string;
 }
 
@@ -34,7 +30,7 @@ export function sanitizar(valor: string): string {
  * Valida dados do formulário de contato.
  * Retorna array vazio se válido, ou lista de erros.
  */
-export function validarContato(dados: DadosContato): ErroValidacao[] {
+export function validarContato(dados: MensagemContato): ErroValidacao[] {
   const erros: ErroValidacao[] = [];
 
   // Nome
@@ -78,7 +74,7 @@ export function validarContato(dados: DadosContato): ErroValidacao[] {
 /**
  * Sanitiza todos os campos de um objeto de contato.
  */
-export function sanitizarContato(dados: DadosContato): DadosContato {
+export function sanitizarContato(dados: MensagemContato): MensagemContato {
   return {
     nome: sanitizar(dados.nome),
     email: sanitizar(dados.email).toLowerCase(),

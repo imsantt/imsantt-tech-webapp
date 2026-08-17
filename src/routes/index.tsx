@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { Home, NotFound } from "../pages";
-import { cores, raio } from "../lib/tema/tokens";
+import { cores, raio } from "@/lib/tema/tokens";
 
 function CarregandoPagina() {
   return (

@@ -1,7 +1,7 @@
 import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { FaBuilding } from "react-icons/fa6";
 import { DateTime } from "luxon";
-import { cores, raio } from "../../../../lib/tema/tokens";
+import { cores, raio } from "@/lib/tema/tokens";
 
 interface CardExperienciaHeaderProps {
   empresa: string;

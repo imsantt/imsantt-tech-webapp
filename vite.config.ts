@@ -14,6 +14,26 @@ export default defineConfig({
   build: {
     target: "es2022",
     sourcemap: "hidden",
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (
+            id.includes("node_modules/react") ||
+            id.includes("node_modules/react-dom") ||
+            id.includes("node_modules/react-router")
+          ) {
+            return "vendor-react";
+          }
+          if (
+            id.includes("node_modules/@chakra-ui") ||
+            id.includes("node_modules/@emotion") ||
+            id.includes("node_modules/framer-motion")
+          ) {
+            return "vendor-ui";
+          }
+        },
+      },
+    },
   },
   test: {
     globals: true,

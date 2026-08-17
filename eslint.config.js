@@ -18,6 +18,16 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      "no-console": ["warn", { allow: ["debug", "info", "warn", "error"] }],
+    },
+  },
+  // Logger é a única exceção que usa console.* diretamente
+  {
+    files: ["src/lib/logger.ts"],
+    rules: {
+      "no-console": "off",
+    },
   },
   // Desabilita react-refresh em arquivos de teste e helpers
   {

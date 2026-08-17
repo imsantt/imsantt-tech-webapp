@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
-import { cores, layout } from "../../../lib/tema/tokens";
+import { cores, layout } from "@/lib/tema/tokens";
 
 const anoAtual = new Date().getFullYear();
 

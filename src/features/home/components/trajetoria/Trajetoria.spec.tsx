@@ -3,11 +3,11 @@ import { render, screen } from "@testing-library/react";
 import { DateTime } from "luxon";
 import { MemoryRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import { sistema } from "../../../../lib/tema";
+import { sistema } from "@/lib/tema";
 import { Trajetoria } from "./Trajetoria";
 
 // Mock do hook diretamente — dados instantâneos, sem SWR/delay
-vi.mock("../../../../hooks/use-experiencias/useExperiencias.hook", () => ({
+vi.mock("@/hooks/use-experiencias/useExperiencias.hook", () => ({
   useExperiencias: () => ({
     experiencias: [
       {

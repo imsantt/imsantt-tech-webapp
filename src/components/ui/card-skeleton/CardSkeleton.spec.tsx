@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { renderComProviders } from "../../../tests/helpers";
+import { renderComProviders } from "@/tests/helpers";
 import { CardSkeleton } from "./CardSkeleton";
 
 describe("CardSkeleton", () => {

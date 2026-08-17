@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { DateTime } from "luxon";
-import { renderComProviders, screen, fireEvent } from "../../../tests/helpers";
+import { renderComProviders, screen, fireEvent } from "@/tests/helpers";
 import {
   CardExperiencia,
   type ExperienciaProps,
