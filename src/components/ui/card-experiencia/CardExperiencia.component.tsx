@@ -1,6 +1,5 @@
 import { memo } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { DateTime } from "luxon";
 import {
   cores,
   raio,
@@ -8,17 +7,11 @@ import {
   transicao,
   componentes,
 } from "@/lib/tema/tokens";
+import type { Experiencia } from "@/types/experiencia";
 import { CardExperienciaHeader } from "./fragments/CardExperienciaHeader.fragment";
 import { CardExperienciaFooter } from "./fragments/CardExperienciaFooter.fragment";
 
-export interface ExperienciaProps {
-  id: string;
-  empresa: string;
-  cargo: string;
-  dataInicio: DateTime;
-  dataTermino?: DateTime;
-  descricao: string;
-  tecnologias: string[];
+export interface ExperienciaProps extends Experiencia {
   onVerDetalhes?: (id: string) => void;
 }
 
