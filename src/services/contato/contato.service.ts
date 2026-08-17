@@ -1,4 +1,5 @@
 import type { MensagemContato } from "../../types/contato";
+import { logger } from "../../lib/logger";
 
 /**
  * Envia uma mensagem de contato.
@@ -12,5 +13,5 @@ export async function enviarMensagemContato(
   // if (error) throw error
 
   await new Promise((res) => setTimeout(res, 1500));
-  console.log("Mensagem enviada:", dados);
+  logger.info("Mensagem de contato enviada", { email: dados.email });
 }
