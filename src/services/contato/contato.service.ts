@@ -1,5 +1,5 @@
-import type { MensagemContato } from "../../types/contato";
-import { logger } from "../../lib/logger";
+import type { MensagemContato } from "@/types/contato";
+import { logger } from "@/lib/logger";
 
 /**
  * Envia uma mensagem de contato.
