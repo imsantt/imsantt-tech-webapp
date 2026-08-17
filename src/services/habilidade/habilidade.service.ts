@@ -3,7 +3,7 @@ import { STUB_HABILIDADES } from "@/stubs/habilidades.stub";
 
 /**
  * Service de habilidades/competências.
- * Fonte única de dados para a seção Expertise (Home) e a página /habilidades.
+ * Fonte única de dados para a seção Habilidades (Home) e a página /habilidades.
  * Futuramente: supabase.from('habilidades').select('*').order('ordem')
  */
 
