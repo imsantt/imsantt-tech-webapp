@@ -10,6 +10,7 @@ import {
   layout,
   tipografia,
 } from "@/lib/tema/tokens";
+import { heroContent } from "../../data/hero";
 
 export function Hero() {
   const [baixando, setBaixando] = useState(false);
@@ -93,7 +94,7 @@ export function Hero() {
             w="fit-content"
             mx={{ base: "auto", md: "0" }}
           >
-            🚀 Estrategista em Tecnologia &amp; IA
+            {heroContent.badge}
           </Box>
 
           {/* Título */}
@@ -106,7 +107,7 @@ export function Hero() {
             lineHeight="1.0"
             color={cores.texto.titulo}
           >
-            Robert{" "}
+            {heroContent.nome}{" "}
             <Box
               as="span"
               style={{
@@ -117,7 +118,7 @@ export function Hero() {
                 fontWeight: `${tipografia.peso.normal}`,
               }}
             >
-              Santos
+              {heroContent.sobrenome}
             </Box>
           </Heading>
 
@@ -128,11 +129,7 @@ export function Hero() {
             textAlign="justify"
             color={cores.texto.corpo}
           >
-            Engenheiro de Software Sênior &amp; Arquiteto de Sistemas com foco
-            em microsserviços escaláveis, inteligência artificial e computação
-            em nuvem. Conecto engenharia de alta performance, estratégia de
-            negócio e desenvolvimento de pessoas para entregar soluções que
-            geram impacto real e transformam equipes.
+            {heroContent.descricao}
           </Text>
 
           {/* CTAs */}
@@ -142,7 +139,7 @@ export function Hero() {
             justify={{ base: "center", md: "flex-start" }}
           >
             <a
-              href="#expertise"
+              href={`#${heroContent.ctaPrimario.ancora}`}
               onClick={aoClicarVerExperiencias}
               style={{
                 display: "inline-flex",
@@ -158,13 +155,13 @@ export function Hero() {
                 transition: transicao.elevacao,
               }}
             >
-              Ver Experiências <span aria-hidden="true">↗</span>
+              {heroContent.ctaPrimario.texto} <span aria-hidden="true">↗</span>
             </a>
 
             <a
-              href="/curriculo-robert-santos.pdf"
-              download="curriculo-robert-santos.pdf"
-              aria-label="Baixar currículo em PDF"
+              href={heroContent.ctaSecundario.arquivo}
+              download={heroContent.ctaSecundario.arquivo.split("/").pop()}
+              aria-label={heroContent.ctaSecundario.ariaLabel}
               onClick={aoClicarBaixar}
               style={{
                 display: "inline-flex",
@@ -186,7 +183,9 @@ export function Hero() {
               }}
             >
               <FiDownload size={16} />
-              {baixando ? "Download iniciado!" : "Baixar Currículo"}
+              {baixando
+                ? heroContent.ctaSecundario.textoAtivo
+                : heroContent.ctaSecundario.texto}
             </a>
           </HStack>
         </Flex>
@@ -212,7 +211,7 @@ export function Hero() {
           />
           <Image
             src={heroImg}
-            alt="Foto de Robert Santos"
+            alt={heroContent.imagem.alt}
             loading="eager"
             decoding="async"
             fetchPriority="high"
