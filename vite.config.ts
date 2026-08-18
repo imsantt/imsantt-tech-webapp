@@ -1,11 +1,28 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { resolve } from "path";
+import { readFileSync } from "fs";
+
+const pkg = JSON.parse(readFileSync("./package.json", "utf-8"));
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    sentryVitePlugin({
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      release: { name: pkg.version },
+      sourcemaps: { filesToDeleteAfterUpload: ["./dist/**/*.map"] },
+      silent: !process.env.SENTRY_AUTH_TOKEN,
+    }),
+  ],
   base: "/",
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
+  },
   resolve: {
     alias: {
       "@": resolve(import.meta.dirname!, "src"),
