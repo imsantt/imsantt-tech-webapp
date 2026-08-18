@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderComProviders, screen, waitFor } from "@/tests/helpers";
+import { renderComProviders, screen } from "@/tests/helpers";
 import { HabilidadesSecao } from "./HabilidadesSecao";
 
 vi.mock("@/hooks/use-habilidades/useHabilidades.hook", () => ({
