@@ -150,38 +150,6 @@ export function Contato() {
           borderRadius={raio["2xl"]}
           p={{ base: "6", md: "10" }}
         >
-          {/* Banner em desenvolvimento */}
-          <Box
-            display="flex"
-            alignItems="flex-start"
-            gap="3"
-            bg={cores.primaria.sutil}
-            border={`1px solid ${cores.primaria.borda}`}
-            borderRadius={raio.xl}
-            px="4"
-            py="3"
-            mb="6"
-          >
-            <Box fontSize="lg" flexShrink={0} aria-hidden="true">
-              🚧
-            </Box>
-            <Box>
-              <Text
-                fontSize="sm"
-                fontWeight="600"
-                color={cores.texto.titulo}
-                mb="0.5"
-              >
-                Feature em desenvolvimento
-              </Text>
-              <Text fontSize="xs" color={cores.texto.corpo} lineHeight="1.5">
-                O envio de mensagens ainda está sendo finalizado. O formulário
-                já valida e sanitiza os dados, mas a integração com o serviço de
-                e-mail será ativada em breve.
-              </Text>
-            </Box>
-          </Box>
-
           {/* Feedback de sucesso */}
           {isSucesso && (
             <Box

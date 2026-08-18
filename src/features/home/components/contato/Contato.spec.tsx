@@ -13,14 +13,6 @@ describe("Contato", () => {
     expect(screen.getByText("Vamos conversar")).toBeInTheDocument();
   });
 
-  it("deve renderizar o banner de feature em desenvolvimento", () => {
-    renderComProviders(<Contato />);
-    expect(screen.getByText("Feature em desenvolvimento")).toBeInTheDocument();
-    expect(
-      screen.getByText(/envio de mensagens ainda está sendo finalizado/),
-    ).toBeInTheDocument();
-  });
-
   it("deve renderizar formulário habilitado para interação", () => {
     renderComProviders(<Contato />);
     const form = screen.getByLabelText("Formulário de contato");
@@ -94,5 +86,36 @@ describe("Contato", () => {
     fireEvent.change(inputNome, { target: { value: "Robert", name: "nome" } });
 
     expect(screen.queryByText("Nome é obrigatório")).not.toBeInTheDocument();
+  });
+
+  it("deve enviar mensagem válida e exibir feedback de sucesso", async () => {
+    const { enviarMensagemContato } =
+      await import("@/services/contato/contato.service");
+
+    renderComProviders(<Contato />);
+
+    fireEvent.change(screen.getByPlaceholderText("Seu nome completo"), {
+      target: { value: "Robert Santos", name: "nome" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("seu@email.com"), {
+      target: { value: "robert@email.com", name: "email" },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/Conte um pouco/), {
+      target: {
+        value: "Estou montando um projeto de e-commerce com landing page.",
+        name: "mensagem",
+      },
+    });
+
+    fireEvent.click(screen.getByText("Enviar mensagem"));
+
+    expect(
+      await screen.findByText("Mensagem enviada com sucesso!"),
+    ).toBeInTheDocument();
+    expect(enviarMensagemContato).toHaveBeenCalledWith({
+      nome: "Robert Santos",
+      email: "robert@email.com",
+      mensagem: "Estou montando um projeto de e-commerce com landing page.",
+    });
   });
 });
