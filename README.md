@@ -13,7 +13,7 @@ Portfolio pessoal e vitrine profissional de **Robert Santos** — Engenheiro de 
 
 ## Visão Geral
 
-Aplicação web moderna construída com foco em performance, acessibilidade e experiência do desenvolvedor. Serve como ponto central de presença online, apresentando trajetória, expertise técnica, projetos e iniciativas de impacto social.
+Aplicação web moderna construída com foco em performance, acessibilidade e experiência do desenvolvedor. Serve como ponto central de presença online, apresentando trajetória, habilidades técnicas, projetos e iniciativas de impacto social.
 
 **Produção:** [imsantt.dev](https://imsantt.dev)
 
@@ -29,8 +29,9 @@ Aplicação web moderna construída com foco em performance, acessibilidade e ex
 | Roteamento       | React Router v7                                              |
 | Data Fetching    | SWR                                                          |
 | Datas            | Luxon                                                        |
-| Ícones           | React Icons                                                  |
+| Ícones           | React Icons (fa6, si, tb, ti, gr, md, di, pi, fi)            |
 | Backend (futuro) | Supabase                                                     |
+| Storage          | Cloudflare R2 (currículo PDF)                                |
 | Testes           | Vitest + React Testing Library                               |
 | Cobertura        | v8 com threshold ≥ 80%                                       |
 | Deploy           | Cloudflare Pages (Git integration)                           |
@@ -44,28 +45,57 @@ src/
 ├── assets/                              # Imagens otimizadas (WebP)
 ├── components/
 │   ├── layout/
-│   │   ├── navbar/                      # Navbar.tsx + Navbar.spec.tsx
-│   │   ├── footer/                      # Footer.tsx + Footer.spec.tsx
+│   │   ├── navbar/                      # Navbar + NavbarSimples + specs
+│   │   ├── footer/                      # Footer (redes sociais, status) + spec
 │   │   └── index.ts
 │   └── ui/
-│       ├── card-experiencia/            # CardExperiencia (timeline card)
-│       ├── card-skeleton/               # CardSkeleton (loading state)
-│       ├── error-boundary/              # ErrorBoundary (fallback de erro)
+│       ├── card-experiencia/
+│       │   ├── CardExperiencia.component.tsx + spec
+│       │   ├── index.ts
+│       │   └── fragments/
+│       │       ├── card-experiencia-skeleton/   # Skeleton (loading state)
+│       │       ├── card-experiencia-error/      # Error fallback
+│       │       ├── card-experiencia-header/     # Header do card
+│       │       └── card-experiencia-footer/     # Footer do card (tags + link)
+│       ├── error-boundary/              # ErrorBoundary genérico
 │       └── logo/                        # Logo.tsx + Logo.spec.tsx
 ├── features/
-│   └── home/
-│       ├── components/
-│       │   ├── hero/                    # Hero.tsx + Hero.spec.tsx
-│       │   ├── expertise/               # Expertise.tsx + Expertise.spec.tsx
-│       │   ├── trajetoria/              # Trajetoria.tsx + Trajetoria.spec.tsx
-│       │   ├── contato/                 # Contato.tsx + Contato.spec.tsx
-│       │   └── index.ts
-│       ├── data/                        # Dados estáticos (experiências, hero)
-│       └── Home.tsx + Home.spec.tsx
+│   ├── home/
+│   │   ├── components/
+│   │   │   ├── hero/
+│   │   │   │   ├── Hero.tsx + spec
+│   │   │   │   └── fragments/
+│   │   │   │       ├── hero-skeleton/   # Skeleton do Hero
+│   │   │   │       └── hero-error/      # Error fallback do Hero
+│   │   │   ├── habilidades/
+│   │   │   │   ├── HabilidadesSecao.tsx + spec
+│   │   │   │   └── fragments/
+│   │   │   │       ├── habilidades-skeleton/
+│   │   │   │       └── habilidades-error/
+│   │   │   ├── trajetoria/
+│   │   │   │   ├── Trajetoria.tsx + spec
+│   │   │   │   └── fragments/
+│   │   │   │       ├── trajetoria-skeleton/
+│   │   │   │       └── trajetoria-error/
+│   │   │   ├── contato/
+│   │   │   │   ├── Contato.tsx + spec
+│   │   │   │   └── fragments/
+│   │   │   │       ├── contato-skeleton/
+│   │   │   │       └── contato-error/
+│   │   │   └── index.ts                # Lazy exports (React.lazy)
+│   │   ├── data/                        # Dados estáticos (hero)
+│   │   └── Home.tsx + spec
+│   └── habilidades/
+│       ├── Habilidades.tsx + spec       # Página /habilidades
+│       └── fragments/
+│           ├── habilidades-page-skeleton/
+│           └── habilidades-page-error/
 ├── hooks/
-│   ├── use-scroll-suave/                # Navegação interna suave
+│   ├── use-acessar-link-externo/        # Hook para links externos (window.open)
+│   ├── use-configuracao/                # Hook SWR para config do site
 │   ├── use-experiencias/                # Hook SWR para experiências
-│   └── use-expertises/                  # Hook SWR para expertises
+│   ├── use-habilidades/                 # Hook SWR para habilidades
+│   └── use-scroll-suave/               # Navegação interna suave
 ├── lib/
 │   ├── env.ts                           # Variáveis de ambiente centralizadas
 │   ├── logger.ts                        # Logger estruturado (prod-aware)
@@ -74,25 +104,75 @@ src/
 │   ├── supabase.ts                      # Cliente Supabase singleton
 │   └── tema/
 │       ├── tokens.ts                    # Design System (fonte única de verdade)
-│       ├── cores.ts                     # Chakra tokens (importa de tokens.ts)
-│       ├── global.ts                    # Global CSS (importa de tokens.ts)
+│       ├── cores.ts                     # Chakra tokens
+│       ├── global.ts                    # Global CSS
 │       ├── index.ts                     # createSystem
 │       └── tokens.spec.ts
 ├── pages/
-│   ├── not-found/                       # NotFound.tsx + NotFound.spec.tsx
-│   └── index.ts                         # Lazy exports
+│   ├── not-found/                       # NotFound.tsx + spec
+│   └── index.ts                         # Lazy exports (React.lazy)
 ├── routes/                              # AppRoutes com Suspense + lazy loading
 ├── services/
+│   ├── configuracao/                    # Serviço de configuração do site
 │   ├── contato/                         # Serviço de envio de mensagem
 │   ├── experiencia/                     # Serviço de experiências profissionais
-│   └── expertise/                       # Serviço de expertises técnicas
+│   └── habilidade/                      # Serviço de habilidades técnicas
+├── stubs/
+│   ├── configuracao.stub.ts             # Mock de configuração (redes sociais, cargo)
+│   ├── experiencias.stub.ts             # Mock de experiências profissionais
+│   └── habilidades.stub.ts             # Mock de habilidades (6 categorias)
 ├── tests/                               # Setup + helpers (renderComProviders)
-└── types/                               # TypeScript interfaces
+└── types/
+    ├── configuracao.ts                  # ConfiguracaoSite, RedeSocial
     ├── contato.ts
     ├── experiencia.ts
-    ├── expertise.ts
-    └── projeto.ts
+    └── habilidade.ts                    # CategoriaHabilidade, Habilidade
 ```
+
+## Arquitetura de Componentes
+
+### Lazy Loading & Code Splitting
+
+Todas as páginas e seções da Home são carregadas com `React.lazy()`:
+
+```
+pages/index.ts          → lazy(() => import("Home")), lazy(() => import("Habilidades"))
+components/index.ts     → lazy(() => import("Hero")), lazy(() => import("Trajetoria")), ...
+```
+
+Cada componente lazy é envolto com:
+
+- **`<Suspense>`** — exibe skeleton enquanto carrega
+- **`<ErrorBoundary>`** — exibe fallback de erro se quebrar
+
+### Padrão de Fragments
+
+```
+<componente>/
+  fragments/
+    <componente>-<status>/
+      <componente>-<status>.fragment.tsx
+      <componente>-<status>.fragment.spec.tsx
+```
+
+Status possíveis: `skeleton`, `error`, ou partes composicionais (`header`, `footer`).
+
+### Hooks
+
+| Hook                    | Responsabilidade                                              |
+| ----------------------- | ------------------------------------------------------------- |
+| `useHabilidades`        | Busca categorias de habilidades via SWR                       |
+| `useExperiencias`       | Busca experiências profissionais via SWR                      |
+| `useConfiguracao`       | Busca configuração do site (redes, cargo, disponibilidade)    |
+| `useAcessarLinkExterno` | Abre links externos com `window.open` + `noopener,noreferrer` |
+| `useScrollSuave`        | Scroll suave para âncoras internas                            |
+
+### Fonte Única de Dados
+
+- **Stubs** (`src/stubs/`): dados mock que simulam o retorno futuro do Supabase
+- **Services**: importam dos stubs e aplicam delay (simula latência de rede)
+- **Hooks**: consomem services via SWR (cache, revalidação, deduplicação)
+- **Componentes**: consomem hooks — nunca importam stubs diretamente
 
 ## Design System
 
@@ -105,7 +185,6 @@ import { cores, tipografia, espacamento, raio, sombras, transicao } from "@/lib/
 bg={cores.bg.card}
 color={cores.texto.titulo}
 borderRadius={raio.xl}
-padding={espacamento["6"]}
 boxShadow={sombras.destaque}
 transition={transicao.elevacao}
 ```
@@ -118,8 +197,22 @@ transition={transicao.elevacao}
 | `raio`        | sm a full                                                           |
 | `sombras`     | card, destaque, botao, input                                        |
 | `transicao`   | rapida, padrao, lenta, elevacao                                     |
-| `layout`      | maxWidth, navbarAltura                                              |
+| `layout`      | maxWidth, maxWidthEstrito, navbarAltura                             |
+| `componentes` | card (altura, maxTags, maxLinhas)                                   |
 | `breakpoints` | sm, md, lg, xl, 2xl                                                 |
+
+## Páginas
+
+| Rota           | Componente  | Descrição                                 |
+| -------------- | ----------- | ----------------------------------------- |
+| `/`            | Home        | Hero + Habilidades + Trajetória + Contato |
+| `/habilidades` | Habilidades | Todas as 6 categorias com tags completas  |
+| `*`            | NotFound    | Página 404                                |
+
+### Navegação
+
+- **Home** (`/`): Navbar completa com links de âncora + menu mobile
+- **Páginas internas**: NavbarSimples com logo + botão "Voltar"
 
 ## Infraestrutura de Código
 
@@ -128,12 +221,6 @@ transition={transicao.elevacao}
 - Em produção: silencia `debug`/`info`, mantém `warn`/`error`
 - Em desenvolvimento: exibe tudo com contexto formatado
 - Preparado para integração com serviço externo (Sentry, DataDog)
-
-```typescript
-import { logger } from "@/lib/logger";
-logger.info("Mensagem enviada", { email: "user@mail.com" });
-logger.error("Falha ao enviar", { erro: err });
-```
 
 ### Rate Limiter (`src/lib/rate-limiter.ts`)
 
@@ -149,8 +236,12 @@ logger.error("Falha ao enviar", { erro: err });
 
 ### Variáveis de Ambiente (`src/lib/env.ts`)
 
-- Fonte única de acesso às env vars — evita cast espalhado
-- Expõe `isProd`, `isDev`, URLs do Supabase
+- Fonte única de acesso às env vars
+- Expõe `isProd`, `isDev`, URLs do Supabase, URL pública do R2
+
+### Currículo via Cloudflare R2
+
+O PDF do currículo é servido via Cloudflare R2 (bucket público) ao invés de arquivo estático. A URL é configurada via `VITE_R2_PUBLIC_URL` no `.env`.
 
 ## Desenvolvimento
 
@@ -162,17 +253,10 @@ logger.error("Falha ao enviar", { erro: err });
 ### Setup
 
 ```bash
-# Clone o repositório
 git clone https://github.com/imsantt/imsantt-tech-webapp.git
 cd imsantt-tech-webapp
-
-# Instale as dependências
 npm install
-
-# Configure as variáveis de ambiente (opcional — app funciona sem)
 cp .env.example .env
-
-# Inicie o servidor de desenvolvimento
 npm run dev
 ```
 
@@ -199,18 +283,18 @@ npm run test:coverage
 ```
 
 - **Threshold global:** 80% (statements, branches, functions, lines)
-- **Cobertura atual:** ~99% statements, ~97% branches, ~93% functions
-- **Padrão de arquivos:** `*.spec.tsx` colocado na mesma pasta do componente
-- **Helper:** `renderComProviders` encapsula Router + ChakraProvider
+- **Padrão de arquivos:** `*.spec.tsx` / `*.spec.ts` colocado na mesma pasta do componente
+- **Helper:** `renderComProviders` encapsula MemoryRouter + ChakraProvider
+- **Mocks:** Services mockados via `vi.mock()` nos testes de hooks e componentes
 
 ## Quality Gates
 
-| Camada             | Quando         | O que valida                    |
-| ------------------ | -------------- | ------------------------------- |
-| Husky `commit-msg` | Todo commit    | Formato Conventional Commits    |
-| Husky `pre-push`   | Antes de push  | Cobertura ≥ 80%                 |
-| GitHub Actions CI  | Pull Requests  | Lint → Audit → Coverage → Build |
-| Cloudflare Pages   | Push em `main` | Build de produção               |
+| Camada             | Quando         | O que valida                      |
+| ------------------ | -------------- | --------------------------------- |
+| Husky `commit-msg` | Todo commit    | Formato Conventional Commits      |
+| Husky `pre-push`   | Antes de push  | Cobertura ≥ 80% + Build sem erros |
+| GitHub Actions CI  | Pull Requests  | Lint → Audit → Coverage → Build   |
+| Cloudflare Pages   | Push em `main` | Build de produção                 |
 
 ## Branching Strategy
 
@@ -252,6 +336,7 @@ feature/minha-feature
 - Rate limiting client-side
 - Logger estruturado (sem dados sensíveis em produção)
 - Source maps ocultos (`sourcemap: "hidden"`)
+- Links externos com `noopener,noreferrer` via hook centralizado
 - Nenhum uso de `dangerouslySetInnerHTML`, `eval` ou `innerHTML`
 
 ### CI/CD
@@ -259,7 +344,7 @@ feature/minha-feature
 - `npm audit --audit-level=high` no pipeline
 - GitHub Actions pinadas por SHA
 - Dependabot configurado
-- Secrets fora do repositório
+- Secrets fora do repositório (apenas `.env.example` versionado)
 
 ### Auditorias
 
@@ -279,6 +364,7 @@ O projeto é deployado automaticamente no **Cloudflare Pages** via Git integrati
 | `NODE_VERSION`           | `24`                                         |
 | `VITE_SUPABASE_URL`      | URL do projeto Supabase (opcional por agora) |
 | `VITE_SUPABASE_ANON_KEY` | Chave anônima pública (opcional por agora)   |
+| `VITE_R2_PUBLIC_URL`     | URL pública do bucket R2 (currículo PDF)     |
 
 ## SEO
 
@@ -293,8 +379,9 @@ O projeto é deployado automaticamente no **Cloudflare Pages** via Git integrati
 ## Acessibilidade
 
 - Skip link para conteúdo principal
-- HTML semântico (`main`, `nav`, `section`, `header`)
+- HTML semântico (`main`, `nav`, `section`, `header`, `footer`)
 - `aria-label` e `aria-labelledby` nos componentes
+- `role="status"` nos skeletons de carregamento
 - Responsividade com breakpoints adaptativos
 - Contraste adequado no design system
 
@@ -302,7 +389,9 @@ O projeto é deployado automaticamente no **Cloudflare Pages** via Git integrati
 
 - Code splitting via `manualChunks` (vendor-react, vendor-ui)
 - Lazy loading de páginas com `React.lazy` + `Suspense`
-- Imagem principal em formato WebP
+- Lazy loading de seções da Home (carregamento independente)
+- ErrorBoundary por seção e por card (isolamento de falhas)
+- Imagem principal em formato WebP com `fetchPriority="high"`
 - Target ES2022 para bundle moderno
 
 ## Convenção de Commits
@@ -316,7 +405,7 @@ Tipos permitidos:
 feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
 
 Exemplos:
-feat(home): adicionar seção de expertise com cards
+feat(home): adicionar seção de habilidades com cards
 fix(navbar): corrigir scroll suave em rotas internas
 test(hero): cobrir handler de download do currículo
 ci: configurar threshold de cobertura 80%
@@ -324,14 +413,23 @@ ci: configurar threshold de cobertura 80%
 
 ## Roadmap
 
-- [x] Hero section com foto e download de currículo
-- [x] Seção de Expertise com ícones e tags
+- [x] Hero section com foto e download de currículo (via Cloudflare R2)
+- [x] Seção de Habilidades com ícones e tags (6 categorias, max 6 tags na Home)
+- [x] Página /habilidades com todas as tags completas
 - [x] Seção Trajetória (timeline de experiências profissionais)
 - [x] Formulário de contato (UI + banner "em desenvolvimento")
 - [x] Navbar responsiva com scroll suave e menu mobile
+- [x] NavbarSimples para páginas internas (logo + botão Voltar)
+- [x] Footer premium (redes sociais, status de disponibilidade, cargo)
 - [x] Componente Logo reutilizável (IMSANTT[icon]TECH)
-- [x] Componentes UI reutilizáveis (CardExperiencia, CardSkeleton, ErrorBoundary)
-- [x] Hooks customizados com SWR (useExperiencias, useExpertises)
+- [x] Componentes UI reutilizáveis (CardExperiencia com fragments)
+- [x] Hooks customizados com SWR (useHabilidades, useExperiencias, useConfiguracao)
+- [x] Hook useAcessarLinkExterno para links externos seguros
+- [x] Lazy loading por seção com Suspense + ErrorBoundary
+- [x] Fragments de skeleton e error para todos os componentes
+- [x] ErrorBoundary por card individual (isolamento de falhas)
+- [x] Stubs centralizados em `src/stubs/` (fonte única de dados mock)
+- [x] Configuração do site gerenciável (redes sociais, cargo, disponibilidade)
 - [x] Página 404
 - [x] Design System com tokens centralizados em rem
 - [x] Logger estruturado (produção-aware)
@@ -340,16 +438,19 @@ ci: configurar threshold de cobertura 80%
 - [x] Deploy Cloudflare Pages com branching strategy (stage → main)
 - [x] SEO completo (Open Graph, JSON-LD, sitemap dinâmico, robots.txt)
 - [x] Headers de segurança (CSP, HSTS, X-Frame-Options)
-- [x] Testes unitários com cobertura ≥ 80% (~99% atual)
-- [x] Husky + Commitlint para padronização
+- [x] Testes unitários com cobertura ≥ 80%
+- [x] Husky + Commitlint + pre-push (coverage + build)
 - [x] CI com lint + audit + coverage + build
 - [x] Code splitting (vendor-react, vendor-ui)
 - [x] Documentação técnica e auditorias de segurança
 - [ ] Seção Projetos (portfolio)
 - [ ] Seção Impacto Social (Potenc[IA], Guardiões Digitais)
 - [ ] Integração Supabase para formulário de contato
+- [ ] Integração Supabase para dados dinâmicos (habilidades, experiências)
+- [ ] Docker Compose para desenvolvimento local (MinIO + Supabase)
 - [ ] Painel Admin (/admin)
 - [ ] Animações avançadas com Framer Motion
+- [ ] GitHub Actions: sync automático do stage após merge na main
 
 ## Documentação
 
