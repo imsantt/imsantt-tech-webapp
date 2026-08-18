@@ -17,12 +17,17 @@ export interface ErroValidacao {
 
 /**
  * Remove HTML tags e caracteres perigosos de uma string.
+ * Mantém texto útil, mas elimina padrões usados em XSS e atributos de evento.
  */
 export function sanitizar(valor: string): string {
   return valor
-    .replace(/[<>]/g, "") // Remove < e >
-    .replace(/javascript:/gi, "") // Remove javascript: protocol
-    .replace(/on\w+=/gi, "") // Remove event handlers (onclick=, etc)
+    .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "$1 ")
+    .replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, "$1 ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/(?:javascript|vbscript|data)\s*:/gi, "")
+    .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, " ")
+    .replace(/[\u0000-\u001F\u007F]+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
