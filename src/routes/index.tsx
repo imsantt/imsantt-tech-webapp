@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
-import { Home, NotFound } from "../pages";
+import { Home, Habilidades, NotFound } from "../pages";
 import { cores, raio } from "@/lib/tema/tokens";
 
 function CarregandoPagina() {
@@ -32,6 +32,7 @@ export function AppRoutes() {
     <Suspense fallback={<CarregandoPagina />}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/habilidades" element={<Habilidades />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

@@ -1,15 +1,19 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import { Box, Flex, Grid, Heading, Text, VStack } from "@chakra-ui/react";
 import { CardSkeleton } from "@/components/ui/card-skeleton/CardSkeleton";
 import { ErrorBoundary } from "@/components/ui/error-boundary/ErrorBoundary";
-import { useExpertises } from "@/hooks/use-expertises/useExpertises.hook";
+import { useHabilidades } from "@/hooks/use-habilidades/useHabilidades.hook";
 import { cores, raio, sombras, transicao, layout } from "@/lib/tema/tokens";
-import type { Expertise as ExpertiseType } from "@/types/expertise";
+import type { CategoriaHabilidade } from "@/types/habilidade";
 
-const CardExpertise = memo(function CardExpertise({
+/** Máximo de tags exibidas por card na Home */
+const MAX_TAGS_HOME = 6;
+
+const CardHabilidade = memo(function CardHabilidade({
   item,
 }: {
-  item: ExpertiseType;
+  item: CategoriaHabilidade;
 }) {
   const Icone = item.icone;
 
@@ -25,7 +29,7 @@ const CardExpertise = memo(function CardExpertise({
       p="8"
       transition={transicao.lenta}
       _hover={{
-        borderColor: cores.primaria.borda,
+        borderColor: item.corBorda,
         transform: "translateY(-4px)",
         boxShadow: sombras.destaque,
       }}
@@ -63,21 +67,25 @@ const CardExpertise = memo(function CardExpertise({
         mt="1"
         aria-label="Tecnologias relacionadas"
       >
-        {item.tecnologias.map((tec) => (
+        {item.habilidades.slice(0, MAX_TAGS_HOME).map((hab) => (
           <Box
-            key={tec}
+            key={hab.nome}
             as="span"
+            display="inline-flex"
+            alignItems="center"
+            gap="1"
             fontSize="xs"
             fontWeight="500"
-            color={cores.primaria.claro}
-            bg={cores.primaria.sutil}
-            border={`1px solid ${cores.primaria.borda}`}
+            color={item.cor}
+            bg={item.corFundo}
+            border={`1px solid ${item.corBorda}`}
             px="2.5"
             py="1"
             borderRadius={raio.full}
             whiteSpace="nowrap"
           >
-            {tec}
+            {hab.icone && <Box as={hab.icone} fontSize="10px" />}
+            {hab.nome}
           </Box>
         ))}
       </Flex>
@@ -85,14 +93,14 @@ const CardExpertise = memo(function CardExpertise({
   );
 });
 
-function ExpertiseConteudo() {
-  const { expertises, isLoading, isError } = useExpertises();
+function HabilidadesConteudo() {
+  const { categorias, isLoading, isError } = useHabilidades();
 
   return (
     <Box
       as="section"
-      id="expertise"
-      aria-labelledby="expertise-titulo"
+      id="habilidades"
+      aria-labelledby="habilidades-titulo"
       py={{ base: "16", md: "24" }}
       px={{ base: "6", md: "12", lg: "24" }}
       bg={cores.bg.sutil}
@@ -106,12 +114,12 @@ function ExpertiseConteudo() {
             textTransform="uppercase"
             color={cores.primaria.claro}
           >
-            Expertise
+            Habilidades
           </Text>
 
           <Heading
             as="h2"
-            id="expertise-titulo"
+            id="habilidades-titulo"
             fontSize={{ base: "3xl", md: "4xl" }}
             fontWeight="800"
             letterSpacing="-1px"
@@ -131,7 +139,14 @@ function ExpertiseConteudo() {
           </Text>
         </VStack>
 
-        <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap="5">
+        <Grid
+          templateColumns={{
+            base: "1fr",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+          gap="5"
+        >
           {isLoading && (
             <>
               <CardSkeleton />
@@ -142,25 +157,49 @@ function ExpertiseConteudo() {
 
           {isError && (
             <Text color={cores.erro.claro} fontSize="sm">
-              Não foi possível carregar as competências.
+              Não foi possível carregar as habilidades.
             </Text>
           )}
 
           {!isLoading &&
             !isError &&
-            expertises.map((item) => (
-              <CardExpertise key={item.id} item={item} />
+            categorias.map((item) => (
+              <CardHabilidade key={item.id} item={item} />
             ))}
         </Grid>
+
+        {/* Link para página detalhada */}
+        <Flex justify="center" mt={{ base: "8", md: "12" }}>
+          <Link
+            to="/habilidades"
+            aria-label="Ver todas as habilidades detalhadas"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              color: cores.primaria.claro,
+              fontWeight: 600,
+              fontSize: "14px",
+              padding: "10px 20px",
+              borderRadius: raio.lg,
+              border: `1px solid ${cores.primaria.borda}`,
+              backgroundColor: cores.primaria.sutil,
+              textDecoration: "none",
+              transition: transicao.lenta,
+            }}
+          >
+            Ver todas as habilidades <span aria-hidden="true">→</span>
+          </Link>
+        </Flex>
       </Box>
     </Box>
   );
 }
 
-export function Expertise() {
+export function HabilidadesSecao() {
   return (
     <ErrorBoundary>
-      <ExpertiseConteudo />
+      <HabilidadesConteudo />
     </ErrorBoundary>
   );
 }

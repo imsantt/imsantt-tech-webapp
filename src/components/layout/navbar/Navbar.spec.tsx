@@ -19,7 +19,7 @@ describe("Navbar", () => {
     renderComProviders(<Navbar />);
     expect(screen.getByText("Home")).toBeInTheDocument();
     expect(screen.getByText("Trajetória")).toBeInTheDocument();
-    expect(screen.getByText("Expertise")).toBeInTheDocument();
+    expect(screen.getByText("Habilidades")).toBeInTheDocument();
     expect(screen.getByText("Projetos")).toBeInTheDocument();
     expect(screen.getByText("Impacto Social")).toBeInTheDocument();
   });
@@ -32,8 +32,8 @@ describe("Navbar", () => {
 
   it("deve chamar rolarParaAncora ao clicar em item de navegação", () => {
     renderComProviders(<Navbar />);
-    fireEvent.click(screen.getByText("Expertise"));
-    expect(mockRolarParaAncora).toHaveBeenCalledWith("expertise");
+    fireEvent.click(screen.getByText("Habilidades"));
+    expect(mockRolarParaAncora).toHaveBeenCalledWith("habilidades");
   });
 
   it("deve chamar rolarParaAncora ao clicar no botão Contato", () => {

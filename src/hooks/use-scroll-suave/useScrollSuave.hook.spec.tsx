@@ -24,9 +24,9 @@ describe("useScrollSuave", () => {
     } as unknown as HTMLElement);
 
     const { result } = renderHook(() => useScrollSuave(), { wrapper });
-    result.current.rolarParaAncora("expertise");
+    result.current.rolarParaAncora("habilidades");
 
-    expect(document.getElementById).toHaveBeenCalledWith("expertise");
+    expect(document.getElementById).toHaveBeenCalledWith("habilidades");
     expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: "smooth" });
   });
 

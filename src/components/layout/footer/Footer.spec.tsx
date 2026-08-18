@@ -23,4 +23,16 @@ describe("Footer", () => {
     renderComProviders(<Footer />);
     expect(screen.getByText(/Engenheiro de Software/)).toBeInTheDocument();
   });
+
+  it("deve renderizar links de redes sociais", () => {
+    renderComProviders(<Footer />);
+    expect(screen.getByLabelText("GitHub")).toBeInTheDocument();
+    expect(screen.getByLabelText("LinkedIn")).toBeInTheDocument();
+    expect(screen.getByLabelText("Instagram")).toBeInTheDocument();
+  });
+
+  it("deve renderizar status de disponibilidade", () => {
+    renderComProviders(<Footer />);
+    expect(screen.getByText("Disponível para projetos")).toBeInTheDocument();
+  });
 });
