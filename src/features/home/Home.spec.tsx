@@ -1,6 +1,14 @@
-import { describe, it, expect } from "vitest";
-import { renderComProviders, screen, waitFor } from "@/tests/helpers";
+import { describe, it, expect, vi } from "vitest";
+import { renderComProviders, screen } from "@/tests/helpers";
 import { Home } from "./Home";
+
+// Mock dos componentes lazy para resolver síncronamente no teste
+vi.mock("./components", () => ({
+  Hero: () => <section>Robert Santos</section>,
+  HabilidadesSecao: () => <section>O que eu faço</section>,
+  Trajetoria: () => <section>Experiência Profissional</section>,
+  Contato: () => <section>Vamos conversar</section>,
+}));
 
 describe("Home", () => {
   it("deve ter main com id conteudo-principal", () => {
@@ -9,36 +17,23 @@ describe("Home", () => {
     expect(main).toHaveAttribute("id", "conteudo-principal");
   });
 
-  it("deve renderizar Hero apos carregamento lazy", async () => {
+  it("deve renderizar Hero", () => {
     renderComProviders(<Home />);
-
-    await waitFor(
-      () => {
-        expect(screen.getByText("Robert")).toBeInTheDocument();
-      },
-      { timeout: 3000 },
-    );
+    expect(screen.getByText("Robert Santos")).toBeInTheDocument();
   });
 
-  it("deve renderizar secao Habilidades apos carregamento", async () => {
+  it("deve renderizar secao Habilidades", () => {
     renderComProviders(<Home />);
-
-    await waitFor(
-      () => {
-        expect(screen.getByText("O que eu faço")).toBeInTheDocument();
-      },
-      { timeout: 3000 },
-    );
+    expect(screen.getByText("O que eu faço")).toBeInTheDocument();
   });
 
-  it("deve renderizar secao Contato apos carregamento", async () => {
+  it("deve renderizar secao Trajetoria", () => {
     renderComProviders(<Home />);
+    expect(screen.getByText("Experiência Profissional")).toBeInTheDocument();
+  });
 
-    await waitFor(
-      () => {
-        expect(screen.getByText("Vamos conversar")).toBeInTheDocument();
-      },
-      { timeout: 3000 },
-    );
+  it("deve renderizar secao Contato", () => {
+    renderComProviders(<Home />);
+    expect(screen.getByText("Vamos conversar")).toBeInTheDocument();
   });
 });
