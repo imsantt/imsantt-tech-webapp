@@ -22,7 +22,7 @@ export function Logo({
         IMSANTT
       </Box>
       <Image
-        src="/images/logo.png"
+        src="/images/logo.webp"
         alt=""
         w={tamanhoIcone}
         h={tamanhoIcone}
