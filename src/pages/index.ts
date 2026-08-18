@@ -1,15 +1,15 @@
-import { lazy } from "react";
+import { lazyComRetry } from "@/lib/lazy-com-retry";
 
-export const Home = lazy(() =>
+export const Home = lazyComRetry(() =>
   import("../features/home/Home").then((m) => ({ default: m.Home })),
 );
 
-export const Habilidades = lazy(() =>
+export const Habilidades = lazyComRetry(() =>
   import("../features/habilidades/Habilidades").then((m) => ({
     default: m.Habilidades,
   })),
 );
 
-export const NotFound = lazy(() =>
+export const NotFound = lazyComRetry(() =>
   import("./not-found/NotFound").then((m) => ({ default: m.NotFound })),
 );
