@@ -32,9 +32,10 @@ Aplicação web moderna construída com foco em performance, acessibilidade e ex
 | Ícones           | React Icons (fa6, si, tb, ti, gr, md, di, pi, fi)            |
 | Backend (futuro) | Supabase                                                     |
 | Storage          | Cloudflare R2 (currículo PDF)                                |
+| Observabilidade  | Sentry (tracing, replay, logs, release tracking)             |
 | Testes           | Vitest + React Testing Library                               |
 | Cobertura        | v8 com threshold ≥ 80%                                       |
-| Deploy           | Cloudflare Pages (Git integration)                           |
+| Deploy           | Cloudflare Pages + headers de segurança                      |
 | CI               | GitHub Actions (lint + audit + coverage + build)             |
 | Commits          | Husky + Commitlint + Commitizen                              |
 
@@ -59,6 +60,7 @@ src/
 │       │       └── card-experiencia-footer/     # Footer do card (tags + link)
 │       ├── error-boundary/              # ErrorBoundary genérico
 │       └── logo/                        # Logo.tsx + Logo.spec.tsx
+├── instrument.ts                        # Inicialização do Sentry (tracing + replay + logs)
 ├── features/
 │   ├── home/
 │   │   ├── components/
@@ -222,6 +224,17 @@ transition={transicao.elevacao}
 - Em desenvolvimento: exibe tudo com contexto formatado
 - Preparado para integração com serviço externo (Sentry, DataDog)
 
+### Observabilidade com Sentry (`src/instrument.ts`)
+
+- Inicialização do Sentry no início da aplicação para capturar erros globais
+- `browser tracing` com integração do React Router v7
+- `Session Replay` apenas em erros em produção
+- `logs estruturados` habilitados via `enableLogs: true`
+- `release` baseado no versionamento do app (`__APP_VERSION__`)
+- Configuração de amostragem: `tracesSampleRate` em produção e desenvolvimento
+- `ignoreErrors` para reduzir ruído de erros do navegador e rede
+- Upload de sourcemaps no build via `@sentry/vite-plugin`
+
 ### Rate Limiter (`src/lib/rate-limiter.ts`)
 
 - Rate limiting client-side para UX (evita spam acidental)
@@ -322,12 +335,21 @@ feature/minha-feature
 
 ### Headers (Cloudflare `_headers`)
 
-- Content-Security-Policy (CSP)
+- Content-Security-Policy (CSP) com `self`, fonts, imagens, `cloudflareinsights.com` e `sentry.io`
 - Strict-Transport-Security (HSTS)
 - X-Frame-Options: DENY
 - X-Content-Type-Options: nosniff
 - Referrer-Policy: strict-origin-when-cross-origin
 - Permissions-Policy restritivo
+- Cache de ativos em `/assets/*` com `immutable`
+- `worker-src 'self' blob:` e `frame-ancestors 'none'` para reforço de segurança
+
+### Observabilidade e deploy
+
+- Sentry habilitado em produção para tracing, replays em erro e logs estruturados
+- `@sentry/vite-plugin` coordena upload de sourcemaps no build do Vite
+- `release` do app usa a versão do package para facilitar rastreio no Sentry
+- Cloudflare Pages atua como camada de deploy, TLS e headers de segurança
 
 ### Frontend
 
@@ -357,14 +379,20 @@ O projeto é deployado automaticamente no **Cloudflare Pages** via Git integrati
 - **Push em `main`** → deploy de produção
 - **Pull Request** → preview deployment com URL única
 
-### Variáveis de ambiente (Cloudflare)
+### Variáveis de ambiente (Cloudflare Pages)
 
-| Variável                 | Descrição                                    |
-| ------------------------ | -------------------------------------------- |
-| `NODE_VERSION`           | `24`                                         |
-| `VITE_SUPABASE_URL`      | URL do projeto Supabase (opcional por agora) |
-| `VITE_SUPABASE_ANON_KEY` | Chave anônima pública (opcional por agora)   |
-| `VITE_R2_PUBLIC_URL`     | URL pública do bucket R2 (currículo PDF)     |
+| Variável                 | Descrição                                                       |
+| ------------------------ | --------------------------------------------------------------- |
+| `NODE_VERSION`           | `24`                                                            |
+| `VITE_SUPABASE_URL`      | URL do projeto Supabase (opcional por agora)                    |
+| `VITE_SUPABASE_ANON_KEY` | Chave anônima pública (opcional por agora)                      |
+| `VITE_R2_PUBLIC_URL`     | URL pública do bucket R2 (currículo PDF)                        |
+| `VITE_SENTRY_DSN`        | DSN do projeto Sentry para capturar erros e tracing             |
+| `SENTRY_ORG`             | Organização Sentry usada no upload de sourcemaps no build       |
+| `SENTRY_PROJECT`         | Projeto Sentry relacionado ao app                               |
+| `SENTRY_AUTH_TOKEN`      | Token de autenticação para upload de sourcemaps via Vite plugin |
+
+> A configuração do Cloudflare Pages também usa headers rígidos em `public/_headers`, com CSP, HSTS, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` e cache de assets.
 
 ## SEO
 
@@ -433,9 +461,11 @@ ci: configurar threshold de cobertura 80%
 - [x] Página 404
 - [x] Design System com tokens centralizados em rem
 - [x] Logger estruturado (produção-aware)
+- [x] Observabilidade com Sentry (tracing, replay, logs e release tracking)
 - [x] Rate limiter client-side
 - [x] Validação e sanitização de inputs
 - [x] Deploy Cloudflare Pages com branching strategy (stage → main)
+- [x] Headers e políticas de segurança no Cloudflare Pages
 - [x] SEO completo (Open Graph, JSON-LD, sitemap dinâmico, robots.txt)
 - [x] Headers de segurança (CSP, HSTS, X-Frame-Options)
 - [x] Testes unitários com cobertura ≥ 80%

@@ -2,10 +2,14 @@ import { describe, it, expect } from "vitest";
 import { sanitizar, validarContato, sanitizarContato } from "./validacao";
 
 describe("sanitizar", () => {
-  it("deve remover tags HTML", () => {
-    expect(sanitizar("<script>alert('xss')</script>")).toBe(
-      "scriptalert('xss')/script",
-    );
+  it("deve remover tags HTML e scripts perigosos", () => {
+    expect(sanitizar("<script>alert('xss')</script>")).toBe("alert('xss')");
+  });
+
+  it("deve remover links javascript e atributos de evento", () => {
+    expect(
+      sanitizar('<a href="javascript:alert(1)" onclick="evil()">link</a>'),
+    ).toBe("link");
   });
 
   it("deve remover javascript: protocol", () => {
@@ -13,7 +17,7 @@ describe("sanitizar", () => {
   });
 
   it("deve remover event handlers", () => {
-    expect(sanitizar('teste onclick="hack()"')).toBe('teste "hack()"');
+    expect(sanitizar('teste onclick="hack()"')).toBe("teste");
   });
 
   it("deve fazer trim", () => {
@@ -100,8 +104,8 @@ describe("sanitizarContato", () => {
       mensagem: "Olá <script>hack</script>",
     });
 
-    expect(resultado.nome).toBe("bRobert/b");
+    expect(resultado.nome).toBe("Robert");
     expect(resultado.email).toBe("robert@email.com");
-    expect(resultado.mensagem).toBe("Olá scripthack/script");
+    expect(resultado.mensagem).toBe("Olá hack");
   });
 });
