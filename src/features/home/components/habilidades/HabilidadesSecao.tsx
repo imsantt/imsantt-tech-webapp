@@ -1,8 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Grid, Heading, Text, VStack } from "@chakra-ui/react";
-import { CardSkeleton } from "@/components/ui/card-skeleton/CardSkeleton";
-import { ErrorBoundary } from "@/components/ui/error-boundary/ErrorBoundary";
+import { CardSkeleton } from "@/components/ui/card-experiencia/fragments/card-experiencia-skeleton/card-experiencia-skeleton.fragment";
 import { useHabilidades } from "@/hooks/use-habilidades/useHabilidades.hook";
 import { cores, raio, sombras, transicao, layout } from "@/lib/tema/tokens";
 import type { CategoriaHabilidade } from "@/types/habilidade";
@@ -197,9 +196,5 @@ function HabilidadesConteudo() {
 }
 
 export function HabilidadesSecao() {
-  return (
-    <ErrorBoundary>
-      <HabilidadesConteudo />
-    </ErrorBoundary>
-  );
+  return <HabilidadesConteudo />;
 }

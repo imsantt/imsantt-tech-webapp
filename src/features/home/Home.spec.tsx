@@ -1,18 +1,39 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { renderComProviders, screen } from "@/tests/helpers";
 import { Home } from "./Home";
 
-describe("Home", () => {
-  it("deve renderizar as tres secoes (Hero, Habilidades, Contato)", () => {
-    renderComProviders(<Home />);
-    expect(screen.getByText("Robert")).toBeInTheDocument();
-    expect(screen.getByText("O que eu faço")).toBeInTheDocument();
-    expect(screen.getByText("Vamos conversar")).toBeInTheDocument();
-  });
+// Mock dos componentes lazy para resolver síncronamente no teste
+vi.mock("./components", () => ({
+  Hero: () => <section>Robert Santos</section>,
+  HabilidadesSecao: () => <section>O que eu faço</section>,
+  Trajetoria: () => <section>Experiência Profissional</section>,
+  Contato: () => <section>Vamos conversar</section>,
+}));
 
+describe("Home", () => {
   it("deve ter main com id conteudo-principal", () => {
     renderComProviders(<Home />);
     const main = screen.getByRole("main");
     expect(main).toHaveAttribute("id", "conteudo-principal");
+  });
+
+  it("deve renderizar Hero", () => {
+    renderComProviders(<Home />);
+    expect(screen.getByText("Robert Santos")).toBeInTheDocument();
+  });
+
+  it("deve renderizar secao Habilidades", () => {
+    renderComProviders(<Home />);
+    expect(screen.getByText("O que eu faço")).toBeInTheDocument();
+  });
+
+  it("deve renderizar secao Trajetoria", () => {
+    renderComProviders(<Home />);
+    expect(screen.getByText("Experiência Profissional")).toBeInTheDocument();
+  });
+
+  it("deve renderizar secao Contato", () => {
+    renderComProviders(<Home />);
+    expect(screen.getByText("Vamos conversar")).toBeInTheDocument();
   });
 });
