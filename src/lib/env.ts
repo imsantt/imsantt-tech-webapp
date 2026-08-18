@@ -10,6 +10,7 @@ function getEnv(key: string): string | undefined {
 export const env = {
   supabaseUrl: getEnv("VITE_SUPABASE_URL"),
   supabaseAnonKey: getEnv("VITE_SUPABASE_ANON_KEY"),
+  r2PublicUrl: getEnv("VITE_R2_PUBLIC_URL"),
   isProd: import.meta.env.PROD,
   isDev: import.meta.env.DEV,
 } as const;
