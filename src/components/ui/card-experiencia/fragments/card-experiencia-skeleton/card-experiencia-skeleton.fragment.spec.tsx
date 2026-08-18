@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { renderComProviders } from "@/tests/helpers";
-import { CardSkeleton } from "./CardSkeleton";
+import { CardSkeleton } from "./card-experiencia-skeleton.fragment";
 
 describe("CardSkeleton", () => {
   it("deve renderizar sem erros", () => {

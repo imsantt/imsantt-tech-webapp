@@ -8,8 +8,8 @@ import {
   componentes,
 } from "@/lib/tema/tokens";
 import type { Experiencia } from "@/types/experiencia";
-import { CardExperienciaHeader } from "./fragments/CardExperienciaHeader.fragment";
-import { CardExperienciaFooter } from "./fragments/CardExperienciaFooter.fragment";
+import { CardExperienciaHeader } from "./fragments/card-experiencia-header/card-experiencia-header.fragment";
+import { CardExperienciaFooter } from "./fragments/card-experiencia-footer/card-experiencia-footer.fragment";
 
 export interface ExperienciaProps extends Experiencia {
   onVerDetalhes?: (id: string) => void;
