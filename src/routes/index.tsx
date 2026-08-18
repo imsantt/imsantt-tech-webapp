@@ -1,6 +1,7 @@
-import { Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Home, Habilidades, NotFound } from "../pages";
 import { cores, raio } from "@/lib/tema/tokens";
 
@@ -27,14 +28,41 @@ function CarregandoPagina() {
   );
 }
 
+const transicaoPagina = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -12 },
+};
+
+const transicaoConfig = {
+  duration: 0.3,
+  ease: [0.25, 0.1, 0.25, 1],
+};
+
 export function AppRoutes() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location.pathname]);
+
   return (
-    <Suspense fallback={<CarregandoPagina />}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/habilidades" element={<Habilidades />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Suspense>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={transicaoPagina.initial}
+        animate={transicaoPagina.animate}
+        exit={transicaoPagina.exit}
+        transition={transicaoConfig}
+      >
+        <Suspense fallback={<CarregandoPagina />}>
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/habilidades" element={<Habilidades />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </motion.div>
+    </AnimatePresence>
   );
 }
