@@ -26,6 +26,7 @@ export function sanitizar(valor: string): string {
     .replace(/<[^>]+>/g, " ")
     .replace(/(?:javascript|vbscript|data)\s*:/gi, "")
     .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, " ")
+    // eslint-disable-next-line no-control-regex
     .replace(/[\u0000-\u001F\u007F]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
