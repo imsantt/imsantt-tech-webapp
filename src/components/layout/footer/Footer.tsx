@@ -89,7 +89,6 @@ export function Footer() {
                   <Box
                     key={rede.label}
                     as="button"
-                    type="button"
                     aria-label={rede.label}
                     onClick={() => acessar({ url: rede.href })}
                     display="inline-flex"
