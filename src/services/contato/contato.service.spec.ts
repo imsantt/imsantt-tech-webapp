@@ -1,6 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { enviarMensagemContato } from "./contato.service";
 
+const { supabaseMock } = vi.hoisted(() => ({
+  supabaseMock: {
+    functions: {
+      invoke: vi.fn(),
+    },
+  },
+}));
+
 // Mock do logger para não poluir output de testes
 vi.mock("@/lib/logger", () => ({
   logger: {
@@ -9,11 +17,22 @@ vi.mock("@/lib/logger", () => ({
     warn: vi.fn(),
     error: vi.fn(),
   },
+  mascararEmail: (email?: string) => {
+    if (!email || typeof email !== "string") return "";
+    const [usuario, dominio] = email.trim().split("@");
+    if (!usuario || !dominio) return email;
+    return `${usuario.slice(0, 2)}********@${dominio.replace(/\.[^.]+$/, ".***")}`;
+  },
+}));
+
+vi.mock("@/lib/supabase", () => ({
+  supabase: supabaseMock,
 }));
 
 describe("contato.service", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    supabaseMock.functions.invoke.mockResolvedValue({ error: null });
   });
 
   describe("enviarMensagemContato", () => {
@@ -27,17 +46,24 @@ describe("contato.service", () => {
       await expect(enviarMensagemContato(dados)).resolves.toBeUndefined();
     });
 
-    it("deve retornar void (não retorna dados)", async () => {
-      const resultado = await enviarMensagemContato({
-        nome: "Teste",
-        email: "teste@email.com",
-        mensagem: "Mensagem de teste.",
-      });
+    it("deve utilizar a Edge Function do Supabase para enviar a mensagem", async () => {
+      const dados = {
+        nome: "Maria",
+        email: "maria@teste.com",
+        mensagem: "Quero saber mais.",
+      };
 
-      expect(resultado).toBeUndefined();
+      await enviarMensagemContato(dados);
+
+      expect(supabaseMock.functions.invoke).toHaveBeenCalledWith(
+        "enviar-contato",
+        {
+          body: dados,
+        },
+      );
     });
 
-    it("deve chamar o logger com o email do remetente", async () => {
+    it("deve chamar o logger com o email mascarado do remetente", async () => {
       const { logger } = await import("@/lib/logger");
 
       await enviarMensagemContato({
@@ -46,9 +72,16 @@ describe("contato.service", () => {
         mensagem: "Quero saber mais.",
       });
 
-      expect(logger.info).toHaveBeenCalledWith("Mensagem de contato enviada", {
-        email: "maria@teste.com",
-      });
+      expect(logger.info).toHaveBeenCalledWith(
+        "Mensagem de contato enviada",
+        expect.objectContaining({
+          email: expect.stringMatching(/@/),
+        }),
+      );
+
+      const contexto = (logger.info as ReturnType<typeof vi.fn>).mock
+        .calls[0][1];
+      expect(contexto.email).not.toBe("maria@teste.com");
     });
 
     it("não deve logar dados sensíveis (nome e mensagem)", async () => {
