@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, Heading, Text, VStack } from "@chakra-ui/react";
 import { cores, raio, sombras, transicao, layout } from "@/lib/tema/tokens";
-import { CardSkeleton } from "@/components/ui/card-skeleton/CardSkeleton";
+import { CardSkeleton } from "@/components/ui/card-experiencia/fragments/card-experiencia-skeleton/card-experiencia-skeleton.fragment";
 import { useHabilidades } from "@/hooks/use-habilidades/useHabilidades.hook";
 import type { CategoriaHabilidade } from "@/types/habilidade";
 
