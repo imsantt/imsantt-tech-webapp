@@ -10,6 +10,16 @@ export const Habilidades = lazyComRetry(() =>
   })),
 );
 
+export const Login = lazyComRetry(() =>
+  import("../features/login/Login").then((m) => ({ default: m.Login })),
+);
+
+export const Dashboard = lazyComRetry(() =>
+  import("../features/admin/Dashboard").then((m) => ({
+    default: m.Dashboard,
+  })),
+);
+
 export const NotFound = lazyComRetry(() =>
   import("./not-found/NotFound").then((m) => ({ default: m.NotFound })),
 );
