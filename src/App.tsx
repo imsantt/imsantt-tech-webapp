@@ -5,6 +5,18 @@ import { AppRoutes } from "./routes";
 function App() {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
+  const isAuth = pathname === "/login";
+
+  if (isAuth) {
+    return (
+      <>
+        <a href="#conteudo-principal" className="pular-para-conteudo">
+          Pular para o conteúdo principal
+        </a>
+        <AppRoutes />
+      </>
+    );
+  }
 
   return (
     <>
