@@ -6,7 +6,19 @@ import { logger } from "@/lib/logger";
 
 /**
  * Service de habilidades/competências (seção Habilidades e página /habilidades).
- * Futuramente: supabase.from('habilidades').select('*').order('ordem')
+ *
+ * ─── DECISÃO DE FONTE (Fase 2) ───────────────────────────────────────────────
+ * Diferente de experiências/certificações/formação, habilidade NÃO foi migrada
+ * para o Supabase. O motivo é que `CategoriaHabilidade` mistura dado de negócio
+ * (id, titulo, nome, nivel) com APRESENTAÇÃO (icone: IconType e tokens de cor),
+ * que vivem no cliente e não são serializáveis. Manter no stub evita um
+ * resolvedor de ícone/cor prematuro e trabalho descartável.
+ *
+ * Evolução planejada (caminho 2): quando houver necessidade real de gerenciar
+ * habilidades via CMS, o Supabase guardará apenas os dados (id, titulo,
+ * descricao, nome, nivel e um identificador de ícone em string), e o cliente
+ * reidratará `icone`/cores por uma ALLOWLIST (nome permitido -> IconType/token).
+ * Nunca resolver ícone dinâmico sem allowlist.
  *
  * ─── GUARDRAIL DE SEGURANÇA (ao migrar do stub para dados remotos) ───────────
  * Ao consumir uma fonte externa, os campos de texto tornam-se dados NÃO

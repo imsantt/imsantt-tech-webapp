@@ -2,18 +2,26 @@ import type { ConfiguracaoSite } from "@/types/configuracao";
 import { STUB_CONFIGURACAO } from "@/stubs/configuracao.stub";
 import { configuracaoSiteSchema } from "@/schemas/configuracao/configuracao.schema";
 import { simularLatencia } from "@/lib/latencia";
+import { supabase } from "@/lib/supabase";
 import { logger } from "@/lib/logger";
 
 /**
  * Service de configuração do site (contato, navegação, etc).
  *
- * A configuração é um objeto único e crítico para a UI (navegação, contato,
- * rodapé). Por isso, ao contrário dos serviços de listagem, uma falha de
- * schema NÃO retorna vazio: loga o problema e devolve o stub local como
- * fallback seguro, evitando derrubar a navegação por config remota inválida.
- *
- * Futuramente: supabase.from('configuracao_site').select('*').single()
+ * Fonte: Supabase (`configuracao_site`, linha única) com fallback local.
+ * A configuração é crítica para a UI (navegação, contato, rodapé); por isso,
+ * uma falha de schema, de consulta ou de configuração NÃO retorna vazio:
+ * loga o problema e devolve o stub local como fallback seguro.
  */
+
+const TABELA = "configuracao_site";
+
+/** Fallback local sinalizado. */
+function usarStub(motivo: string): ConfiguracaoSite {
+  logger.warn(`Usando stub de configuração como fallback — ${motivo}`);
+  return STUB_CONFIGURACAO;
+}
+
 function validar(dados: unknown): ConfiguracaoSite {
   const resultado = configuracaoSiteSchema.safeParse(dados);
 
@@ -28,6 +36,19 @@ function validar(dados: unknown): ConfiguracaoSite {
 }
 
 export async function obterConfiguracao(): Promise<ConfiguracaoSite> {
-  await simularLatencia(100);
-  return validar(STUB_CONFIGURACAO);
+  if (!supabase) {
+    await simularLatencia(100);
+    return usarStub("Supabase não configurado");
+  }
+
+  const { data, error } = await supabase.from(TABELA).select("*").single();
+
+  if (error) {
+    logger.error("Falha ao consultar configuração no Supabase", {
+      mensagem: error.message,
+    });
+    return usarStub("erro na consulta ao Supabase");
+  }
+
+  return validar(data);
 }
