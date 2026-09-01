@@ -1,11 +1,33 @@
-import { Box, Grid, Heading, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { CardExperiencia } from "@/components/ui/card-experiencia";
+import type { AcentoCard } from "@/components/ui/card-experiencia/CardExperiencia.component";
 import { CardSkeleton } from "@/components/ui/card-experiencia/fragments/card-experiencia-skeleton/card-experiencia-skeleton.fragment";
 import { CardExperienciaError } from "@/components/ui/card-experiencia/fragments/card-experiencia-error/card-experiencia-error.fragment";
 import { ErrorBoundary } from "@/components/ui/error-boundary/ErrorBoundary";
 import { useExperiencias } from "@/hooks/use-experiencias/useExperiencias.hook";
-import { cores, layout } from "@/lib/tema/tokens";
+import { cores, layout, tipografia } from "@/lib/tema/tokens";
+
+/**
+ * Acentos cromáticos cíclicos por experiência — dão ritmo cronológico à
+ * seção sem depender de dados de cor no modelo de domínio.
+ */
+const ACENTOS_TRAJETORIA: AcentoCard[] = [
+  cores.categoria.violeta,
+  cores.categoria.ciano,
+  cores.categoria.esmeralda,
+  cores.categoria.dourado,
+  cores.categoria.rosa,
+  cores.categoria.ambar,
+];
 
 function TrajetoriaConteudo() {
   const { experiencias, isLoading, isError } = useExperiencias();
@@ -16,50 +38,67 @@ function TrajetoriaConteudo() {
       as="section"
       id="trajetoria"
       aria-labelledby="trajetoria-titulo"
-      py={{ base: "16", md: "24" }}
+      py={{ base: "20", md: "28" }}
       px={{ base: "6", md: "12", lg: "24" }}
-      bg={`linear-gradient(135deg, rgba(124,58,237,0.35) 0%, ${cores.bg.base} 65%)`}
+      bg={cores.bg.base}
+      borderTop={`1px solid ${cores.borda.DEFAULT}`}
     >
       <Box maxW={layout.maxWidth} mx="auto">
         {/* Cabeçalho */}
         <VStack
           align="flex-start"
-          gap="3"
-          mb={{ base: "10", md: "14" }}
+          gap="5"
+          mb={{ base: "12", md: "16" }}
           textAlign="left"
         >
-          <Text
-            fontSize="xs"
-            fontWeight="300"
-            letterSpacing="1.5px"
-            textTransform="uppercase"
-            color={cores.branco}
-          >
-            Trajetória
-          </Text>
+          <HStack gap="3" align="center">
+            <Box
+              w="24px"
+              h="1px"
+              bg={cores.acento.DEFAULT}
+              aria-hidden="true"
+            />
+            <Text
+              fontFamily={tipografia.familia.mono}
+              fontSize="xs"
+              fontWeight={tipografia.peso.medium}
+              letterSpacing={tipografia.tracking.label}
+              textTransform="uppercase"
+              color={cores.acento.claro}
+            >
+              03 — Trajetória
+            </Text>
+          </HStack>
 
-          <Heading
-            as="h2"
-            id="trajetoria-titulo"
-            fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-            fontWeight="300"
-            letterSpacing="-2px"
-            lineHeight="1.05"
-            color={cores.branco}
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            justify="space-between"
+            align={{ base: "flex-start", md: "flex-end" }}
+            gap="6"
+            w="full"
           >
-            Experiência Profissional
-          </Heading>
+            <Heading
+              as="h2"
+              id="trajetoria-titulo"
+              fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+              fontWeight={tipografia.peso.light}
+              letterSpacing={tipografia.tracking.tituloAmplo}
+              lineHeight={String(tipografia.alturaLinha.titulo)}
+              color={cores.texto.titulo}
+            >
+              Experiência Profissional
+            </Heading>
 
-          <Text
-            fontSize="md"
-            color="rgba(255, 255, 255, 0.8)"
-            maxW="520px"
-            lineHeight="1.6"
-            fontWeight="300"
-          >
-            +{anosExperiencia} anos construindo software escalável e liderando
-            equipes em empresas de impacto.
-          </Text>
+            <Text
+              fontSize="md"
+              color={cores.texto.corpo}
+              maxW="42ch"
+              lineHeight={String(tipografia.alturaLinha.relaxada)}
+            >
+              +{anosExperiencia} anos construindo software escalável e liderando
+              equipes em empresas de impacto.
+            </Text>
+          </Flex>
         </VStack>
 
         {/* Grid de cards */}
@@ -69,7 +108,7 @@ function TrajetoriaConteudo() {
             md: "repeat(2, 1fr)",
             lg: "repeat(3, 1fr)",
           }}
-          gap="5"
+          gap="4"
         >
           {isLoading && (
             <>
@@ -87,9 +126,13 @@ function TrajetoriaConteudo() {
 
           {!isLoading &&
             !isError &&
-            experiencias.map((exp) => (
+            experiencias.map((exp, i) => (
               <ErrorBoundary key={exp.id} fallback={<CardExperienciaError />}>
-                <CardExperiencia exp={exp} />
+                <CardExperiencia
+                  exp={exp}
+                  indice={i}
+                  acento={ACENTOS_TRAJETORIA[i % ACENTOS_TRAJETORIA.length]}
+                />
               </ErrorBoundary>
             ))}
         </Grid>
