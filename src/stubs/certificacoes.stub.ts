@@ -1,19 +1,18 @@
-import { DateTime } from "luxon";
-import type { Certificacao } from "@/types/certificacao";
+import type { CertificacaoBruta } from "@/schemas/certificacao/certificacao.schema";
 
-/** Atalho para construir a data de emissão (mês/ano). */
-function emissao(year: number, month: number): DateTime {
-  return DateTime.fromObject({ year, month });
-}
-
-export const STUB_CERTIFICACOES: Certificacao[] = [
+/**
+ * Dados simulados de certificações no formato BRUTO da fonte
+ * (snake_case, `emitida_em` como string ISO YYYY-MM), espelhando o
+ * que o Supabase retornará. Passam pelo schema + mapper no service.
+ */
+export const STUB_CERTIFICACOES: CertificacaoBruta[] = [
   // ─── Cloud / AWS ────────────────────────────────────────────────────────
   {
     id: "aws-academy-cloud-foundations",
     titulo: "AWS Academy Graduate · Cloud Foundations",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 5),
+    emitida_em: "2026-05",
     competencias: ["Amazon CloudWatch", "Elastic Load Balancing (ELB)"],
   },
   {
@@ -21,7 +20,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "AWS Educate · Getting Started with Storage",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 5),
+    emitida_em: "2026-05",
     competencias: ["Amazon Web Services", "Amazon S3"],
   },
   {
@@ -29,7 +28,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "AWS Cloud Quest · Cloud Practitioner",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 6),
+    emitida_em: "2026-06",
     competencias: ["AWS Lambda", "Amazon Web Services"],
   },
   {
@@ -37,7 +36,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "AWS Educate · Getting Started with Databases",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 6),
+    emitida_em: "2026-06",
     competencias: ["Amazon RDS", "Amazon DynamoDB"],
   },
   {
@@ -45,14 +44,14 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "AWS Educate · Getting Started with Cloud Ops",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 6),
+    emitida_em: "2026-06",
   },
   {
     id: "aws-educate-compute",
     titulo: "AWS Educate · Getting Started with Compute",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 5),
+    emitida_em: "2026-05",
     competencias: ["Amazon EC2"],
   },
   {
@@ -60,7 +59,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "AWS Educate · Getting Started with Networking",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 6),
+    emitida_em: "2026-06",
     competencias: ["Amazon VPC"],
   },
   {
@@ -68,7 +67,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "AWS Educate · Getting Started with Security",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 6),
+    emitida_em: "2026-06",
     competencias: ["AWS IAM"],
   },
   {
@@ -76,14 +75,14 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "AWS Educate · Introduction to Cloud 101",
     instituicao: "Amazon Web Services (AWS)",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 5),
+    emitida_em: "2026-05",
   },
   {
     id: "tidwit-fundamentos-nuvem",
     titulo: "Fundamentos de Nuvem",
     instituicao: "TIDWIT",
     categoria: "cloud",
-    emitidaEm: emissao(2026, 4),
+    emitida_em: "2026-04",
     competencias: ["Amazon Web Services", "Amazon S3"],
   },
 
@@ -93,7 +92,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Liderança e Gestão de Pessoas · Formação Completa + 5 Extras",
     instituicao: "Udemy",
     categoria: "lideranca",
-    emitidaEm: emissao(2026, 7),
+    emitida_em: "2026-07",
     competencias: ["Escuta ativa", "Scrum"],
   },
   {
@@ -101,7 +100,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Primeira Liderança · Inspire e Gere Resultados Ousados",
     instituicao: "Universidade Divergente",
     categoria: "lideranca",
-    emitidaEm: emissao(2026, 7),
+    emitida_em: "2026-07",
     competencias: ["Desenvolvimento de liderança", "Feedback construtivo"],
   },
   {
@@ -109,7 +108,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Escola de Liderança",
     instituicao: "Cia de Talentos",
     categoria: "lideranca",
-    emitidaEm: emissao(2026, 6),
+    emitida_em: "2026-06",
     competencias: ["Gestão de pessoas", "Scrum"],
   },
   {
@@ -117,7 +116,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Certificação em Liderança",
     instituicao: "Estácio",
     categoria: "lideranca",
-    emitidaEm: emissao(2026, 8),
+    emitida_em: "2026-08",
     competencias: ["Liderança", "Liderança estratégica"],
   },
   {
@@ -125,7 +124,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Leadership Communication",
     instituicao: "FIAP",
     categoria: "lideranca",
-    emitidaEm: emissao(2026, 8),
+    emitida_em: "2026-08",
     competencias: ["Liderança", "Liderança estratégica"],
   },
   {
@@ -133,7 +132,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Jovens Líderes",
     instituicao: "FIAP",
     categoria: "lideranca",
-    emitidaEm: emissao(2026, 8),
+    emitida_em: "2026-08",
     competencias: ["Liderança", "Liderança estratégica"],
   },
 
@@ -143,7 +142,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "IA para Resolver, Automatizar e Avançar",
     instituicao: "Universidade Divergente",
     categoria: "ia",
-    emitidaEm: emissao(2026, 8),
+    emitida_em: "2026-08",
     competencias: ["Inteligência artificial", "Modelos de raciocínio de IA"],
   },
   {
@@ -151,7 +150,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Inteligência Artificial no Seu Dia a Dia",
     instituicao: "Universidade Divergente",
     categoria: "ia",
-    emitidaEm: emissao(2026, 8),
+    emitida_em: "2026-08",
     competencias: ["Inteligência artificial", "Ferramentas de IA generativa"],
   },
   {
@@ -159,7 +158,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Inteligência Artificial · Carreira Exponencial",
     instituicao: "Ibmec",
     categoria: "ia",
-    emitidaEm: emissao(2026, 8),
+    emitida_em: "2026-08",
     competencias: ["Inteligência artificial", "Ferramentas de IA generativa"],
   },
   {
@@ -167,7 +166,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Prompt Engineering",
     instituicao: "FIAP",
     categoria: "ia",
-    emitidaEm: emissao(2026, 4),
+    emitida_em: "2026-04",
     competencias: ["Inteligência artificial", "Ferramentas de IA generativa"],
   },
 
@@ -177,7 +176,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Arte da Negociação · Transforme Cada Conversa em Oportunidade",
     instituicao: "Universidade Divergente",
     categoria: "produto",
-    emitidaEm: emissao(2026, 8),
+    emitida_em: "2026-08",
     competencias: ["Vendas", "Comunicação"],
   },
   {
@@ -185,7 +184,7 @@ export const STUB_CERTIFICACOES: Certificacao[] = [
     titulo: "Transformação Digital",
     instituicao: "Cursos Afreektech MBM",
     categoria: "produto",
-    emitidaEm: emissao(2026, 4),
+    emitida_em: "2026-04",
     competencias: ["Inteligência artificial", "Computação em nuvem"],
   },
 ];

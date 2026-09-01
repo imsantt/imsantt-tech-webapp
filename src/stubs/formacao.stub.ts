@@ -1,15 +1,19 @@
-import { DateTime } from "luxon";
-import type { FormacaoAcademica } from "@/types/formacao";
+import type { FormacaoBruta } from "@/schemas/formacao/formacao.schema";
 
-export const STUB_FORMACAO: FormacaoAcademica[] = [
+/**
+ * Dados simulados de formação acadêmica no formato BRUTO da fonte
+ * (snake_case, datas como string ISO YYYY-MM), espelhando o que o
+ * Supabase retornará. Passam pelo schema + mapper no service.
+ */
+export const STUB_FORMACAO: FormacaoBruta[] = [
   {
     id: "estacio-especializacao",
     instituicao: "Estácio",
     curso: "Pós-graduação Lato Sensu",
     area: "Engenharia de Software",
     grau: "especializacao",
-    dataInicio: DateTime.fromObject({ year: 2025, month: 7 }),
-    dataTermino: DateTime.fromObject({ year: 2026, month: 7 }),
+    data_inicio: "2025-07",
+    data_termino: "2026-07",
   },
   {
     id: "estacio-mtech",
@@ -17,8 +21,8 @@ export const STUB_FORMACAO: FormacaoAcademica[] = [
     curso: "Graduação Técnologica",
     area: "Análise e Desenvolvimento de Sistemas",
     grau: "graduacao",
-    dataInicio: DateTime.fromObject({ year: 2019, month: 1 }),
-    dataTermino: DateTime.fromObject({ year: 2021, month: 12 }),
+    data_inicio: "2019-01",
+    data_termino: "2021-12",
   },
   {
     id: "etifontes-tecnico",
@@ -26,7 +30,7 @@ export const STUB_FORMACAO: FormacaoAcademica[] = [
     curso: "Técnico",
     area: "Informatica para Internet",
     grau: "tecnico",
-    dataInicio: DateTime.fromObject({ year: 2017, month: 1 }),
-    dataTermino: DateTime.fromObject({ year: 2018, month: 12 }),
+    data_inicio: "2017-01",
+    data_termino: "2018-12",
   },
 ];

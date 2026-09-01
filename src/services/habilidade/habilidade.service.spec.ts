@@ -1,7 +1,13 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { listarHabilidades } from "./habilidade.service";
 
 describe("habilidade.service", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.resetModules();
+    vi.unmock("@/stubs/habilidades.stub");
+  });
+
   describe("listarHabilidades", () => {
     it("deve retornar array de categorias", async () => {
       const resultado = await listarHabilidades();
@@ -44,6 +50,45 @@ describe("habilidade.service", () => {
       const ids = resultado.map((cat) => cat.id);
       const idsUnicos = new Set(ids);
       expect(idsUnicos.size).toBe(ids.length);
+    });
+
+    it("deve preservar o icone (IconType) resolvido no cliente", async () => {
+      const resultado = await listarHabilidades();
+      resultado.forEach((cat) => {
+        expect(cat.icone).toBeDefined();
+      });
+    });
+  });
+
+  describe("validação de schema na borda", () => {
+    it("descarta dados malformados, loga erro e retorna lista vazia", async () => {
+      const erroSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+      vi.resetModules();
+      vi.doMock("@/stubs/habilidades.stub", () => ({
+        // id com caractere inválido e nivel fora do enum -> viola o schema
+        STUB_HABILIDADES: [
+          {
+            id: "Cat Inválida!",
+            titulo: "X",
+            descricao: "Y",
+            cor: "#000",
+            corFundo: "#111",
+            corBorda: "#222",
+            iconeBg: "#333",
+            iconeColor: "#444",
+            habilidades: [{ nome: "Z", nivel: "mestre" }],
+          },
+        ],
+      }));
+
+      const { listarHabilidades: listarInvalido } =
+        await import("./habilidade.service");
+
+      const resultado = await listarInvalido();
+
+      expect(resultado).toEqual([]);
+      expect(erroSpy).toHaveBeenCalled();
     });
   });
 });
