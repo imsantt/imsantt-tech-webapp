@@ -21,12 +21,12 @@ import { cores, layout, tipografia } from "@/lib/tema/tokens";
  * seção sem depender de dados de cor no modelo de domínio.
  */
 const ACENTOS_TRAJETORIA: AcentoCard[] = [
-  cores.categoria.violeta,
-  cores.categoria.ciano,
-  cores.categoria.esmeralda,
-  cores.categoria.dourado,
-  cores.categoria.rosa,
-  cores.categoria.ambar,
+  cores.category.violet,
+  cores.category.cyan,
+  cores.category.emerald,
+  cores.category.gold,
+  cores.category.rose,
+  cores.category.amber,
 ];
 
 function TrajetoriaConteudo() {
@@ -40,8 +40,8 @@ function TrajetoriaConteudo() {
       aria-labelledby="trajetoria-titulo"
       py={{ base: "20", md: "28" }}
       px={{ base: "6", md: "12", lg: "24" }}
-      bg={cores.bg.base}
-      borderTop={`1px solid ${cores.borda.DEFAULT}`}
+      bg={cores.background.base}
+      borderTop={`1px solid ${cores.border.DEFAULT}`}
     >
       <Box maxW={layout.maxWidth} mx="auto">
         {/* Cabeçalho */}
@@ -55,7 +55,7 @@ function TrajetoriaConteudo() {
             <Box
               w="24px"
               h="1px"
-              bg={cores.acento.DEFAULT}
+              bg={cores.accent.DEFAULT}
               aria-hidden="true"
             />
             <Text
@@ -64,7 +64,7 @@ function TrajetoriaConteudo() {
               fontWeight={tipografia.peso.medium}
               letterSpacing={tipografia.tracking.label}
               textTransform="uppercase"
-              color={cores.acento.claro}
+              color={cores.accent.light}
             >
               03 — Trajetória
             </Text>
@@ -84,14 +84,14 @@ function TrajetoriaConteudo() {
               fontWeight={tipografia.peso.light}
               letterSpacing={tipografia.tracking.tituloAmplo}
               lineHeight={String(tipografia.alturaLinha.titulo)}
-              color={cores.texto.titulo}
+              color={cores.text.heading}
             >
               Experiência Profissional
             </Heading>
 
             <Text
               fontSize="md"
-              color={cores.texto.corpo}
+              color={cores.text.body}
               maxW="42ch"
               lineHeight={String(tipografia.alturaLinha.relaxada)}
             >
@@ -119,7 +119,7 @@ function TrajetoriaConteudo() {
           )}
 
           {isError && (
-            <Text color={cores.erro.claro} fontSize="sm">
+            <Text color={cores.danger.light} fontSize="sm">
               Não foi possível carregar as experiências.
             </Text>
           )}

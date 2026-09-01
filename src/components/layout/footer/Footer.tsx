@@ -32,8 +32,8 @@ export function Footer() {
     <Box
       as="footer"
       role="contentinfo"
-      borderTop={`1px solid ${cores.borda.DEFAULT}`}
-      bg={cores.bg.base}
+      borderTop={`1px solid ${cores.border.DEFAULT}`}
+      bg={cores.background.base}
     >
       {/* Conteúdo principal */}
       <Box
@@ -49,7 +49,7 @@ export function Footer() {
           {/* Coluna — Identidade */}
           <VStack align="flex-start" gap="4">
             <Logo />
-            <Text fontSize="sm" color={cores.texto.corpo} lineHeight="1.7">
+            <Text fontSize="sm" color={cores.text.body} lineHeight="1.7">
               Engenharia de software orientada a resultados, com foco em
               arquitetura escalável e experiências de alto impacto.
             </Text>
@@ -60,7 +60,7 @@ export function Footer() {
                 <Box
                   w="6px"
                   h="6px"
-                  bg={cores.sucesso.DEFAULT}
+                  bg={cores.success.DEFAULT}
                   borderRadius={raio.full}
                 />
                 <Text css={s.seloDisponivelTexto}>
@@ -120,7 +120,7 @@ export function Footer() {
 
             {contato.email && (
               <Flex align="center" gap="2">
-                <Box as={FiMail} color={cores.acento.claro} boxSize="3.5" />
+                <Box as={FiMail} color={cores.accent.light} boxSize="3.5" />
                 <Link href={`mailto:${contato.email}`} css={s.linkColuna}>
                   {contato.email}
                 </Link>
@@ -131,7 +131,7 @@ export function Footer() {
       </Box>
 
       {/* Rodapé inferior — full width divider */}
-      <Box borderTop={`1px solid ${cores.borda.DEFAULT}`}>
+      <Box borderTop={`1px solid ${cores.border.DEFAULT}`}>
         <Flex
           maxW={layout.maxWidth}
           mx="auto"
@@ -144,7 +144,7 @@ export function Footer() {
         >
           <Text css={s.textoRodapeInferior}>
             © {anoAtual}{" "}
-            <Box as="span" color={cores.texto.corpo} fontWeight="500">
+            <Box as="span" color={cores.text.body} fontWeight="500">
               {nomeAutor}
             </Box>
           </Text>

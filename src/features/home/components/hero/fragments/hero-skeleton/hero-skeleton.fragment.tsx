@@ -12,7 +12,7 @@ export function HeroSkeleton() {
       display="flex"
       alignItems="center"
       px={{ base: "6", md: "12", lg: "24" }}
-      bg={cores.bg.base}
+      bg={cores.background.base}
       role="status"
       aria-label="Carregando hero..."
     >
@@ -29,28 +29,28 @@ export function HeroSkeleton() {
           <Box
             h="1.5rem"
             w="140px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.full}
             opacity={0.4}
           />
           <Box
             h="3.5rem"
             w="80%"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.md}
             opacity={0.3}
           />
           <Box
             h="1rem"
             w="100%"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.25}
           />
           <Box
             h="1rem"
             w="90%"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.2}
           />
@@ -58,14 +58,14 @@ export function HeroSkeleton() {
             <Box
               h="2.75rem"
               w="140px"
-              bg={cores.borda.DEFAULT}
+              bg={cores.border.DEFAULT}
               borderRadius={raio.lg}
               opacity={0.3}
             />
             <Box
               h="2.75rem"
               w="160px"
-              bg={cores.borda.DEFAULT}
+              bg={cores.border.DEFAULT}
               borderRadius={raio.lg}
               opacity={0.25}
             />
@@ -76,7 +76,7 @@ export function HeroSkeleton() {
           w={{ base: "240px", md: "340px" }}
           h={{ base: "240px", md: "340px" }}
           borderRadius={raio.full}
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           opacity={0.3}
           flexShrink={0}
         />

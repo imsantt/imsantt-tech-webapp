@@ -40,8 +40,8 @@ export function Navbar() {
       zIndex={100}
       py={rolado ? "3" : "5"}
       borderBottom="1px solid"
-      borderColor={rolado ? cores.borda.DEFAULT : cores.transparente}
-      bg={rolado ? cores.bg.overlay : cores.transparente}
+      borderColor={rolado ? cores.border.DEFAULT : cores.transparent}
+      bg={rolado ? cores.background.overlay : cores.transparent}
       backdropFilter={rolado ? "blur(20px) saturate(1.4)" : "none"}
       transition={transicao.lenta}
     >
@@ -72,7 +72,7 @@ export function Navbar() {
               variant="ghost"
               size="sm"
               fontFamily={tipografia.familia.mono}
-              color={cores.texto.corpo}
+              color={cores.text.body}
               fontWeight="400"
               fontSize="xs"
               letterSpacing="0.04em"
@@ -80,8 +80,8 @@ export function Navbar() {
               borderRadius={raio.md}
               onClick={() => aoClicarAncora(item.ancora)}
               _hover={{
-                color: cores.texto.titulo,
-                bg: cores.primaria.sutil,
+                color: cores.text.heading,
+                bg: cores.primary.subtle,
               }}
             >
               {item.rotulo}
@@ -93,8 +93,8 @@ export function Navbar() {
         <Button
           display={{ base: "none", md: "inline-flex" }}
           size="sm"
-          bg={cores.texto.titulo}
-          color={cores.bg.base}
+          bg={cores.text.heading}
+          color={cores.background.base}
           fontWeight="500"
           fontSize="sm"
           px="5"
@@ -102,7 +102,7 @@ export function Navbar() {
           ml="auto"
           flexShrink={0}
           onClick={() => aoClicarAncora("contato")}
-          _hover={{ bg: cores.primaria.hover }}
+          _hover={{ bg: cores.primary.hover }}
           transition={transicao.padrao}
         >
           Contato
@@ -116,7 +116,7 @@ export function Navbar() {
           gap="1.5"
           justify="center"
           align="center"
-          bg={cores.transparente}
+          bg={cores.transparent}
           border="none"
           p="1"
           ml="auto"
@@ -129,21 +129,21 @@ export function Navbar() {
           <Box
             w="20px"
             h="1.5px"
-            bg={cores.texto.titulo}
+            bg={cores.text.heading}
             transition={transicao.lenta}
             transform={menuAberto ? "translateY(6px) rotate(45deg)" : "none"}
           />
           <Box
             w="20px"
             h="1.5px"
-            bg={cores.texto.titulo}
+            bg={cores.text.heading}
             transition={transicao.lenta}
             opacity={menuAberto ? 0 : 1}
           />
           <Box
             w="20px"
             h="1.5px"
-            bg={cores.texto.titulo}
+            bg={cores.text.heading}
             transition={transicao.lenta}
             transform={menuAberto ? "translateY(-6px) rotate(-45deg)" : "none"}
           />
@@ -155,8 +155,8 @@ export function Navbar() {
         <Box
           as="nav"
           aria-label="Navegação mobile"
-          bg={cores.bg.overlayForte}
-          borderTop={`1px solid ${cores.borda.DEFAULT}`}
+          bg={cores.background.overlayStrong}
+          borderTop={`1px solid ${cores.border.DEFAULT}`}
           px="6"
           pt="4"
           pb="6"
@@ -171,15 +171,15 @@ export function Navbar() {
                 w="full"
                 justifyContent="flex-start"
                 fontFamily={tipografia.familia.mono}
-                color={cores.texto.corpo}
+                color={cores.text.body}
                 fontWeight="400"
                 fontSize="sm"
                 letterSpacing="0.02em"
                 borderRadius={raio.md}
                 onClick={() => aoClicarAncora(item.ancora)}
                 _hover={{
-                  color: cores.texto.titulo,
-                  bg: cores.primaria.sutil,
+                  color: cores.text.heading,
+                  bg: cores.primary.subtle,
                 }}
               >
                 {item.rotulo}
@@ -188,12 +188,12 @@ export function Navbar() {
             <Button
               mt="3"
               w="full"
-              bg={cores.texto.titulo}
-              color={cores.bg.base}
+              bg={cores.text.heading}
+              color={cores.background.base}
               fontWeight="500"
               borderRadius={raio.md}
               onClick={() => aoClicarAncora("contato")}
-              _hover={{ bg: cores.primaria.hover }}
+              _hover={{ bg: cores.primary.hover }}
             >
               Contato
             </Button>

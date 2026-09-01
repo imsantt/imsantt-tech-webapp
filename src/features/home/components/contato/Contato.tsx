@@ -128,11 +128,11 @@ export function Contato() {
                 <Text
                   fontSize="sm"
                   fontWeight="600"
-                  color={cores.sucesso.claro}
+                  color={cores.success.light}
                 >
                   Mensagem enviada com sucesso!
                 </Text>
-                <Text fontSize="xs" color={cores.texto.corpo} lineHeight="1.5">
+                <Text fontSize="xs" color={cores.text.body} lineHeight="1.5">
                   Obrigado pelo contato. Retorno em breve.
                 </Text>
               </Box>
@@ -144,7 +144,7 @@ export function Contato() {
               <Box fontSize="lg" flexShrink={0} aria-hidden="true">
                 ✕
               </Box>
-              <Text fontSize="sm" color={cores.erro.claro}>
+              <Text fontSize="sm" color={cores.danger.light}>
                 {erroGeral}
               </Text>
             </Box>
@@ -174,7 +174,7 @@ export function Contato() {
                 <Text
                   id="erro-nome"
                   fontSize="xs"
-                  color={cores.erro.claro}
+                  color={cores.danger.light}
                   mt="1"
                 >
                   {erroDoCampo("nome")}
@@ -202,7 +202,7 @@ export function Contato() {
                 <Text
                   id="erro-email"
                   fontSize="xs"
-                  color={cores.erro.claro}
+                  color={cores.danger.light}
                   mt="1"
                 >
                   {erroDoCampo("email")}
@@ -230,7 +230,7 @@ export function Contato() {
                 <Text
                   id="erro-mensagem"
                   fontSize="xs"
-                  color={cores.erro.claro}
+                  color={cores.danger.light}
                   mt="1"
                 >
                   {erroDoCampo("mensagem")}

@@ -24,8 +24,8 @@ function CardCategoria({ categoria }: { categoria: CategoriaHabilidade }) {
     <Box
       as="article"
       aria-labelledby={`cat-${categoria.id}`}
-      bg={cores.bg.card}
-      border={`1px solid ${cores.borda.DEFAULT}`}
+      bg={cores.background.card}
+      border={`1px solid ${cores.border.DEFAULT}`}
       borderRadius={raio["2xl"]}
       p={{ base: "6", md: "8" }}
       position="relative"
@@ -79,7 +79,7 @@ function CardCategoria({ categoria }: { categoria: CategoriaHabilidade }) {
           fontSize={{ base: "md", md: "lg" }}
           fontWeight={tipografia.peso.semibold}
           letterSpacing={tipografia.tracking.titulo}
-          color={cores.texto.titulo}
+          color={cores.text.heading}
         >
           {categoria.titulo}
         </Heading>
@@ -143,7 +143,7 @@ export function Habilidades() {
       as="main"
       id="conteudo-principal"
       minH="100svh"
-      bg={cores.bg.base}
+      bg={cores.background.base}
       pt={{ base: "28", md: "32" }}
       pb={{ base: "16", md: "24" }}
       px={{ base: "5", md: "12", lg: "24" }}
@@ -160,7 +160,7 @@ export function Habilidades() {
             <Box
               w="24px"
               h="1px"
-              bg={cores.acento.DEFAULT}
+              bg={cores.accent.DEFAULT}
               aria-hidden="true"
             />
             <Text
@@ -169,7 +169,7 @@ export function Habilidades() {
               fontWeight={tipografia.peso.medium}
               letterSpacing={tipografia.tracking.label}
               textTransform="uppercase"
-              color={cores.acento.claro}
+              color={cores.accent.light}
             >
               Índice · Competências
             </Text>
@@ -181,14 +181,14 @@ export function Habilidades() {
             fontWeight={tipografia.peso.light}
             letterSpacing={tipografia.tracking.tituloAmplo}
             lineHeight={String(tipografia.alturaLinha.titulo)}
-            color={cores.texto.titulo}
+            color={cores.text.heading}
           >
             Stack Completa
           </Heading>
 
           <Text
             fontSize="md"
-            color={cores.texto.corpo}
+            color={cores.text.body}
             maxW="52ch"
             lineHeight={String(tipografia.alturaLinha.relaxada)}
           >
@@ -210,7 +210,7 @@ export function Habilidades() {
           )}
 
           {isError && (
-            <Text color={cores.erro.claro} fontSize="sm">
+            <Text color={cores.danger.light} fontSize="sm">
               Não foi possível carregar as habilidades.
             </Text>
           )}

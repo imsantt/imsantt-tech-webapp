@@ -3,33 +3,33 @@ import { cores, tipografia, espacamento, raio, sombras } from "./tokens";
 
 describe("Design System Tokens", () => {
   describe("cores", () => {
-    it("deve ter cor primaria definida como hex válido", () => {
-      expect(cores.primaria.DEFAULT).toMatch(/^#[0-9a-f]{6}$/i);
+    it("deve ter cor primary definida como hex válido", () => {
+      expect(cores.primary.DEFAULT).toMatch(/^#[0-9a-f]{6}$/i);
     });
 
-    it("deve ter variações de primaria (hover, claro, escuro)", () => {
-      expect(cores.primaria.hover).toBeDefined();
-      expect(cores.primaria.claro).toBeDefined();
-      expect(cores.primaria.escuro).toBeDefined();
+    it("deve ter variações de primary (hover, light, dark)", () => {
+      expect(cores.primary.hover).toBeDefined();
+      expect(cores.primary.light).toBeDefined();
+      expect(cores.primary.dark).toBeDefined();
     });
 
     it("deve ter camadas de background ordenadas por luminosidade", () => {
-      expect(cores.bg.base).toBeDefined();
-      expect(cores.bg.sutil).toBeDefined();
-      expect(cores.bg.card).toBeDefined();
-      expect(cores.bg.elevado).toBeDefined();
+      expect(cores.background.base).toBeDefined();
+      expect(cores.background.subtle).toBeDefined();
+      expect(cores.background.card).toBeDefined();
+      expect(cores.background.elevated).toBeDefined();
     });
 
-    it("deve ter cores de texto com titulo, corpo e sutil", () => {
-      expect(cores.texto.titulo).toBeDefined();
-      expect(cores.texto.corpo).toBeDefined();
-      expect(cores.texto.sutil).toBeDefined();
+    it("deve ter cores de text com heading, body e subtle", () => {
+      expect(cores.text.heading).toBeDefined();
+      expect(cores.text.body).toBeDefined();
+      expect(cores.text.subtle).toBeDefined();
     });
 
-    it("deve ter cores semanticas de feedback (sucesso, erro, alerta, info)", () => {
-      expect(cores.sucesso.DEFAULT).toBeDefined();
-      expect(cores.erro.DEFAULT).toBeDefined();
-      expect(cores.alerta.DEFAULT).toBeDefined();
+    it("deve ter cores semanticas de feedback (success, danger, warning, info)", () => {
+      expect(cores.success.DEFAULT).toBeDefined();
+      expect(cores.danger.DEFAULT).toBeDefined();
+      expect(cores.warning.DEFAULT).toBeDefined();
       expect(cores.info.DEFAULT).toBeDefined();
     });
   });

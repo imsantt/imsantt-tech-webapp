@@ -22,9 +22,9 @@ export function CardExperienciaFooter({
             fontFamily={tipografia.familia.mono}
             fontSize="xs"
             fontWeight="400"
-            color={cores.texto.corpo}
-            bg={cores.primaria.sutil}
-            border={`1px solid ${cores.borda.DEFAULT}`}
+            color={cores.text.body}
+            bg={cores.primary.subtle}
+            border={`1px solid ${cores.border.DEFAULT}`}
             px="2"
             py="0.5"
             borderRadius={raio.sm}
@@ -40,16 +40,16 @@ export function CardExperienciaFooter({
         <chakra.button
           type="button"
           gap="1.5"
-          color={cores.texto.corpo}
+          color={cores.text.body}
           fontSize="sm"
           fontWeight="500"
           cursor="pointer"
           mt="auto"
           display="inline-flex"
           alignItems="center"
-          _hover={{ color: cores.texto.titulo, gap: "2.5" }}
+          _hover={{ color: cores.text.heading, gap: "2.5" }}
           _focusVisible={{
-            outline: `1px solid ${cores.acento.DEFAULT}`,
+            outline: `1px solid ${cores.accent.DEFAULT}`,
             outlineOffset: "2px",
           }}
           transition={transicao.rapida}

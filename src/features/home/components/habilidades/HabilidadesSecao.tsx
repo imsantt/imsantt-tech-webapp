@@ -107,7 +107,7 @@ export function HabilidadesSecao() {
           )}
 
           {isError && (
-            <Text color={cores.erro.claro} fontSize="sm">
+            <Text color={cores.danger.light} fontSize="sm">
               Não foi possível carregar as habilidades.
             </Text>
           )}

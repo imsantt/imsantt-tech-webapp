@@ -4,8 +4,8 @@ import { cores, tipografia, raio, transicao } from "./tokens";
 export const configGlobal = defineConfig({
   globalCss: {
     "html, body": {
-      background: cores.bg.base,
-      color: cores.texto.corpo,
+      background: cores.background.base,
+      color: cores.text.body,
       fontFamily: tipografia.familia.sans,
       fontSize: tipografia.tamanho.base,
       lineHeight: String(tipografia.alturaLinha.corpo),
@@ -21,32 +21,32 @@ export const configGlobal = defineConfig({
 
     // Seleção de texto — acento discreto em vez do azul padrão
     "::selection": {
-      background: cores.acento.borda,
-      color: cores.texto.titulo,
+      background: cores.accent.border,
+      color: cores.text.heading,
     },
 
     // Foco visível consistente e sóbrio (acessibilidade)
     "*:focus-visible": {
-      outline: `1px solid ${cores.acento.DEFAULT}`,
+      outline: `1px solid ${cores.accent.DEFAULT}`,
       outlineOffset: "2px",
     },
 
     // Scrollbar refinada
     "::-webkit-scrollbar": { width: "10px", height: "10px" },
-    "::-webkit-scrollbar-track": { background: cores.bg.base },
+    "::-webkit-scrollbar-track": { background: cores.background.base },
     "::-webkit-scrollbar-thumb": {
-      background: cores.borda.hover,
+      background: cores.border.hover,
       borderRadius: raio.full,
-      border: `2px solid ${cores.bg.base}`,
+      border: `2px solid ${cores.background.base}`,
     },
-    "::-webkit-scrollbar-thumb:hover": { background: cores.borda.hoverForte },
+    "::-webkit-scrollbar-thumb:hover": { background: cores.border.hoverStrong },
 
     ".pular-para-conteudo": {
       position: "absolute",
       top: "-100%",
       left: 0,
-      background: cores.texto.titulo,
-      color: cores.bg.base,
+      background: cores.text.heading,
+      color: cores.background.base,
       fontFamily: tipografia.familia.mono,
       fontSize: tipografia.tamanho.xs,
       fontWeight: String(tipografia.peso.medium),

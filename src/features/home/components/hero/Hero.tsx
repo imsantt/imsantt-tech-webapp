@@ -154,8 +154,8 @@ export function Hero() {
             left="-1px"
             w="20px"
             h="20px"
-            borderTop={`1px solid ${cores.acento.borda}`}
-            borderLeft={`1px solid ${cores.acento.borda}`}
+            borderTop={`1px solid ${cores.accent.border}`}
+            borderLeft={`1px solid ${cores.accent.border}`}
             zIndex={2}
             aria-hidden="true"
           />
@@ -165,8 +165,8 @@ export function Hero() {
             right="-1px"
             w="20px"
             h="20px"
-            borderBottom={`1px solid ${cores.acento.borda}`}
-            borderRight={`1px solid ${cores.acento.borda}`}
+            borderBottom={`1px solid ${cores.accent.border}`}
+            borderRight={`1px solid ${cores.accent.border}`}
             zIndex={2}
             aria-hidden="true"
           />
@@ -191,7 +191,7 @@ export function Hero() {
               <Box
                 w="6px"
                 h="6px"
-                bg={cores.acento.DEFAULT}
+                bg={cores.accent.DEFAULT}
                 aria-hidden="true"
               />
             </Flex>

@@ -48,8 +48,8 @@ export function CardExperienciaHeader({
           justifyContent="center"
           w="36px"
           h="36px"
-          bg={cores.primaria.sutil}
-          border={`1px solid ${cores.borda.DEFAULT}`}
+          bg={cores.primary.subtle}
+          border={`1px solid ${cores.border.DEFAULT}`}
           borderRadius={raio.md}
           flexShrink={0}
           aria-hidden="true"
@@ -57,17 +57,17 @@ export function CardExperienciaHeader({
           <Box
             as={FaBuilding}
             fontSize="13px"
-            color={isAtual ? cores.acento.claro : cores.texto.corpo}
+            color={isAtual ? cores.accent.light : cores.text.body}
           />
         </Box>
         <Box>
-          <Text fontSize="sm" fontWeight="600" color={cores.texto.titulo}>
+          <Text fontSize="sm" fontWeight="600" color={cores.text.heading}>
             {empresa}
           </Text>
           <Text
             fontFamily={tipografia.familia.mono}
             fontSize="xs"
-            color={cores.texto.sutil}
+            color={cores.text.subtle}
             letterSpacing="0.02em"
           >
             {periodo} · {duracao}
@@ -81,10 +81,10 @@ export function CardExperienciaHeader({
           fontFamily={tipografia.familia.mono}
           fontSize="xs"
           fontWeight="500"
-          color={cores.acento.claro}
+          color={cores.accent.light}
           px="2"
           py="1"
-          border={`1px solid ${cores.acento.borda}`}
+          border={`1px solid ${cores.accent.border}`}
           borderRadius={raio.sm}
           textTransform="uppercase"
           letterSpacing="0.08em"
@@ -93,7 +93,7 @@ export function CardExperienciaHeader({
             w="5px"
             h="5px"
             borderRadius={raio.full}
-            bg={cores.acento.DEFAULT}
+            bg={cores.accent.DEFAULT}
             aria-hidden="true"
           />
           Atual

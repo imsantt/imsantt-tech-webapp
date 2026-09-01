@@ -6,7 +6,7 @@ export const tituloColuna: SystemStyleObject = {
   fontFamily: tipografia.familia.mono,
   fontSize: "xs",
   fontWeight: "500",
-  color: cores.texto.sutil,
+  color: cores.text.subtle,
   textTransform: "uppercase",
   letterSpacing: tipografia.tracking.label,
 };
@@ -14,9 +14,9 @@ export const tituloColuna: SystemStyleObject = {
 /** Link de coluna do rodapé. */
 export const linkColuna: SystemStyleObject = {
   fontSize: "sm",
-  color: cores.texto.corpo,
+  color: cores.text.body,
   transition: transicao.rapida,
-  _hover: { color: cores.acento.claro },
+  _hover: { color: cores.accent.light },
 };
 
 /** Selo "Disponível para projetos". */
@@ -25,8 +25,8 @@ export const seloDisponivel: SystemStyleObject = {
   gap: "2.5",
   px: "3",
   py: "1.5",
-  bg: cores.primaria.sutil,
-  border: `1px solid ${cores.borda.DEFAULT}`,
+  bg: cores.primary.subtle,
+  border: `1px solid ${cores.border.DEFAULT}`,
   borderRadius: raio.sm,
 };
 
@@ -35,7 +35,7 @@ export const seloDisponivelTexto: SystemStyleObject = {
   fontSize: "xs",
   fontWeight: "400",
   letterSpacing: "0.03em",
-  color: cores.texto.corpo,
+  color: cores.text.body,
 };
 
 /** Botão de rede social. */
@@ -46,15 +46,15 @@ export const botaoRede: SystemStyleObject = {
   w: "38px",
   h: "38px",
   borderRadius: raio.md,
-  border: `1px solid ${cores.borda.DEFAULT}`,
-  bg: cores.transparente,
-  color: cores.texto.corpo,
+  border: `1px solid ${cores.border.DEFAULT}`,
+  bg: cores.transparent,
+  color: cores.text.body,
   cursor: "pointer",
   transition: transicao.padrao,
   _hover: {
-    color: cores.texto.titulo,
-    borderColor: cores.borda.hoverForte,
-    bg: cores.primaria.sutil,
+    color: cores.text.heading,
+    borderColor: cores.border.hoverStrong,
+    bg: cores.primary.subtle,
   },
 };
 
@@ -63,5 +63,5 @@ export const textoRodapeInferior: SystemStyleObject = {
   fontFamily: tipografia.familia.mono,
   fontSize: "xs",
   letterSpacing: "0.02em",
-  color: cores.texto.sutil,
+  color: cores.text.subtle,
 };

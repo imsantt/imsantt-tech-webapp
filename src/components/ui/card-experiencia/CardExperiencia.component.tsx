@@ -14,7 +14,7 @@ import { CardExperienciaFooter } from "./fragments/card-experiencia-footer/card-
 /** Acento cromático opcional aplicado ao card (fio superior, índice e hover). */
 export interface AcentoCard {
   base: string;
-  borda: string;
+  border: string;
   glow: string;
 }
 
@@ -36,8 +36,8 @@ function CardExperienciaInterna({
   const isAtual = !exp.dataTermino;
   const tagsVisiveis = exp.tecnologias.slice(0, card.maxTags);
 
-  const corFio = acento?.base ?? cores.acento.DEFAULT;
-  const corBorda = acento?.borda ?? cores.acento.borda;
+  const corFio = acento?.base ?? cores.accent.DEFAULT;
+  const corBorda = acento?.border ?? cores.accent.border;
   const corGlow = acento?.glow;
 
   return (
@@ -47,8 +47,8 @@ function CardExperienciaInterna({
       direction="column"
       gap="4"
       h={card.altura}
-      bg={isAtual ? cores.bg.elevado : cores.bg.card}
-      border={`1px solid ${isAtual ? corBorda : cores.borda.DEFAULT}`}
+      bg={isAtual ? cores.background.elevated : cores.background.card}
+      border={`1px solid ${isAtual ? corBorda : cores.border.DEFAULT}`}
       borderRadius={raio["2xl"]}
       p="6"
       position="relative"
@@ -97,7 +97,7 @@ function CardExperienciaInterna({
         as="h3"
         fontSize="md"
         fontWeight="700"
-        color={cores.texto.titulo}
+        color={cores.text.heading}
         lineHeight="1.3"
         minH={card.tituloMinAltura}
         pr="8"
@@ -124,7 +124,7 @@ function CardExperienciaInterna({
       {/* Descrição curta — no máximo 4 linhas, sem crescer além do necessário */}
       <Text
         fontSize="sm"
-        color={cores.texto.corpo}
+        color={cores.text.body}
         lineHeight="1.6"
         textAlign="justify"
         flex="0 1 auto"

@@ -26,7 +26,7 @@ export function Logo({
         fontFamily={tipografia.familia.mono}
         fontSize={tamanhoFonte}
         fontWeight={tipografia.peso.medium}
-        color={cores.texto.titulo}
+        color={cores.text.heading}
         letterSpacing="0.02em"
       >
         IMSANTT
@@ -36,7 +36,7 @@ export function Logo({
         fontFamily={tipografia.familia.mono}
         fontSize={tamanhoFonte}
         fontWeight={tipografia.peso.medium}
-        color={cores.texto.sutil}
+        color={cores.text.subtle}
         letterSpacing="0.02em"
       >
         TECH

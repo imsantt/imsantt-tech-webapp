@@ -8,7 +8,7 @@ export const secao: SystemStyleObject = {
   display: "flex",
   alignItems: "center",
   px: { base: "6", md: "12", lg: "24" },
-  bg: cores.bg.base,
+  bg: cores.background.base,
   position: "relative",
   overflow: "hidden",
 };
@@ -18,7 +18,7 @@ export const gradeFundo: SystemStyleObject = {
   position: "absolute",
   inset: "0",
   pointerEvents: "none",
-  backgroundImage: `linear-gradient(${cores.borda.sutil} 1px, transparent 1px), linear-gradient(90deg, ${cores.borda.sutil} 1px, transparent 1px)`,
+  backgroundImage: `linear-gradient(${cores.border.subtle} 1px, transparent 1px), linear-gradient(90deg, ${cores.border.subtle} 1px, transparent 1px)`,
   backgroundSize: "72px 72px",
   opacity: 0.6,
   maskImage:
@@ -41,7 +41,7 @@ export const grid: SystemStyleObject = {
 export const eyebrowTraco: SystemStyleObject = {
   w: "28px",
   h: "1px",
-  bg: cores.acento.DEFAULT,
+  bg: cores.accent.DEFAULT,
   flexShrink: 0,
 };
 
@@ -51,7 +51,7 @@ export const eyebrowTexto: SystemStyleObject = {
   fontWeight: tipografia.peso.medium,
   letterSpacing: tipografia.tracking.label,
   textTransform: "uppercase",
-  color: cores.acento.claro,
+  color: cores.accent.light,
 };
 
 export const titulo: SystemStyleObject = {
@@ -59,7 +59,7 @@ export const titulo: SystemStyleObject = {
   fontWeight: tipografia.peso.light,
   letterSpacing: tipografia.tracking.tituloAmplo,
   lineHeight: String(tipografia.alturaLinha.apertada),
-  color: cores.texto.titulo,
+  color: cores.text.heading,
 };
 
 export const tituloTraco: SystemStyleObject = {
@@ -67,21 +67,21 @@ export const tituloTraco: SystemStyleObject = {
   w: "64px",
   h: "2px",
   mt: "6",
-  bg: cores.acento.DEFAULT,
+  bg: cores.accent.DEFAULT,
 };
 
 export const papel: SystemStyleObject = {
   fontFamily: tipografia.familia.mono,
   fontSize: "sm",
   letterSpacing: "0.02em",
-  color: cores.texto.corpo,
+  color: cores.text.body,
 };
 
 export const descricao: SystemStyleObject = {
   fontSize: "md",
   textAlign: "justify",
   lineHeight: String(tipografia.alturaLinha.relaxada),
-  color: cores.texto.corpo,
+  color: cores.text.body,
   maxW: "52ch",
 };
 
@@ -91,14 +91,14 @@ export const metricasRegua: SystemStyleObject = {
   gap: { base: "8", sm: "12" },
   pt: "8",
   mt: "2",
-  borderTop: `1px solid ${cores.borda.DEFAULT}`,
+  borderTop: `1px solid ${cores.border.DEFAULT}`,
   flexWrap: "wrap",
 };
 
 export const metricaValor: SystemStyleObject = {
   fontSize: "2xl",
   fontWeight: tipografia.peso.light,
-  color: cores.texto.titulo,
+  color: cores.text.heading,
   lineHeight: "1",
   letterSpacing: tipografia.tracking.titulo,
 };
@@ -107,17 +107,17 @@ export const metricaRotulo: SystemStyleObject = {
   fontFamily: tipografia.familia.mono,
   fontSize: "xs",
   letterSpacing: "0.04em",
-  color: cores.texto.sutil,
+  color: cores.text.subtle,
 };
 
 /* ─── Retrato ────────────────────────────────────────────────────────────── */
 
 export const molduraRetrato: SystemStyleObject = {
   position: "relative",
-  border: `1px solid ${cores.borda.DEFAULT}`,
+  border: `1px solid ${cores.border.DEFAULT}`,
   borderRadius: raio["2xl"],
   overflow: "hidden",
-  bg: cores.bg.card,
+  bg: cores.background.card,
   boxShadow: sombras.destaque,
 };
 
@@ -137,7 +137,7 @@ export const faixaMetadadosTexto: SystemStyleObject = {
   fontFamily: tipografia.familia.mono,
   fontSize: "xs",
   letterSpacing: "0.06em",
-  color: cores.texto.titulo,
+  color: cores.text.heading,
 };
 
 /* ─── CTAs (<a> nativos, usam CSSProperties) ─────────────────────────────── */
@@ -155,18 +155,18 @@ const ctaBase: React.CSSProperties = {
 
 export const ctaPrimario: React.CSSProperties = {
   ...ctaBase,
-  backgroundColor: cores.texto.titulo,
-  color: cores.bg.base,
+  backgroundColor: cores.text.heading,
+  color: cores.background.base,
   transition: transicao.elevacao,
 };
 
 /** CTA secundário muda de aparência enquanto o download está ativo. */
 export const ctaSecundario = (baixando: boolean): React.CSSProperties => ({
   ...ctaBase,
-  color: baixando ? cores.acento.claro : cores.texto.titulo,
+  color: baixando ? cores.accent.light : cores.text.heading,
   border: baixando
-    ? `1px solid ${cores.acento.borda}`
-    : `1px solid ${cores.borda.hover}`,
-  backgroundColor: baixando ? cores.acento.sutil : cores.transparente,
+    ? `1px solid ${cores.accent.border}`
+    : `1px solid ${cores.border.hover}`,
+  backgroundColor: baixando ? cores.accent.subtle : cores.transparent,
   transition: transicao.lenta,
 });

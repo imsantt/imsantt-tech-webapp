@@ -14,8 +14,8 @@ export const MAX_TAGS_HOME = 6;
 export const cardHabilidade = (
   item: CategoriaHabilidade,
 ): SystemStyleObject => ({
-  bg: cores.bg.card,
-  border: `1px solid ${cores.borda.DEFAULT}`,
+  bg: cores.background.card,
+  border: `1px solid ${cores.border.DEFAULT}`,
   borderRadius: raio["2xl"],
   p: "7",
   position: "relative",
@@ -65,12 +65,12 @@ export const cardTitulo: SystemStyleObject = {
   fontSize: "lg",
   fontWeight: tipografia.peso.semibold,
   letterSpacing: tipografia.tracking.titulo,
-  color: cores.texto.titulo,
+  color: cores.text.heading,
 };
 
 export const cardDescricao: SystemStyleObject = {
   fontSize: "sm",
-  color: cores.texto.corpo,
+  color: cores.text.body,
   lineHeight: String(tipografia.alturaLinha.relaxada),
   flex: 1,
 };
@@ -96,8 +96,8 @@ export const cardTag = (item: CategoriaHabilidade): SystemStyleObject => ({
 export const secao: SystemStyleObject = {
   py: { base: "20", md: "28" },
   px: { base: "6", md: "12", lg: "24" },
-  bg: cores.bg.sutil,
-  borderTop: `1px solid ${cores.borda.DEFAULT}`,
+  bg: cores.background.subtle,
+  borderTop: `1px solid ${cores.border.DEFAULT}`,
 };
 
 export const cabecalhoGrid: SystemStyleObject = {
@@ -110,7 +110,7 @@ export const cabecalhoGrid: SystemStyleObject = {
 export const eyebrowTraco: SystemStyleObject = {
   w: "24px",
   h: "1px",
-  bg: cores.acento.DEFAULT,
+  bg: cores.accent.DEFAULT,
 };
 
 export const eyebrowTexto: SystemStyleObject = {
@@ -119,7 +119,7 @@ export const eyebrowTexto: SystemStyleObject = {
   fontWeight: tipografia.peso.medium,
   letterSpacing: tipografia.tracking.label,
   textTransform: "uppercase",
-  color: cores.acento.claro,
+  color: cores.accent.light,
 };
 
 export const titulo: SystemStyleObject = {
@@ -127,12 +127,12 @@ export const titulo: SystemStyleObject = {
   fontWeight: tipografia.peso.light,
   letterSpacing: tipografia.tracking.tituloAmplo,
   lineHeight: String(tipografia.alturaLinha.titulo),
-  color: cores.texto.titulo,
+  color: cores.text.heading,
 };
 
 export const subtitulo: SystemStyleObject = {
   fontSize: "md",
-  color: cores.texto.corpo,
+  color: cores.text.body,
   maxW: "46ch",
   lineHeight: String(tipografia.alturaLinha.relaxada),
 };
@@ -152,15 +152,15 @@ export const linkVerTodas: React.CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
   gap: "8px",
-  color: cores.texto.titulo,
+  color: cores.text.heading,
   fontFamily: tipografia.familia.mono,
   fontWeight: 500,
   fontSize: "13px",
   letterSpacing: "0.04em",
   padding: "12px 20px",
   borderRadius: raio.md,
-  border: `1px solid ${cores.borda.hover}`,
-  backgroundColor: cores.transparente,
+  border: `1px solid ${cores.border.hover}`,
+  backgroundColor: cores.transparent,
   textDecoration: "none",
   transition: transicao.lenta,
 };

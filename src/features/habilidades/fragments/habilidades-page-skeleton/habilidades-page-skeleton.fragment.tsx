@@ -10,7 +10,7 @@ export function HabilidadesPageSkeleton() {
     <Box
       as="main"
       minH="100svh"
-      bg={cores.bg.base}
+      bg={cores.background.base}
       pt={{ base: "28", md: "32" }}
       pb={{ base: "16", md: "24" }}
       px={{ base: "5", md: "12", lg: "24" }}
@@ -22,7 +22,7 @@ export function HabilidadesPageSkeleton() {
           <Box
             h="0.75rem"
             w="90px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.4}
             mx="auto"
@@ -30,7 +30,7 @@ export function HabilidadesPageSkeleton() {
           <Box
             h="2.5rem"
             w="240px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.md}
             opacity={0.3}
             mx="auto"
@@ -38,7 +38,7 @@ export function HabilidadesPageSkeleton() {
           <Box
             h="1rem"
             w="360px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.25}
             mx="auto"

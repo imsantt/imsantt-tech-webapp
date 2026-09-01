@@ -12,131 +12,131 @@ export const tokens = {
   // ─── Cores ───────────────────────────────────────────────────────────────────
 
   cores: {
-    // Primária (acento único — usado com parcimônia)
-    primaria: {
+    // Primary (ênfase neutra / ação principal — usado com parcimônia)
+    primary: {
       DEFAULT: "#e4e4e7",
       hover: "#ffffff",
-      claro: "#fafafa",
-      escuro: "#a1a1aa",
-      sutil: "rgba(255, 255, 255, 0.04)",
-      borda: "rgba(255, 255, 255, 0.14)",
-      bordaForte: "rgba(255, 255, 255, 0.28)",
+      light: "#fafafa",
+      dark: "#a1a1aa",
+      subtle: "rgba(255, 255, 255, 0.04)",
+      border: "rgba(255, 255, 255, 0.14)",
+      borderStrong: "rgba(255, 255, 255, 0.28)",
     },
 
-    // Acento de sinalização (link/foco/estado ativo) — âmbar frio, discreto
-    acento: {
+    // Accent de sinalização (link/foco/estado ativo) — âmbar frio, discreto
+    accent: {
       DEFAULT: "#c8b68f",
       hover: "#dccca6",
-      claro: "#e8dcc0",
-      sutil: "rgba(200, 182, 143, 0.08)",
-      borda: "rgba(200, 182, 143, 0.28)",
+      light: "#e8dcc0",
+      subtle: "rgba(200, 182, 143, 0.08)",
+      border: "rgba(200, 182, 143, 0.28)",
     },
 
-    // Secundária (ações alternativas / acentos complementares)
-    secundaria: {
+    // Secondary (ações alternativas / acentos complementares)
+    secondary: {
       DEFAULT: "#a1a1aa",
       hover: "#d4d4d8",
-      claro: "#e4e4e7",
-      sutil: "rgba(161, 161, 170, 0.1)",
+      light: "#e4e4e7",
+      subtle: "rgba(161, 161, 170, 0.1)",
     },
 
-    // Sucesso
-    sucesso: {
+    // Success
+    success: {
       DEFAULT: "#34d399",
-      claro: "#6ee7b7",
-      sutil: "rgba(52, 211, 153, 0.12)",
+      light: "#6ee7b7",
+      subtle: "rgba(52, 211, 153, 0.12)",
     },
 
-    // Alerta
-    alerta: {
+    // Warning
+    warning: {
       DEFAULT: "#d4b062",
-      claro: "#e5c983",
-      sutil: "rgba(212, 176, 98, 0.12)",
+      light: "#e5c983",
+      subtle: "rgba(212, 176, 98, 0.12)",
     },
 
-    // Erro
-    erro: {
+    // Danger
+    danger: {
       DEFAULT: "#e5675f",
-      claro: "#f0938c",
-      sutil: "rgba(229, 103, 95, 0.12)",
+      light: "#f0938c",
+      subtle: "rgba(229, 103, 95, 0.12)",
     },
 
     // Info
     info: {
       DEFAULT: "#7aa2c4",
-      claro: "#a3c2dc",
-      sutil: "rgba(122, 162, 196, 0.12)",
+      light: "#a3c2dc",
+      subtle: "rgba(122, 162, 196, 0.12)",
     },
 
     // Background (camadas de profundidade — tinta neutra fria)
-    bg: {
+    background: {
       base: "#0b0b0c",
-      sutil: "#0f0f11",
+      subtle: "#0f0f11",
       card: "#141416",
-      elevado: "#1a1a1d",
+      elevated: "#1a1a1d",
       overlay: "rgba(11, 11, 12, 0.72)",
-      overlayForte: "rgba(11, 11, 12, 0.96)",
+      overlayStrong: "rgba(11, 11, 12, 0.96)",
     },
 
-    // Texto
-    texto: {
-      titulo: "#fafafa",
-      corpo: "#a1a1aa",
-      sutil: "rgba(161, 161, 170, 0.55)",
-      invertido: "#0b0b0c",
+    // Text
+    text: {
+      heading: "#fafafa",
+      body: "#a1a1aa",
+      subtle: "rgba(161, 161, 170, 0.55)",
+      inverted: "#0b0b0c",
     },
 
-    // Bordas — fio de cabelo, quase invisíveis em repouso
-    borda: {
+    // Border — fio de cabelo, quase invisíveis em repouso
+    border: {
       DEFAULT: "rgba(255, 255, 255, 0.09)",
-      sutil: "rgba(255, 255, 255, 0.05)",
+      subtle: "rgba(255, 255, 255, 0.05)",
       hover: "rgba(255, 255, 255, 0.18)",
-      hoverForte: "rgba(255, 255, 255, 0.3)",
+      hoverStrong: "rgba(255, 255, 255, 0.3)",
     },
 
     // Neutros (auxiliares)
-    branco: "#ffffff",
-    preto: "#000000",
-    transparente: "transparent",
+    white: "#ffffff",
+    black: "#000000",
+    transparent: "transparent",
 
     // ─── Acentos por categoria ──────────────────────────────────────────────
     // Tons dessaturados e sóbrios — cor como sinal, não como preenchimento.
-    // Cada categoria expõe: base (ícone/tag/texto), fundo (chip), borda e glow.
-    categoria: {
-      violeta: {
+    // Cada categoria expõe: base (ícone/tag/texto), bg (chip), border e glow.
+    category: {
+      violet: {
         base: "#a99be0",
-        fundo: "rgba(139, 122, 214, 0.08)",
-        borda: "rgba(139, 122, 214, 0.24)",
+        bg: "rgba(139, 122, 214, 0.08)",
+        border: "rgba(139, 122, 214, 0.24)",
         glow: "rgba(139, 122, 214, 0.14)",
       },
-      esmeralda: {
+      emerald: {
         base: "#7fc9a6",
-        fundo: "rgba(88, 178, 138, 0.08)",
-        borda: "rgba(88, 178, 138, 0.24)",
+        bg: "rgba(88, 178, 138, 0.08)",
+        border: "rgba(88, 178, 138, 0.24)",
         glow: "rgba(88, 178, 138, 0.14)",
       },
-      ciano: {
+      cyan: {
         base: "#7bbcca",
-        fundo: "rgba(92, 168, 184, 0.08)",
-        borda: "rgba(92, 168, 184, 0.24)",
+        bg: "rgba(92, 168, 184, 0.08)",
+        border: "rgba(92, 168, 184, 0.24)",
         glow: "rgba(92, 168, 184, 0.14)",
       },
-      ambar: {
+      amber: {
         base: "#d3b483",
-        fundo: "rgba(200, 165, 110, 0.08)",
-        borda: "rgba(200, 165, 110, 0.26)",
+        bg: "rgba(200, 165, 110, 0.08)",
+        border: "rgba(200, 165, 110, 0.26)",
         glow: "rgba(200, 165, 110, 0.16)",
       },
-      dourado: {
+      gold: {
         base: "#cdbd7c",
-        fundo: "rgba(191, 170, 95, 0.08)",
-        borda: "rgba(191, 170, 95, 0.24)",
+        bg: "rgba(191, 170, 95, 0.08)",
+        border: "rgba(191, 170, 95, 0.24)",
         glow: "rgba(191, 170, 95, 0.14)",
       },
-      rosa: {
+      rose: {
         base: "#d69ba0",
-        fundo: "rgba(198, 122, 130, 0.08)",
-        borda: "rgba(198, 122, 130, 0.24)",
+        bg: "rgba(198, 122, 130, 0.08)",
+        border: "rgba(198, 122, 130, 0.24)",
         glow: "rgba(198, 122, 130, 0.14)",
       },
     },
