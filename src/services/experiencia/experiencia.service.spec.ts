@@ -1,10 +1,16 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import {
   listarExperiencias,
   buscarExperienciaPorId,
 } from "./experiencia.service";
 
 describe("experiencia.service", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.resetModules();
+    vi.unmock("@/stubs/experiencias.stub");
+  });
+
   describe("listarExperiencias", () => {
     it("deve retornar array de experiencias", async () => {
       const resultado = await listarExperiencias();
@@ -52,6 +58,26 @@ describe("experiencia.service", () => {
     it("deve retornar null quando id nao existe", async () => {
       const resultado = await buscarExperienciaPorId("nao-existe");
       expect(resultado).toBeNull();
+    });
+  });
+
+  describe("validação de schema na borda", () => {
+    it("descarta dados malformados, loga erro e retorna lista vazia", async () => {
+      const erroSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+      vi.resetModules();
+      vi.doMock("@/stubs/experiencias.stub", () => ({
+        // data_inicio ausente e tecnologias com tipo errado -> viola o schema
+        STUB_EXPERIENCIAS: [{ id: "x", empresa: "X", tecnologias: 123 }],
+      }));
+
+      const { listarExperiencias: listarComStubInvalido } =
+        await import("./experiencia.service");
+
+      const resultado = await listarComStubInvalido();
+
+      expect(resultado).toEqual([]);
+      expect(erroSpy).toHaveBeenCalled();
     });
   });
 });

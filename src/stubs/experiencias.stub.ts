@@ -1,16 +1,21 @@
-import { DateTime } from "luxon";
-import type { Experiencia } from "@/types/experiencia";
+import type { ExperienciaBruta } from "@/schemas/experiencia.schema";
 
-export const STUB_EXPERIENCIAS: Experiencia[] = [
+/**
+ * Dados simulados de experiências no formato BRUTO da fonte
+ * (snake_case, datas como string ISO), espelhando o que o Supabase
+ * retornará. Passam pelo schema + mapper no service, exatamente como
+ * os dados reais passarão na Fase 2.
+ */
+export const STUB_EXPERIENCIAS: ExperienciaBruta[] = [
   {
     id: "yduqs",
     empresa: "YDUQS",
     cargo:
       "Engenheiro de Software Fullstack Especialista | Apoio à Liderança Técnica",
-    dataInicio: DateTime.fromObject({ year: 2023, month: 11 }),
+    data_inicio: "2023-11",
     descricao:
       "Apoio direto à Liderança Técnica no alinhamento estratégico entre produto/negócio e arquitetura de software para os portais do maior grupo educacional do país.",
-    descricaoLonga:
+    descricao_longa:
       "Atuação híbrida entre engenharia e liderança técnica nos portais do maior grupo de educação superior privada do Brasil. Faço a ponte entre produto, negócio e engenharia — traduzindo objetivos estratégicos em decisões de arquitetura, definindo padrões de código e conduzindo revisões técnicas que sustentam plataformas de alto tráfego com milhões de estudantes.",
     local: "Remoto · Brasil",
     modelo: "remoto",
@@ -40,11 +45,11 @@ export const STUB_EXPERIENCIAS: Experiencia[] = [
     id: "senai",
     empresa: "SENAI/SC",
     cargo: "Instrutor em Desenvolvimento Web / Mentor Técnico",
-    dataInicio: DateTime.fromObject({ year: 2023, month: 5 }),
-    dataTermino: DateTime.fromObject({ year: 2023, month: 12 }),
+    data_inicio: "2023-05",
+    data_termino: "2023-12",
     descricao:
       "Liderança técnica de turmas do projeto DEVInHouse, instruindo sobre arquitetura moderna, código limpo e ecossistema React, Angular e TypeScript.",
-    descricaoLonga:
+    descricao_longa:
       "Instrutor e mentor técnico no DEVInHouse, programa de formação acelerada em parceria com empresas de tecnologia de Santa Catarina. Conduzi turmas do início ao mercado de trabalho, cobrindo desde fundamentos de front-end até arquitetura de aplicações e trabalho em equipe com metodologias ágeis.",
     local: "Florianópolis, SC · Remoto",
     modelo: "hibrido",
@@ -70,11 +75,11 @@ export const STUB_EXPERIENCIAS: Experiencia[] = [
     id: "act-digital",
     empresa: "act digital",
     cargo: "Engenheiro de Software Front-End Sr.",
-    dataInicio: DateTime.fromObject({ year: 2022, month: 7 }),
-    dataTermino: DateTime.fromObject({ year: 2023, month: 4 }),
+    data_inicio: "2022-07",
+    data_termino: "2023-04",
     descricao:
       "Arquitetura front-end do Internet Banking PJ (Banco ABC), módulo de pagamentos de alta complexidade transacional.",
-    descricaoLonga:
+    descricao_longa:
       "Responsável pela arquitetura front-end do Internet Banking PJ do Banco ABC, com foco no módulo de pagamentos — um dos fluxos mais críticos e de maior complexidade transacional da plataforma. Trabalho em ambiente regulado, com forte exigência de segurança, rastreabilidade e resiliência.",
     local: "Remoto · Brasil",
     modelo: "remoto",
@@ -99,11 +104,11 @@ export const STUB_EXPERIENCIAS: Experiencia[] = [
     id: "gama-academy",
     empresa: "Gama Academy",
     cargo: "Mentor em Desenvolvimento de Soluções Web",
-    dataInicio: DateTime.fromObject({ year: 2022, month: 8 }),
-    dataTermino: DateTime.fromObject({ year: 2022, month: 9 }),
+    data_inicio: "2022-08",
+    data_termino: "2022-09",
     descricao:
       "Mentoria técnica End-to-End para squads em programas de aceleração, cobrindo arquitetura de software e desenvolvimento fullstack.",
-    descricaoLonga:
+    descricao_longa:
       "Mentor técnico em programas de aceleração da Gama Academy, apoiando squads no desenvolvimento de soluções web end-to-end. Atuação concentrada em desbloquear equipes tecnicamente, revisar decisões de arquitetura e elevar a qualidade das entregas em ciclos curtos.",
     local: "Remoto · Brasil",
     modelo: "remoto",
@@ -125,11 +130,11 @@ export const STUB_EXPERIENCIAS: Experiencia[] = [
     id: "jdc",
     empresa: "JDC",
     cargo: "Analista Desenvolvedor Fullstack",
-    dataInicio: DateTime.fromObject({ year: 2021, month: 8 }),
-    dataTermino: DateTime.fromObject({ year: 2022, month: 7 }),
+    data_inicio: "2021-08",
+    data_termino: "2022-07",
     descricao:
       "Desenvolvimento fullstack com Angular, React, Node.js e PHP, além de modelagem e otimização de bancos de dados relacionais.",
-    descricaoLonga:
+    descricao_longa:
       "Desenvolvimento fullstack em múltiplos projetos, transitando entre Angular, React, Node.js e PHP conforme a stack de cada produto. Além do desenvolvimento de interfaces e APIs, atuei na modelagem e otimização de bancos de dados relacionais para sustentar consultas de alto volume.",
     local: "Brasil",
     modelo: "hibrido",
@@ -152,11 +157,11 @@ export const STUB_EXPERIENCIAS: Experiencia[] = [
     id: "framework",
     empresa: "framework",
     cargo: "Analista Desenvolvedor Front-End",
-    dataInicio: DateTime.fromObject({ year: 2020, month: 11 }),
-    dataTermino: DateTime.fromObject({ year: 2021, month: 7 }),
+    data_inicio: "2020-11",
+    data_termino: "2021-07",
     descricao:
       "Atuação no desenvolvimento e manutenção de plataformas de alta escala, com foco nos projetos Portal B2B e Portal Seminovos.",
-    descricaoLonga:
+    descricao_longa:
       "Desenvolvimento e manutenção de plataformas de alta escala nos projetos Portal B2B e Portal Seminovos. Responsável por interfaces dinâmicas de alta performance em Angular, fluxos de checkout, busca avançada e consumo de APIs em tempo real, além de componentização para acelerar entregas em ecossistemas de e-commerce.",
     local: "Brasil",
     modelo: "hibrido",
@@ -182,11 +187,11 @@ export const STUB_EXPERIENCIAS: Experiencia[] = [
     id: "spm-365",
     empresa: "SPM 365",
     cargo: "Desenvolvedor Fullstack",
-    dataInicio: DateTime.fromObject({ year: 2019, month: 9 }),
-    dataTermino: DateTime.fromObject({ year: 2020, month: 11 }),
+    data_inicio: "2019-09",
+    data_termino: "2020-11",
     descricao:
       "Desenvolvimento e sustentação de uma plataforma de jogos de alto tráfego, participando de todo o ciclo de vida do produto.",
-    descricaoLonga:
+    descricao_longa:
       "Primeira experiência profissional em desenvolvimento fullstack, atuando no ciclo de vida completo de uma plataforma de jogos de alto tráfego. Construí APIs robustas com PHP e Laravel, modernizei o front-end de AngularJS para Angular e trabalhei na modelagem e otimização de bancos MySQL, entregando interfaces responsivas de alta fidelidade visual.",
     local: "Brasil",
     modelo: "presencial",
