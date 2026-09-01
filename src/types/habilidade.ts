@@ -18,6 +18,7 @@ export interface CategoriaHabilidade {
   cor: string;
   corFundo: string;
   corBorda: string;
+  corGlow?: string;
   icone: IconType;
   iconeBg: string;
   iconeColor: string;

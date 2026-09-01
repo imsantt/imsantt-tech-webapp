@@ -14,8 +14,8 @@ export function CardExperienciaError() {
       justify="center"
       gap="3"
       h={componentes.card.altura}
-      bg={cores.bg.card}
-      border={`1px solid ${cores.erro.sutil}`}
+      bg={cores.background.card}
+      border={`1px solid ${cores.danger.subtle}`}
       borderRadius={raio["2xl"]}
       p="6"
       textAlign="center"
@@ -23,18 +23,18 @@ export function CardExperienciaError() {
       <Box
         as={FiAlertCircle}
         fontSize="24px"
-        color={cores.erro.claro}
+        color={cores.danger.light}
         aria-hidden="true"
       />
       <Heading
         as="h3"
         fontSize="sm"
         fontWeight="600"
-        color={cores.texto.titulo}
+        color={cores.text.heading}
       >
         Erro ao carregar
       </Heading>
-      <Text fontSize="xs" color={cores.texto.corpo} maxW="200px">
+      <Text fontSize="xs" color={cores.text.body} maxW="200px">
         Não foi possível exibir esta experiência.
       </Text>
     </Flex>

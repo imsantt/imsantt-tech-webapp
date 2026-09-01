@@ -11,7 +11,7 @@ export function HabilidadesSkeleton() {
       as="section"
       py={{ base: "16", md: "24" }}
       px={{ base: "6", md: "12", lg: "24" }}
-      bg={cores.bg.sutil}
+      bg={cores.background.subtle}
       role="status"
       aria-label="Carregando habilidades..."
     >
@@ -20,7 +20,7 @@ export function HabilidadesSkeleton() {
           <Box
             h="0.75rem"
             w="90px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.4}
             mx="auto"
@@ -28,7 +28,7 @@ export function HabilidadesSkeleton() {
           <Box
             h="2rem"
             w="200px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.md}
             opacity={0.3}
             mx="auto"
@@ -36,7 +36,7 @@ export function HabilidadesSkeleton() {
           <Box
             h="1rem"
             w="320px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.25}
             mx="auto"

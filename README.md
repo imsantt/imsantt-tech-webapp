@@ -335,7 +335,9 @@ feature/minha-feature
 
 ### Headers (Cloudflare `_headers`)
 
-- Content-Security-Policy (CSP) com `self`, fonts, imagens, `cloudflareinsights.com` e `sentry.io`
+- Content-Security-Policy (CSP) com `self`, fontes do Google, imagens (R2/Supabase), `cloudflareinsights.com` e `sentry.io`
+- `script-src` sem `'unsafe-inline'`: o único script inline (JSON-LD de SEO) é liberado por **hash SHA-256**. Ao alterar o bloco JSON-LD em `index.html`, recalcule o hash e atualize `public/_headers` (há aviso no próprio `index.html`)
+- `require-trusted-types-for 'script'` para reforço adicional contra DOM XSS
 - Strict-Transport-Security (HSTS)
 - X-Frame-Options: DENY
 - X-Content-Type-Options: nosniff
@@ -353,13 +355,30 @@ feature/minha-feature
 
 ### Frontend
 
-- Sanitização de inputs (anti-XSS)
+> **Importante:** os controles abaixo são camadas de **UX e defesa em profundidade**, não a barreira de segurança principal. A aplicação de regras reais (validação de payload, anti-abuso, rate limit por IP) é responsabilidade do backend — ver "Contato".
+
+- Sanitização de inputs (limpeza/UX; a proteção anti-XSS efetiva é o escape no ponto de renderização)
 - Validação de formulários com limites definidos
-- Rate limiting client-side
-- Logger estruturado (sem dados sensíveis em produção)
+- Rate limiting client-side (apenas evita envio acidental; contornável, não substitui limite server-side)
+- Logger estruturado (sem dados sensíveis em produção; e-mails mascarados)
 - Source maps ocultos (`sourcemap: "hidden"`)
 - Links externos com `noopener,noreferrer` via hook centralizado
 - Nenhum uso de `dangerouslySetInnerHTML`, `eval` ou `innerHTML`
+
+### Contato (backend)
+
+O formulário de contato envia os dados para a Supabase Edge Function `enviar-contato`
+(`supabase.functions.invoke("enviar-contato", ...)` em `src/services/contato/contato.service.ts`).
+
+As garantias de segurança **reais** do fluxo de contato ficam nessa função server-side, que deve:
+
+- validar e sanitizar o payload novamente (nunca confiar no cliente);
+- aplicar rate limiting por IP / anti-abuso (ex.: Cloudflare Turnstile ou WAF);
+- impor os mesmos limites de tamanho de `nome` / `email` / `mensagem`;
+- expor apenas erros genéricos ao cliente, sem vazar detalhes internos.
+
+O código da Edge Function e as policies (RLS) do Supabase devem ser versionados em `docker/supabase/`
+para permitir auditoria e reprodução.
 
 ### CI/CD
 

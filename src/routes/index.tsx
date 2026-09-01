@@ -9,7 +9,7 @@ function CarregandoPagina() {
   return (
     <Box
       minH="100svh"
-      bg={cores.bg.base}
+      bg={cores.background.base}
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -19,8 +19,8 @@ function CarregandoPagina() {
       <Box
         w="40px"
         h="40px"
-        border={`3px solid ${cores.borda.DEFAULT}`}
-        borderTop={`3px solid ${cores.primaria.claro}`}
+        border={`3px solid ${cores.border.DEFAULT}`}
+        borderTop={`3px solid ${cores.primary.light}`}
         borderRadius={raio.full}
         style={{ animation: "spin 0.7s linear infinite" }}
       />

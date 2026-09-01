@@ -11,8 +11,8 @@ export function CardSkeleton() {
       direction="column"
       gap="4"
       h={componentes.card.altura}
-      bg={cores.bg.card}
-      border={`1px solid ${cores.borda.sutil}`}
+      bg={cores.background.card}
+      border={`1px solid ${cores.border.subtle}`}
       borderRadius={raio["2xl"]}
       p="6"
       overflow="hidden"
@@ -21,14 +21,14 @@ export function CardSkeleton() {
       <Box
         h="1.3rem"
         w="80%"
-        bg={cores.borda.DEFAULT}
+        bg={cores.border.DEFAULT}
         borderRadius={raio.md}
         opacity={0.5}
       />
       <Box
         h="1.3rem"
         w="50%"
-        bg={cores.borda.DEFAULT}
+        bg={cores.border.DEFAULT}
         borderRadius={raio.md}
         opacity={0.3}
       />
@@ -38,7 +38,7 @@ export function CardSkeleton() {
         <Box
           w="38px"
           h="38px"
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           borderRadius={raio.lg}
           opacity={0.4}
         />
@@ -46,14 +46,14 @@ export function CardSkeleton() {
           <Box
             h="0.75rem"
             w="40%"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.4}
           />
           <Box
             h="0.6rem"
             w="60%"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.3}
           />
@@ -65,21 +65,21 @@ export function CardSkeleton() {
         <Box
           h="0.7rem"
           w="100%"
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           borderRadius={raio.sm}
           opacity={0.3}
         />
         <Box
           h="0.7rem"
           w="95%"
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           borderRadius={raio.sm}
           opacity={0.25}
         />
         <Box
           h="0.7rem"
           w="70%"
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           borderRadius={raio.sm}
           opacity={0.2}
         />
@@ -90,21 +90,21 @@ export function CardSkeleton() {
         <Box
           h="1.5rem"
           w="4rem"
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           borderRadius={raio.full}
           opacity={0.3}
         />
         <Box
           h="1.5rem"
           w="3.5rem"
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           borderRadius={raio.full}
           opacity={0.25}
         />
         <Box
           h="1.5rem"
           w="4.5rem"
-          bg={cores.borda.DEFAULT}
+          bg={cores.border.DEFAULT}
           borderRadius={raio.full}
           opacity={0.2}
         />

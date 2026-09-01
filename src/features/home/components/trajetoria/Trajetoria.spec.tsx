@@ -101,7 +101,7 @@ describe("Trajetoria", () => {
 
   it("deve renderizar o rotulo Trajetoria", () => {
     renderTrajetoria();
-    expect(screen.getByText("Trajetória")).toBeInTheDocument();
+    expect(screen.getByText("03 — Trajetória")).toBeInTheDocument();
   });
 
   it("deve renderizar subtitulo com anos dinamicos", () => {

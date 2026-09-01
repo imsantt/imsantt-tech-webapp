@@ -1,10 +1,11 @@
 import { Box, Flex, Grid, Heading, Link, Text, VStack } from "@chakra-ui/react";
 import { FiMail, FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 import { Logo } from "@/components/ui/logo/Logo";
-import { cores, raio, transicao, layout } from "@/lib/tema/tokens";
+import { cores, raio, layout } from "@/lib/tema/tokens";
 import { useConfiguracao } from "@/hooks/use-configuracao/useConfiguracao.hook";
 import { useAcessarLinkExterno } from "@/hooks/use-acessar-link-externo/useAcessarLinkExterno.hook";
 import type { RedeSocial } from "@/types/configuracao";
+import * as s from "./Footer.styles";
 
 const anoAtual = new Date().getFullYear();
 
@@ -31,8 +32,8 @@ export function Footer() {
     <Box
       as="footer"
       role="contentinfo"
-      borderTop={`1px solid ${cores.borda.DEFAULT}`}
-      bg={cores.bg.sutil}
+      borderTop={`1px solid ${cores.border.DEFAULT}`}
+      bg={cores.background.base}
     >
       {/* Conteúdo principal */}
       <Box
@@ -48,34 +49,21 @@ export function Footer() {
           {/* Coluna — Identidade */}
           <VStack align="flex-start" gap="4">
             <Logo />
-            <Text fontSize="sm" color={cores.texto.corpo} lineHeight="1.7">
+            <Text fontSize="sm" color={cores.text.body} lineHeight="1.7">
               Engenharia de software orientada a resultados, com foco em
               arquitetura escalável e experiências de alto impacto.
             </Text>
 
             {/* Status de disponibilidade */}
             {disponivel && (
-              <Flex
-                align="center"
-                gap="2"
-                px="3"
-                py="1.5"
-                bg="rgba(34, 197, 94, 0.08)"
-                border="1px solid rgba(34, 197, 94, 0.25)"
-                borderRadius={raio.full}
-              >
+              <Flex css={s.seloDisponivel}>
                 <Box
                   w="6px"
                   h="6px"
-                  bg={cores.sucesso.DEFAULT}
+                  bg={cores.success.DEFAULT}
                   borderRadius={raio.full}
-                  boxShadow={`0 0 6px ${cores.sucesso.DEFAULT}`}
                 />
-                <Text
-                  fontSize="xs"
-                  fontWeight="500"
-                  color={cores.sucesso.claro}
-                >
+                <Text css={s.seloDisponivelTexto}>
                   Disponível para projetos
                 </Text>
               </Flex>
@@ -91,22 +79,7 @@ export function Footer() {
                     as="button"
                     aria-label={rede.label}
                     onClick={() => acessar({ url: rede.href })}
-                    display="inline-flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    w="36px"
-                    h="36px"
-                    borderRadius={raio.lg}
-                    border={`1px solid ${cores.borda.DEFAULT}`}
-                    bg={cores.transparente}
-                    color={cores.texto.corpo}
-                    cursor="pointer"
-                    transition={transicao.padrao}
-                    _hover={{
-                      color: cores.primaria.claro,
-                      borderColor: cores.primaria.borda,
-                      bg: cores.primaria.sutil,
-                    }}
+                    css={s.botaoRede}
                   >
                     <Box as={Icone} fontSize="16px" />
                   </Box>
@@ -117,25 +90,11 @@ export function Footer() {
 
           {/* Coluna — Navegação */}
           <VStack align="flex-start" gap="3">
-            <Heading
-              as="h3"
-              fontSize="xs"
-              fontWeight="700"
-              color={cores.texto.titulo}
-              textTransform="uppercase"
-              letterSpacing="1px"
-            >
+            <Heading as="h3" css={s.tituloColuna}>
               Navegação
             </Heading>
             {navegacao.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                fontSize="sm"
-                color={cores.texto.corpo}
-                _hover={{ color: cores.primaria.claro }}
-                transition={transicao.rapida}
-              >
+              <Link key={link.label} href={link.href} css={s.linkColuna}>
                 {link.label}
               </Link>
             ))}
@@ -143,25 +102,11 @@ export function Footer() {
 
           {/* Coluna — Recursos */}
           <VStack align="flex-start" gap="3">
-            <Heading
-              as="h3"
-              fontSize="xs"
-              fontWeight="700"
-              color={cores.texto.titulo}
-              textTransform="uppercase"
-              letterSpacing="1px"
-            >
+            <Heading as="h3" css={s.tituloColuna}>
               Recursos
             </Heading>
             {linksAjuda.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                fontSize="sm"
-                color={cores.texto.corpo}
-                _hover={{ color: cores.primaria.claro }}
-                transition={transicao.rapida}
-              >
+              <Link key={link.label} href={link.href} css={s.linkColuna}>
                 {link.label}
               </Link>
             ))}
@@ -169,27 +114,14 @@ export function Footer() {
 
           {/* Coluna — Contato */}
           <VStack align="flex-start" gap="3">
-            <Heading
-              as="h3"
-              fontSize="xs"
-              fontWeight="700"
-              color={cores.texto.titulo}
-              textTransform="uppercase"
-              letterSpacing="1px"
-            >
+            <Heading as="h3" css={s.tituloColuna}>
               Contato
             </Heading>
 
             {contato.email && (
               <Flex align="center" gap="2">
-                <Box as={FiMail} color={cores.primaria.claro} boxSize="3.5" />
-                <Link
-                  href={`mailto:${contato.email}`}
-                  fontSize="sm"
-                  color={cores.texto.corpo}
-                  _hover={{ color: cores.primaria.claro }}
-                  transition={transicao.rapida}
-                >
+                <Box as={FiMail} color={cores.accent.light} boxSize="3.5" />
+                <Link href={`mailto:${contato.email}`} css={s.linkColuna}>
                   {contato.email}
                 </Link>
               </Flex>
@@ -199,7 +131,7 @@ export function Footer() {
       </Box>
 
       {/* Rodapé inferior — full width divider */}
-      <Box borderTop={`1px solid ${cores.borda.DEFAULT}`}>
+      <Box borderTop={`1px solid ${cores.border.DEFAULT}`}>
         <Flex
           maxW={layout.maxWidth}
           mx="auto"
@@ -210,17 +142,14 @@ export function Footer() {
           justify="space-between"
           gap="3"
         >
-          <Text fontSize="xs" color={cores.texto.sutil}>
+          <Text css={s.textoRodapeInferior}>
             © {anoAtual}{" "}
-            <Box as="span" color={cores.texto.corpo} fontWeight="500">
+            <Box as="span" color={cores.text.body} fontWeight="500">
               {nomeAutor}
             </Box>
-            . Feito com dedicação e ☕
           </Text>
 
-          <Text fontSize="xs" color={cores.texto.sutil}>
-            {cargo}
-          </Text>
+          <Text css={s.textoRodapeInferior}>{cargo}</Text>
         </Flex>
       </Box>
     </Box>

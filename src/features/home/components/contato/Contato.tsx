@@ -4,12 +4,13 @@ import {
   Button,
   Field,
   Heading,
+  HStack,
   Input,
   Text,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { cores, raio, sombras, layout } from "@/lib/tema/tokens";
+import { cores, layout } from "@/lib/tema/tokens";
 import {
   validarContato,
   sanitizarContato,
@@ -17,6 +18,7 @@ import {
 } from "@/lib/validacao";
 import { enviarMensagemContato } from "@/services/contato/contato.service";
 import { limiterContato } from "@/lib/rate-limiter";
+import * as s from "./Contato.styles";
 
 type StatusFormulario = "idle" | "validando" | "enviando" | "sucesso" | "erro";
 
@@ -27,21 +29,6 @@ interface DadosFormulario {
 }
 
 const estadoInicial: DadosFormulario = { nome: "", email: "", mensagem: "" };
-
-const estiloEntrada = {
-  bg: cores.bg.sutil,
-  border: "1px solid",
-  borderColor: cores.borda.DEFAULT,
-  borderRadius: raio.xl,
-  color: cores.texto.titulo,
-  fontSize: "sm",
-  _placeholder: { color: cores.texto.sutil },
-  _focus: {
-    borderColor: cores.primaria.claro,
-    boxShadow: sombras.input,
-    outline: "none",
-  },
-};
 
 export function Contato() {
   const [formulario, setFormulario] = useState<DadosFormulario>(estadoInicial);
@@ -55,7 +42,6 @@ export function Contato() {
     const { name, value } = e.target;
     setFormulario((prev) => ({ ...prev, [name]: value }));
 
-    // Limpar erro do campo ao digitar
     if (erros.length > 0) {
       setErros((prev) => prev.filter((erro) => erro.campo !== name));
     }
@@ -68,7 +54,6 @@ export function Contato() {
     e.preventDefault();
     setErroGeral("");
 
-    // Rate limiting
     if (!limiterContato.permitir()) {
       const espera = Math.ceil(limiterContato.tempoEspera() / 1000);
       setErroGeral(
@@ -78,7 +63,6 @@ export function Contato() {
       return;
     }
 
-    // Sanitizar e validar
     setStatus("validando");
     const dadosSanitizados = sanitizarContato(formulario);
     const errosValidacao = validarContato(dadosSanitizados);
@@ -89,7 +73,6 @@ export function Contato() {
       return;
     }
 
-    // Enviar
     setStatus("enviando");
 
     try {
@@ -113,58 +96,31 @@ export function Contato() {
       as="section"
       id="contato"
       aria-labelledby="contato-titulo"
-      py={{ base: "16", md: "24" }}
-      px="6"
-      bg={cores.bg.base}
+      css={s.secao}
     >
       <Box maxW={layout.maxWidthEstrito} mx="auto">
-        <VStack gap="4" mb={{ base: "10", md: "14" }} textAlign="center">
-          <Text
-            fontSize="xs"
-            fontWeight="700"
-            letterSpacing="1.5px"
-            textTransform="uppercase"
-            color={cores.primaria.claro}
-          >
-            Contato
-          </Text>
-          <Heading
-            as="h2"
-            id="contato-titulo"
-            fontSize={{ base: "3xl", md: "4xl" }}
-            fontWeight="700"
-            letterSpacing="-1px"
-            color={cores.texto.titulo}
-          >
+        <VStack
+          gap="5"
+          mb={{ base: "10", md: "14" }}
+          textAlign="left"
+          align="flex-start"
+        >
+          <HStack gap="3" align="center">
+            <Box css={s.eyebrowTraco} aria-hidden="true" />
+            <Text css={s.eyebrowTexto}>04 — Contato</Text>
+          </HStack>
+          <Heading as="h2" id="contato-titulo" css={s.titulo}>
             Vamos conversar
           </Heading>
-          <Text fontSize="md" color={cores.texto.corpo} lineHeight="1.6">
+          <Text css={s.subtitulo}>
             Tem um projeto em mente ou quer trocar uma ideia? Manda uma
             mensagem.
           </Text>
         </VStack>
 
-        <Box
-          bg={cores.bg.card}
-          border={`1px solid ${cores.borda.DEFAULT}`}
-          borderRadius={raio["2xl"]}
-          p={{ base: "6", md: "10" }}
-        >
-          {/* Feedback de sucesso */}
+        <Box css={s.cartao}>
           {isSucesso && (
-            <Box
-              display="flex"
-              alignItems="flex-start"
-              gap="3"
-              bg={cores.sucesso.sutil}
-              border={`1px solid rgba(34, 197, 94, 0.35)`}
-              borderRadius={raio.xl}
-              px="4"
-              py="3"
-              mb="6"
-              role="status"
-              aria-live="polite"
-            >
+            <Box css={s.feedbackSucesso} role="status" aria-live="polite">
               <Box fontSize="lg" flexShrink={0} aria-hidden="true">
                 ✓
               </Box>
@@ -172,61 +128,36 @@ export function Contato() {
                 <Text
                   fontSize="sm"
                   fontWeight="600"
-                  color={cores.sucesso.claro}
+                  color={cores.success.light}
                 >
                   Mensagem enviada com sucesso!
                 </Text>
-                <Text fontSize="xs" color={cores.texto.corpo} lineHeight="1.5">
+                <Text fontSize="xs" color={cores.text.body} lineHeight="1.5">
                   Obrigado pelo contato. Retorno em breve.
                 </Text>
               </Box>
             </Box>
           )}
 
-          {/* Feedback de erro geral */}
           {erroGeral && status === "erro" && (
-            <Box
-              display="flex"
-              alignItems="flex-start"
-              gap="3"
-              bg={cores.erro.sutil}
-              border={`1px solid rgba(239, 68, 68, 0.35)`}
-              borderRadius={raio.xl}
-              px="4"
-              py="3"
-              mb="6"
-              role="alert"
-              aria-live="assertive"
-            >
+            <Box css={s.feedbackErro} role="alert" aria-live="assertive">
               <Box fontSize="lg" flexShrink={0} aria-hidden="true">
                 ✕
               </Box>
-              <Text fontSize="sm" color={cores.erro.claro}>
+              <Text fontSize="sm" color={cores.danger.light}>
                 {erroGeral}
               </Text>
             </Box>
           )}
 
-          {/* Formulário */}
           <form
             noValidate
             aria-label="Formulário de contato"
             onSubmit={aoEnviar}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "24px",
-            }}
+            style={s.formulario}
           >
             <Field.Root invalid={!!erroDoCampo("nome")}>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="500"
-                color={cores.texto.titulo}
-                mb="2"
-              >
-                Nome
-              </Field.Label>
+              <Field.Label css={s.rotulo}>Nome</Field.Label>
               <Input
                 id="nome"
                 name="nome"
@@ -237,13 +168,13 @@ export function Contato() {
                 autoComplete="name"
                 disabled={isEnviando}
                 aria-describedby={erroDoCampo("nome") ? "erro-nome" : undefined}
-                {...estiloEntrada}
+                css={s.entrada}
               />
               {erroDoCampo("nome") && (
                 <Text
                   id="erro-nome"
                   fontSize="xs"
-                  color={cores.erro.claro}
+                  color={cores.danger.light}
                   mt="1"
                 >
                   {erroDoCampo("nome")}
@@ -252,14 +183,7 @@ export function Contato() {
             </Field.Root>
 
             <Field.Root invalid={!!erroDoCampo("email")}>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="500"
-                color={cores.texto.titulo}
-                mb="2"
-              >
-                E-mail
-              </Field.Label>
+              <Field.Label css={s.rotulo}>E-mail</Field.Label>
               <Input
                 id="email"
                 name="email"
@@ -272,13 +196,13 @@ export function Contato() {
                 aria-describedby={
                   erroDoCampo("email") ? "erro-email" : undefined
                 }
-                {...estiloEntrada}
+                css={s.entrada}
               />
               {erroDoCampo("email") && (
                 <Text
                   id="erro-email"
                   fontSize="xs"
-                  color={cores.erro.claro}
+                  color={cores.danger.light}
                   mt="1"
                 >
                   {erroDoCampo("email")}
@@ -287,14 +211,7 @@ export function Contato() {
             </Field.Root>
 
             <Field.Root invalid={!!erroDoCampo("mensagem")}>
-              <Field.Label
-                fontSize="sm"
-                fontWeight="500"
-                color={cores.texto.titulo}
-                mb="2"
-              >
-                Mensagem
-              </Field.Label>
+              <Field.Label css={s.rotulo}>Mensagem</Field.Label>
               <Textarea
                 id="mensagem"
                 name="mensagem"
@@ -307,13 +224,13 @@ export function Contato() {
                 aria-describedby={
                   erroDoCampo("mensagem") ? "erro-mensagem" : undefined
                 }
-                {...estiloEntrada}
+                css={s.entrada}
               />
               {erroDoCampo("mensagem") && (
                 <Text
                   id="erro-mensagem"
                   fontSize="xs"
-                  color={cores.erro.claro}
+                  color={cores.danger.light}
                   mt="1"
                 >
                   {erroDoCampo("mensagem")}
@@ -323,17 +240,11 @@ export function Contato() {
 
             <Button
               type="submit"
-              bg={cores.primaria.DEFAULT}
-              color={cores.branco}
-              fontWeight="600"
               size="lg"
-              px="8"
-              borderRadius={raio.xl}
-              alignSelf="flex-start"
               disabled={isEnviando}
               loading={isEnviando}
               loadingText="Enviando..."
-              _hover={{ bg: cores.primaria.hover }}
+              css={s.botaoEnviar}
             >
               Enviar mensagem
             </Button>

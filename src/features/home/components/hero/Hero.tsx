@@ -1,20 +1,51 @@
 import { useState, useRef, useEffect } from "react";
-import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
-import { FiDownload } from "react-icons/fi";
-import heroImg from "@/assets/profile.webp";
 import {
-  cores,
-  sombras,
-  raio,
-  transicao,
-  layout,
-  tipografia,
-} from "@/lib/tema/tokens";
-import { heroContent } from "../../data/hero";
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import { FiArrowUpRight, FiDownload } from "react-icons/fi";
+import { DateTime } from "luxon";
+import heroImg from "@/assets/profile.webp";
+import { useExperiencias } from "@/hooks/use-experiencias/useExperiencias.hook";
+import { cores, layout, tipografia } from "@/lib/tema/tokens";
+import { heroContent, type Metrica } from "../../data/hero";
+import * as s from "./Hero.styles";
 
 export function Hero() {
   const [baixando, setBaixando] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const { experiencias } = useExperiencias();
+
+  // Anos de carreira = ano atual − ano da experiência mais antiga.
+  const anoInicioMaisAntigo = experiencias.reduce<number | null>(
+    (maisAntigo, exp) => {
+      const ano = exp.dataInicio.year;
+      return maisAntigo === null || ano < maisAntigo ? ano : maisAntigo;
+    },
+    null,
+  );
+
+  const anosExperiencia =
+    anoInicioMaisAntigo !== null
+      ? DateTime.now().year - anoInicioMaisAntigo
+      : null;
+
+  const metricas: Metrica[] = [
+    ...(anosExperiencia !== null
+      ? [
+          {
+            valor: `+${anosExperiencia}`,
+            rotulo: heroContent.rotuloAnosExperiencia,
+          },
+        ]
+      : []),
+    ...heroContent.metricasFixas,
+  ];
 
   useEffect(() => {
     return () => clearTimeout(timeoutRef.current);
@@ -34,128 +65,53 @@ export function Hero() {
   };
 
   return (
-    <Box
-      as="section"
-      id="home"
-      aria-labelledby="hero-titulo"
-      minH="100svh"
-      display="flex"
-      alignItems="center"
-      px={{ base: "6", md: "12", lg: "24" }}
-      bg={cores.bg.base}
-      position="relative"
-      overflow="hidden"
-    >
-      {/* Glow de fundo */}
-      <Box
-        position="absolute"
-        top="0"
-        right="0"
-        w="55%"
-        h="100%"
-        background="radial-gradient(ellipse at 70% 40%, rgba(88,28,235,0.35) 0%, transparent 65%)"
-        pointerEvents="none"
-        aria-hidden="true"
-      />
+    <Box as="section" id="home" aria-labelledby="hero-titulo" css={s.secao}>
+      {/* Grade estrutural sutil de fundo — sem glow */}
+      <Box aria-hidden="true" css={s.gradeFundo} />
 
-      <Flex
-        maxW={layout.maxWidth}
-        mx="auto"
-        w="full"
-        align="center"
-        justify="space-between"
-        gap={{ base: "12", md: "16" }}
-        direction={{ base: "column-reverse", md: "row" }}
-        pt={{ base: "28", md: "0" }}
-        pb={{ base: "16", md: "0" }}
-      >
+      <Grid maxW={layout.maxWidth} mx="auto" css={s.grid}>
         {/* Coluna de texto */}
         <Flex
           direction="column"
-          gap="6"
-          maxW={{ md: "520px" }}
-          textAlign={{ base: "center", md: "left" }}
-          zIndex={1}
+          gap="8"
+          maxW={{ md: "560px" }}
+          textAlign="left"
         >
-          {/* Badge */}
-          <Box
-            as="span"
-            display="inline-flex"
-            alignItems="center"
-            gap="2"
-            fontSize="xs"
-            fontWeight="600"
-            color={cores.primaria.claro}
-            bg={cores.primaria.sutil}
-            border={`1px solid ${cores.primaria.borda}`}
-            px="3.5"
-            py="1.5"
-            borderRadius={raio.full}
-            w="fit-content"
-            mx={{ base: "auto", md: "0" }}
-          >
-            {heroContent.badge}
-          </Box>
+          {/* Eyebrow técnico — índice + papel */}
+          <Flex direction="column" gap="4">
+            <HStack gap="3" align="center">
+              <Box aria-hidden="true" css={s.eyebrowTraco} />
+              <Text as="span" css={s.eyebrowTexto}>
+                {heroContent.badge}
+              </Text>
+            </HStack>
+          </Flex>
 
           {/* Título */}
-          <Heading
-            as="h1"
-            id="hero-titulo"
-            fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
-            fontWeight={tipografia.peso.light}
-            letterSpacing="-2px"
-            lineHeight="1.0"
-            color={cores.texto.titulo}
-          >
-            {heroContent.nome}{" "}
-            <Box
-              as="span"
-              style={{
-                background: `linear-gradient(135deg, ${cores.primaria.claro} 0%, ${cores.primaria.DEFAULT} 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                fontWeight: `${tipografia.peso.normal}`,
-              }}
-            >
+          <Heading as="h1" id="hero-titulo" css={s.titulo}>
+            {heroContent.nome}
+            <br />
+            <Box as="span" fontWeight={tipografia.peso.normal}>
               {heroContent.sobrenome}
             </Box>
+            <Box as="span" aria-hidden="true" css={s.tituloTraco} />
           </Heading>
 
+          {/* Papel */}
+          <Text css={s.papel}>{heroContent.papel}</Text>
+
           {/* Descrição */}
-          <Text
-            fontSize="md"
-            lineHeight="1.7"
-            textAlign="justify"
-            color={cores.texto.corpo}
-          >
-            {heroContent.descricao}
-          </Text>
+          <Text css={s.descricao}>{heroContent.descricao}</Text>
 
           {/* CTAs */}
-          <HStack
-            gap="3"
-            flexWrap="wrap"
-            justify={{ base: "center", md: "flex-start" }}
-          >
+          <HStack gap="3" flexWrap="wrap" pt="1">
             <a
               href={`#${heroContent.ctaPrimario.ancora}`}
               onClick={aoClicarVerExperiencias}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                backgroundColor: cores.primaria.DEFAULT,
-                color: cores.branco,
-                fontWeight: 600,
-                fontSize: "16px",
-                padding: "12px 24px",
-                borderRadius: raio.lg,
-                textDecoration: "none",
-                transition: transicao.elevacao,
-              }}
+              style={s.ctaPrimario}
             >
-              {heroContent.ctaPrimario.texto} <span aria-hidden="true">↗</span>
+              {heroContent.ctaPrimario.texto}
+              <FiArrowUpRight size={16} aria-hidden="true" />
             </a>
 
             <a
@@ -163,70 +119,85 @@ export function Hero() {
               download={heroContent.ctaSecundario.arquivo.split("/").pop()}
               aria-label={heroContent.ctaSecundario.ariaLabel}
               onClick={aoClicarBaixar}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                color: baixando ? cores.primaria.claro : cores.texto.titulo,
-                fontWeight: 600,
-                fontSize: "16px",
-                padding: "12px 24px",
-                borderRadius: raio.lg,
-                border: baixando
-                  ? `1px solid ${cores.primaria.bordaForte}`
-                  : `1px solid ${cores.borda.hover}`,
-                backgroundColor: baixando
-                  ? cores.primaria.sutil
-                  : cores.transparente,
-                textDecoration: "none",
-                transition: transicao.lenta,
-              }}
+              style={s.ctaSecundario(baixando)}
             >
-              <FiDownload size={16} />
+              <FiDownload size={15} />
               {baixando
                 ? heroContent.ctaSecundario.textoAtivo
                 : heroContent.ctaSecundario.texto}
             </a>
           </HStack>
+
+          {/* Métricas — régua horizontal */}
+          <Flex css={s.metricasRegua}>
+            {metricas.map((m) => (
+              <Flex key={m.rotulo} direction="column" gap="1">
+                <Text css={s.metricaValor}>{m.valor}</Text>
+                <Text css={s.metricaRotulo}>{m.rotulo}</Text>
+              </Flex>
+            ))}
+          </Flex>
         </Flex>
 
-        {/* Imagem */}
+        {/* Retrato — moldura arquitetônica, sem glow circular */}
         <Box
           position="relative"
-          flexShrink={0}
-          zIndex={1}
+          w="full"
+          maxW={{ base: "320px", md: "none" }}
           mx={{ base: "auto", md: "0" }}
+          order={{ base: -1, md: 0 }}
         >
+          {/* Marca de registro no canto superior esquerdo */}
           <Box
             position="absolute"
-            top="50%"
-            left="50%"
-            transform="translate(-50%, -50%)"
-            w={{ base: "280px", md: "380px" }}
-            h={{ base: "280px", md: "380px" }}
-            background="radial-gradient(circle, rgba(124,58,237,0.55) 0%, transparent 68%)"
-            borderRadius={raio.full}
-            filter="blur(24px)"
-            pointerEvents="none"
+            top="-1px"
+            left="-1px"
+            w="20px"
+            h="20px"
+            borderTop={`1px solid ${cores.accent.border}`}
+            borderLeft={`1px solid ${cores.accent.border}`}
+            zIndex={2}
+            aria-hidden="true"
           />
-          <Image
-            src={heroImg}
-            alt={heroContent.imagem.alt}
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            w={{ base: "240px", md: "340px" }}
-            h={{ base: "240px", md: "340px" }}
-            borderRadius={raio.full}
-            objectFit="cover"
-            objectPosition="top center"
-            border={`2px solid ${cores.primaria.bordaForte}`}
-            position="relative"
-            zIndex={1}
-            boxShadow={sombras.destaque}
+          <Box
+            position="absolute"
+            bottom="-1px"
+            right="-1px"
+            w="20px"
+            h="20px"
+            borderBottom={`1px solid ${cores.accent.border}`}
+            borderRight={`1px solid ${cores.accent.border}`}
+            zIndex={2}
+            aria-hidden="true"
           />
+
+          <Box css={s.molduraRetrato}>
+            <Image
+              src={heroImg}
+              alt={heroContent.imagem.alt}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              w="full"
+              aspectRatio={{ base: "1", md: "4 / 5" }}
+              objectFit="cover"
+              objectPosition="top center"
+              filter="grayscale(0.15) contrast(1.02)"
+            />
+
+            {/* Faixa de metadados sobre a base da imagem */}
+            <Flex css={s.faixaMetadados}>
+              <Text css={s.faixaMetadadosTexto}>{heroContent.indice}</Text>
+              <Box
+                w="6px"
+                h="6px"
+                bg={cores.accent.DEFAULT}
+                aria-hidden="true"
+              />
+            </Flex>
+          </Box>
         </Box>
-      </Flex>
+      </Grid>
     </Box>
   );
 }

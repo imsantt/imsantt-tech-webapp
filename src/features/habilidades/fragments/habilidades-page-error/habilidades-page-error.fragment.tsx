@@ -9,7 +9,7 @@ export function HabilidadesPageError() {
     <Box
       as="main"
       minH="100svh"
-      bg={cores.bg.base}
+      bg={cores.background.base}
       pt={{ base: "28", md: "32" }}
       pb={{ base: "16", md: "24" }}
       px="6"
@@ -20,16 +20,16 @@ export function HabilidadesPageError() {
       <Box
         maxW={layout.maxWidthEstrito}
         p="10"
-        bg={cores.bg.card}
-        border={`1px solid ${cores.borda.DEFAULT}`}
+        bg={cores.background.card}
+        border={`1px solid ${cores.border.DEFAULT}`}
         borderRadius={raio["2xl"]}
         textAlign="center"
       >
         <VStack gap="3">
-          <Heading as="h2" fontSize="lg" color={cores.texto.titulo}>
+          <Heading as="h2" fontSize="lg" color={cores.text.heading}>
             Erro ao carregar habilidades
           </Heading>
-          <Text fontSize="sm" color={cores.texto.corpo}>
+          <Text fontSize="sm" color={cores.text.body}>
             Não foi possível carregar a página de habilidades. Tente recarregar.
           </Text>
         </VStack>

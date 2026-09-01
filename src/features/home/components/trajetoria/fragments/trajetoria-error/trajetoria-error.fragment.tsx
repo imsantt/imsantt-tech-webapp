@@ -8,16 +8,16 @@ export function TrajetoriaError() {
   return (
     <Box
       p="8"
-      bg={cores.bg.card}
-      border={`1px solid ${cores.borda.DEFAULT}`}
+      bg={cores.background.card}
+      border={`1px solid ${cores.border.DEFAULT}`}
       borderRadius={raio["2xl"]}
       textAlign="center"
     >
       <VStack gap="3">
-        <Heading as="h3" fontSize="lg" color={cores.texto.titulo}>
+        <Heading as="h3" fontSize="lg" color={cores.text.heading}>
           Erro ao carregar trajetória
         </Heading>
-        <Text fontSize="sm" color={cores.texto.corpo}>
+        <Text fontSize="sm" color={cores.text.body}>
           Não foi possível carregar as experiências profissionais. Tente
           recarregar a página.
         </Text>

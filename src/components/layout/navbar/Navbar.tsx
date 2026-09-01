@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 import { useScrollSuave } from "@/hooks/use-scroll-suave/useScrollSuave.hook";
 import { Logo } from "@/components/ui/logo/Logo";
-import { cores, layout, transicao } from "@/lib/tema/tokens";
+import { cores, layout, raio, tipografia, transicao } from "@/lib/tema/tokens";
 
 const itensNavegacao = [
   { rotulo: "Home", ancora: "home" },
@@ -40,9 +40,9 @@ export function Navbar() {
       zIndex={100}
       py={rolado ? "3" : "5"}
       borderBottom="1px solid"
-      borderColor={rolado ? cores.borda.DEFAULT : cores.transparente}
-      bg={rolado ? cores.bg.overlay : cores.transparente}
-      backdropFilter={rolado ? "blur(16px)" : "none"}
+      borderColor={rolado ? cores.border.DEFAULT : cores.transparent}
+      bg={rolado ? cores.background.overlay : cores.transparent}
+      backdropFilter={rolado ? "blur(20px) saturate(1.4)" : "none"}
       transition={transicao.lenta}
     >
       <HStack maxW={layout.maxWidth} mx="auto" px="6" gap="10" align="center">
@@ -71,14 +71,17 @@ export function Navbar() {
               key={item.ancora}
               variant="ghost"
               size="sm"
-              color={cores.texto.corpo}
-              fontWeight="500"
-              fontSize="sm"
+              fontFamily={tipografia.familia.mono}
+              color={cores.text.body}
+              fontWeight="400"
+              fontSize="xs"
+              letterSpacing="0.04em"
               px="3"
+              borderRadius={raio.md}
               onClick={() => aoClicarAncora(item.ancora)}
               _hover={{
-                color: cores.texto.titulo,
-                bg: "rgba(255,255,255,0.06)",
+                color: cores.text.heading,
+                bg: cores.primary.subtle,
               }}
             >
               {item.rotulo}
@@ -88,17 +91,18 @@ export function Navbar() {
 
         {/* Botão Contato desktop */}
         <Button
-          display={{ base: "none", md: "flex" }}
+          display={{ base: "none", md: "inline-flex" }}
           size="sm"
-          bg={cores.primaria.DEFAULT}
-          color={cores.branco}
-          fontWeight="600"
+          bg={cores.text.heading}
+          color={cores.background.base}
+          fontWeight="500"
+          fontSize="sm"
           px="5"
-          borderRadius="lg"
+          borderRadius={raio.md}
           ml="auto"
           flexShrink={0}
           onClick={() => aoClicarAncora("contato")}
-          _hover={{ bg: cores.primaria.hover, transform: "translateY(-1px)" }}
+          _hover={{ bg: cores.primary.hover }}
           transition={transicao.padrao}
         >
           Contato
@@ -112,7 +116,7 @@ export function Navbar() {
           gap="1.5"
           justify="center"
           align="center"
-          bg={cores.transparente}
+          bg={cores.transparent}
           border="none"
           p="1"
           ml="auto"
@@ -123,28 +127,25 @@ export function Navbar() {
           onClick={() => setMenuAberto((prev) => !prev)}
         >
           <Box
-            w="22px"
-            h="2px"
-            bg={cores.texto.titulo}
-            borderRadius="2px"
+            w="20px"
+            h="1.5px"
+            bg={cores.text.heading}
             transition={transicao.lenta}
-            transform={menuAberto ? "translateY(7px) rotate(45deg)" : "none"}
+            transform={menuAberto ? "translateY(6px) rotate(45deg)" : "none"}
           />
           <Box
-            w="22px"
-            h="2px"
-            bg={cores.texto.titulo}
-            borderRadius="2px"
+            w="20px"
+            h="1.5px"
+            bg={cores.text.heading}
             transition={transicao.lenta}
             opacity={menuAberto ? 0 : 1}
           />
           <Box
-            w="22px"
-            h="2px"
-            bg={cores.texto.titulo}
-            borderRadius="2px"
+            w="20px"
+            h="1.5px"
+            bg={cores.text.heading}
             transition={transicao.lenta}
-            transform={menuAberto ? "translateY(-7px) rotate(-45deg)" : "none"}
+            transform={menuAberto ? "translateY(-6px) rotate(-45deg)" : "none"}
           />
         </Flex>
       </HStack>
@@ -154,11 +155,12 @@ export function Navbar() {
         <Box
           as="nav"
           aria-label="Navegação mobile"
-          bg={cores.bg.overlayForte}
-          borderTop={`1px solid ${cores.borda.DEFAULT}`}
+          bg={cores.background.overlayStrong}
+          borderTop={`1px solid ${cores.border.DEFAULT}`}
           px="6"
           pt="4"
           pb="6"
+          mt={rolado ? "3" : "5"}
           display={{ md: "none" }}
         >
           <Flex direction="column" gap="1">
@@ -168,13 +170,16 @@ export function Navbar() {
                 variant="ghost"
                 w="full"
                 justifyContent="flex-start"
-                color={cores.texto.corpo}
-                fontWeight="500"
-                fontSize="md"
+                fontFamily={tipografia.familia.mono}
+                color={cores.text.body}
+                fontWeight="400"
+                fontSize="sm"
+                letterSpacing="0.02em"
+                borderRadius={raio.md}
                 onClick={() => aoClicarAncora(item.ancora)}
                 _hover={{
-                  color: cores.texto.titulo,
-                  bg: "rgba(255,255,255,0.06)",
+                  color: cores.text.heading,
+                  bg: cores.primary.subtle,
                 }}
               >
                 {item.rotulo}
@@ -183,12 +188,12 @@ export function Navbar() {
             <Button
               mt="3"
               w="full"
-              bg={cores.primaria.DEFAULT}
-              color={cores.branco}
-              fontWeight="600"
-              borderRadius="lg"
+              bg={cores.text.heading}
+              color={cores.background.base}
+              fontWeight="500"
+              borderRadius={raio.md}
               onClick={() => aoClicarAncora("contato")}
-              _hover={{ bg: cores.primaria.hover }}
+              _hover={{ bg: cores.primary.hover }}
             >
               Contato
             </Button>
