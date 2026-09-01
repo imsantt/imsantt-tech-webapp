@@ -46,7 +46,7 @@ describe("formacao.service (fonte Supabase + fallback)", () => {
       const { listarFormacao } = await importarService();
       const resultado = await listarFormacao();
 
-      expect(from).toHaveBeenCalledWith("formacao");
+      expect(from).toHaveBeenCalledWith("formacoes");
       expect(select).toHaveBeenCalledWith("*");
       expect(resultado.map((f) => f.id)).toEqual(["pos", "tecnico"]);
       expect(resultado[0].dataInicio.year).toBe(2025);

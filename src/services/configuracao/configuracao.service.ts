@@ -8,13 +8,13 @@ import { logger } from "@/lib/logger";
 /**
  * Service de configuração do site (contato, navegação, etc).
  *
- * Fonte: Supabase (`configuracao_site`, linha única) com fallback local.
+ * Fonte: Supabase (`configuracoes`, linha única) com fallback local.
  * A configuração é crítica para a UI (navegação, contato, rodapé); por isso,
  * uma falha de schema, de consulta ou de configuração NÃO retorna vazio:
  * loga o problema e devolve o stub local como fallback seguro.
  */
 
-const TABELA = "configuracao_site";
+const TABELA = "configuracoes";
 
 /** Fallback local sinalizado. */
 function usarStub(motivo: string): ConfiguracaoSite {

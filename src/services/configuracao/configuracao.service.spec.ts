@@ -43,7 +43,7 @@ describe("configuracao.service (fonte Supabase + fallback)", () => {
       const { obterConfiguracao } = await importarService();
       const config = await obterConfiguracao();
 
-      expect(from).toHaveBeenCalledWith("configuracao_site");
+      expect(from).toHaveBeenCalledWith("configuracoes");
       expect(select).toHaveBeenCalledWith("*");
       expect(single).toHaveBeenCalled();
       expect(config.nomeAutor).toBe("Robert Santos");
