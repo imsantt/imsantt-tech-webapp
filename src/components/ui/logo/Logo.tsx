@@ -7,20 +7,11 @@ interface LogoProps {
 }
 
 export function Logo({
-  tamanhoIcone = "28px",
-  tamanhoFonte = "lg",
+  tamanhoIcone = "22px",
+  tamanhoFonte = "sm",
 }: LogoProps) {
   return (
-    <Box display="inline-flex" alignItems="center" gap="0" userSelect="none">
-      <Box
-        as="span"
-        fontSize={tamanhoFonte}
-        fontWeight={tipografia.peso.light}
-        color={cores.texto.titulo}
-        letterSpacing="-0.5px"
-      >
-        IMSANTT
-      </Box>
+    <Box display="inline-flex" alignItems="center" gap="2" userSelect="none">
       <Image
         src="/images/logo.webp"
         alt=""
@@ -28,15 +19,25 @@ export function Logo({
         h={tamanhoIcone}
         objectFit="contain"
         display="inline-block"
-        mx="1"
         aria-hidden="true"
       />
       <Box
         as="span"
+        fontFamily={tipografia.familia.mono}
         fontSize={tamanhoFonte}
-        fontWeight={tipografia.peso.normal}
-        color={cores.primaria.claro}
-        letterSpacing="-0.5px"
+        fontWeight={tipografia.peso.medium}
+        color={cores.texto.titulo}
+        letterSpacing="0.02em"
+      >
+        IMSANTT
+      </Box>
+      <Box
+        as="span"
+        fontFamily={tipografia.familia.mono}
+        fontSize={tamanhoFonte}
+        fontWeight={tipografia.peso.medium}
+        color={cores.texto.sutil}
+        letterSpacing="0.02em"
       >
         TECH
       </Box>
