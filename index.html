@@ -24,7 +24,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
-    <meta name="theme-color" content="#7c3aed" />
+    <meta name="theme-color" content="#0b0b0c" />
 
     <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
     <meta property="og:type" content="website" />
@@ -62,18 +62,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Fonte Inter — carregada via link (não bloqueia render como @import) -->
+    <!-- Fontes Inter + JetBrains Mono — carregadas via link (não bloqueiam render como @import) -->
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     />
 
     <!-- Structured Data (JSON-LD) -->
+    <!--
+      ATENCAO: o CSP em public/_headers libera este bloco JSON-LD por um hash
+      SHA-256 do seu conteudo EXATO (incluindo indentacao). Se alterar o JSON-LD
+      abaixo, recalcule o hash e atualize o script-src em public/_headers.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
