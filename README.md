@@ -15,7 +15,7 @@ Portfolio pessoal e vitrine profissional de **Robert Santos** — Engenheiro de 
 
 Aplicação web moderna construída com foco em performance, acessibilidade e experiência do desenvolvedor. Serve como ponto central de presença online, apresentando trajetória, habilidades técnicas, projetos e iniciativas de impacto social.
 
-**Produção:** [imsantt.dev](https://imsantt.dev)
+**Produção:** [imsantt.tech](https://imsantt.tech)
 
 ## Stack
 
@@ -318,12 +318,12 @@ feature/minha-feature
       stage ──── CI: lint + audit + coverage + build
         │         Cloudflare: deploy preview em stage.*
         ▼ (PR → main)
-       main ──── Cloudflare: deploy produção em imsantt.dev
+       main ──── Cloudflare: deploy produção em imsantt.tech
 ```
 
 | Branch  | Ambiente | URL                                   |
 | ------- | -------- | ------------------------------------- |
-| `main`  | Produção | `imsantt.dev`                         |
+| `main`  | Produção | `imsantt.tech`                        |
 | `stage` | Preview  | `stage.imsantt-tech-webapp.pages.dev` |
 
 - Features criam branch a partir de `stage`
