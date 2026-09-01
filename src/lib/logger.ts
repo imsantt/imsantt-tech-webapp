@@ -24,30 +24,35 @@ interface LogEntry {
   timestamp: string;
 }
 
+const limitar = (valor: number, min: number, max: number): number =>
+  Math.min(Math.max(valor, min), max);
+
+/** Mantém os 2 primeiros caracteres e substitui o restante por asteriscos. */
+function mascararTrecho(
+  texto: string,
+  minEstrelas: number,
+  maxEstrelas: number,
+): string {
+  const estrelas = limitar(texto.length - 2, minEstrelas, maxEstrelas);
+  return texto.slice(0, 2) + "*".repeat(estrelas);
+}
+
 export function mascararEmail(email?: string): string {
   if (!email || typeof email !== "string") return "";
 
-  const emailNormalizado = email.trim();
-  if (!emailNormalizado.includes("@")) return emailNormalizado;
+  const normalizado = email.trim();
+  const arroba = normalizado.indexOf("@");
+  if (arroba < 1) return normalizado; // sem "@" ou usuário vazio
 
-  const [usuario, dominioCompleto] = emailNormalizado.split("@");
-  if (!usuario || !dominioCompleto) return emailNormalizado;
+  const usuario = normalizado.slice(0, arroba);
+  const dominioCompleto = normalizado.slice(arroba + 1);
+  const ponto = dominioCompleto.lastIndexOf(".");
+  if (ponto < 1) return normalizado; // domínio sem TLD válido
 
-  const dominio = dominioCompleto.split(".");
-  const tld = dominio[dominio.length - 1] ?? "";
-  const dominioBase = dominio.slice(0, -1).join(".") || dominio[0] || "";
+  const dominioBase = dominioCompleto.slice(0, ponto);
+  const tld = dominioCompleto.slice(ponto + 1);
 
-  const usuarioMascarado =
-    usuario.length <= 2
-      ? `${usuario.slice(0, 2)}${"*".repeat(Math.max(2, usuario.length))}`
-      : `${usuario.slice(0, 2)}${"*".repeat(Math.min(Math.max(usuario.length - 2, 2), 8))}`;
-
-  const dominioBaseMascarado =
-    dominioBase.length <= 2
-      ? `${dominioBase.slice(0, 2)}${"*".repeat(Math.max(2, dominioBase.length))}`
-      : `${dominioBase.slice(0, 2)}${"*".repeat(Math.min(Math.max(dominioBase.length - 2, 3), 3))}`;
-
-  return `${usuarioMascarado}@${dominioBaseMascarado}.${tld}`;
+  return `${mascararTrecho(usuario, 2, 8)}@${mascararTrecho(dominioBase, 3, 3)}.${tld}`;
 }
 
 function mascararContexto(contexto?: LogContext): LogContext | undefined {

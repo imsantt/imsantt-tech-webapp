@@ -20,16 +20,18 @@ export interface ErroValidacao {
  * Mantém texto útil, mas elimina padrões usados em XSS e atributos de evento.
  */
 export function sanitizar(valor: string): string {
-  return valor
-    .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "$1 ")
-    .replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, "$1 ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/(?:javascript|vbscript|data)\s*:/gi, "")
-    .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, " ")
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\u0000-\u001F\u007F]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  return (
+    valor
+      .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "$1 ")
+      .replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, "$1 ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/(?:javascript|vbscript|data)\s*:/gi, "")
+      .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, " ")
+      // eslint-disable-next-line no-control-regex
+      .replace(/[\u0000-\u001F\u007F]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
 }
 
 /**
@@ -39,7 +41,6 @@ export function sanitizar(valor: string): string {
 export function validarContato(dados: MensagemContato): ErroValidacao[] {
   const erros: ErroValidacao[] = [];
 
-  // Nome
   const nome = dados.nome.trim();
   if (!nome) {
     erros.push({ campo: "nome", mensagem: "Nome é obrigatório" });
@@ -50,7 +51,6 @@ export function validarContato(dados: MensagemContato): ErroValidacao[] {
     });
   }
 
-  // Email
   const email = dados.email.trim().toLowerCase();
   if (!email) {
     erros.push({ campo: "email", mensagem: "E-mail é obrigatório" });
@@ -63,7 +63,6 @@ export function validarContato(dados: MensagemContato): ErroValidacao[] {
     });
   }
 
-  // Mensagem
   const mensagem = dados.mensagem.trim();
   if (!mensagem) {
     erros.push({ campo: "mensagem", mensagem: "Mensagem é obrigatória" });

@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
+import * as Sentry from "@sentry/react";
 import { cores, raio } from "@/lib/tema/tokens";
 import { logger } from "@/lib/logger";
 
@@ -35,6 +36,10 @@ export class ErrorBoundary extends Component<
       erro: error.message,
       stack: error.stack,
       componentStack: errorInfo.componentStack,
+    });
+
+    Sentry.captureException(error, {
+      contexts: { react: { componentStack: errorInfo.componentStack } },
     });
   }
 
