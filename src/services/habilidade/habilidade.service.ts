@@ -1,33 +1,53 @@
 import type { CategoriaHabilidade } from "@/types/habilidade";
 import { STUB_HABILIDADES } from "@/stubs/habilidades.stub";
+import { categoriasHabilidadeSchema } from "@/schemas/habilidade/habilidade.schema";
 import { simularLatencia } from "@/lib/latencia";
+import { logger } from "@/lib/logger";
 
 /**
  * Service de habilidades/competências (seção Habilidades e página /habilidades).
- * Futuramente: supabase.from('habilidades').select('*').order('ordem')
+ *
+ * ─── DECISÃO DE FONTE (Fase 2) ───────────────────────────────────────────────
+ * Diferente de experiências/certificações/formação, habilidade NÃO foi migrada
+ * para o Supabase. O motivo é que `CategoriaHabilidade` mistura dado de negócio
+ * (id, titulo, nome, nivel) com APRESENTAÇÃO (icone: IconType e tokens de cor),
+ * que vivem no cliente e não são serializáveis. Manter no stub evita um
+ * resolvedor de ícone/cor prematuro e trabalho descartável.
+ *
+ * Evolução planejada (caminho 2): quando houver necessidade real de gerenciar
+ * habilidades via CMS, o Supabase guardará apenas os dados (id, titulo,
+ * descricao, nome, nivel e um identificador de ícone em string), e o cliente
+ * reidratará `icone`/cores por uma ALLOWLIST (nome permitido -> IconType/token).
+ * Nunca resolver ícone dinâmico sem allowlist.
  *
  * ─── GUARDRAIL DE SEGURANÇA (ao migrar do stub para dados remotos) ───────────
- * Hoje os dados vêm de um stub estático e confiável, sem risco. Ao passar a
- * consumir uma fonte externa (Supabase/API), os campos abaixo tornam-se dados
- * NÃO CONFIÁVEIS e precisam de cuidado ao serem exibidos:
+ * Ao consumir uma fonte externa, os campos de texto tornam-se dados NÃO
+ * CONFIÁVEIS. A validação de schema abaixo já cobre a borda:
  *
  * 1. Renderização de texto (titulo, descricao, nome): manter SEMPRE como texto
- *    via JSX ({valor}). NUNCA usar dangerouslySetInnerHTML com esses campos —
- *    isso reabriria vetor de XSS.
- * 2. `id` da categoria: é usado para montar âncoras de navegação (href={`#cat-${id}`})
- *    e ids de elementos. Validar/sanitizar para o padrão esperado (ex.: /^[a-z0-9-]+$/)
- *    antes de usar em href/id, evitando injeção de atributo ou seletores quebrados.
- * 3. `nivel`: só deve assumir os valores de NivelHabilidade
- *    ("especialista" | "avancado" | "proficiente"). Validar na entrada e descartar
- *    valores fora do enum, já que ele indexa mapas (ROTULO_NIVEL/OPACIDADE_NIVEL).
- * 4. `icone`: no stub é uma referência a componente (IconType). NÃO aceitar nome
- *    de ícone vindo da rede para resolver dinamicamente sem uma allowlist —
- *    manter o mapeamento nome→componente no cliente.
- *
- * Recomendação: validar/normalizar a resposta remota (ex.: schema Zod) neste
- * service antes de devolvê-la às camadas de UI.
+ *    via JSX ({valor}). NUNCA usar dangerouslySetInnerHTML com esses campos.
+ * 2. `id` da categoria: usado em âncoras/hrefs (`#cat-${id}`); o schema valida
+ *    o padrão /^[a-z0-9-]+$/ e descarta valores fora dele.
+ * 3. `nivel`: validado contra o enum NivelHabilidade; valores fora são rejeitados.
+ * 4. `icone`: é um componente (IconType), NÃO é validado nem aceito da rede —
+ *    o mapeamento nome→componente permanece no cliente (allowlist).
  */
+function validar(categorias: unknown): CategoriaHabilidade[] {
+  const resultado = categoriasHabilidadeSchema.safeParse(categorias);
+
+  if (!resultado.success) {
+    logger.error("Habilidades com formato inválido — descartando resposta", {
+      erros: resultado.error.issues,
+    });
+    return [];
+  }
+
+  // A validação garante o contrato dos campos serializáveis; devolvemos o
+  // objeto original, que preserva o `icone` (IconType) resolvido no cliente.
+  return STUB_HABILIDADES;
+}
+
 export async function listarHabilidades(): Promise<CategoriaHabilidade[]> {
   await simularLatencia(200);
-  return STUB_HABILIDADES;
+  return validar(STUB_HABILIDADES);
 }

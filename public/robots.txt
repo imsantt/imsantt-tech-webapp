@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://imsantt.dev/sitemap.xml
+Sitemap: https://imsantt.tech/sitemap.xml

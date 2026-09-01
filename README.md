@@ -15,29 +15,30 @@ Portfolio pessoal e vitrine profissional de **Robert Santos** — Engenheiro de 
 
 Aplicação web moderna construída com foco em performance, acessibilidade e experiência do desenvolvedor. Serve como ponto central de presença online, apresentando trajetória, habilidades técnicas, projetos e iniciativas de impacto social.
 
-**Produção:** [imsantt.dev](https://imsantt.dev)
+**Produção:** [imsantt.tech](https://imsantt.tech)
 
 ## Stack
 
-| Camada           | Tecnologia                                                   |
-| ---------------- | ------------------------------------------------------------ |
-| Framework        | React 19                                                     |
-| Build            | Vite 8                                                       |
-| Linguagem        | TypeScript 6                                                 |
-| UI Library       | Chakra UI v3 + Framer Motion                                 |
-| Design System    | Tokens centralizados (cores, tipografia, espaçamento em rem) |
-| Roteamento       | React Router v7                                              |
-| Data Fetching    | SWR                                                          |
-| Datas            | Luxon                                                        |
-| Ícones           | React Icons (fa6, si, tb, ti, gr, md, di, pi, fi)            |
-| Backend (futuro) | Supabase                                                     |
-| Storage          | Cloudflare R2 (currículo PDF)                                |
-| Observabilidade  | Sentry (tracing, replay, logs, release tracking)             |
-| Testes           | Vitest + React Testing Library                               |
-| Cobertura        | v8 com threshold ≥ 80%                                       |
-| Deploy           | Cloudflare Pages + headers de segurança                      |
-| CI               | GitHub Actions (lint + audit + coverage + build)             |
-| Commits          | Husky + Commitlint + Commitizen                              |
+| Camada          | Tecnologia                                                   |
+| --------------- | ------------------------------------------------------------ |
+| Framework       | React 19                                                     |
+| Build           | Vite 8                                                       |
+| Linguagem       | TypeScript 6                                                 |
+| UI Library      | Chakra UI v3 + Framer Motion                                 |
+| Design System   | Tokens centralizados (cores, tipografia, espaçamento em rem) |
+| Roteamento      | React Router v7                                              |
+| Data Fetching   | SWR                                                          |
+| Validação       | Zod (schema em runtime na borda dos services)                |
+| Datas           | Luxon                                                        |
+| Ícones          | React Icons (fa6, si, tb, ti, gr, md, di, pi, fi)            |
+| Dados / Backend | Supabase (leitura de dados, com fallback para stub)          |
+| Storage         | Cloudflare R2 (currículo PDF)                                |
+| Observabilidade | Sentry (tracing, replay, logs, release tracking)             |
+| Testes          | Vitest + React Testing Library                               |
+| Cobertura       | v8 com threshold ≥ 80%                                       |
+| Deploy          | Cloudflare Pages + headers de segurança                      |
+| CI              | GitHub Actions (lint + audit + coverage + build)             |
+| Commits         | Husky + Commitlint + Commitizen                              |
 
 ## Estrutura do Projeto
 
@@ -79,27 +80,48 @@ src/
 │   │   │   │   └── fragments/
 │   │   │   │       ├── trajetoria-skeleton/
 │   │   │   │       └── trajetoria-error/
+│   │   │   ├── servicos/
+│   │   │   │   ├── Servicos.tsx + spec
+│   │   │   │   └── fragments/
+│   │   │   │       ├── servicos-skeleton/
+│   │   │   │       └── servicos-error/
 │   │   │   ├── contato/
 │   │   │   │   ├── Contato.tsx + spec
 │   │   │   │   └── fragments/
 │   │   │   │       ├── contato-skeleton/
 │   │   │   │       └── contato-error/
-│   │   │   └── index.ts                # Lazy exports (React.lazy)
+│   │   │   └── index.ts                # Lazy exports (lazyComRetry)
 │   │   ├── data/                        # Dados estáticos (hero)
 │   │   └── Home.tsx + spec
-│   └── habilidades/
-│       ├── Habilidades.tsx + spec       # Página /habilidades
+│   ├── habilidades/
+│   │   ├── Habilidades.tsx + spec       # Página /habilidades
+│   │   └── fragments/
+│   │       ├── habilidades-page-skeleton/
+│   │       └── habilidades-page-error/
+│   └── experiencias/                    # Página /experiencias (Trajetória & Formação)
+│       ├── Experiencias.tsx + spec      # Navegação por abas (tablist acessível)
 │       └── fragments/
-│           ├── habilidades-page-skeleton/
-│           └── habilidades-page-error/
+│           ├── experiencias-timeline/   # Aba Experiência Profissional
+│           ├── formacao-timeline/       # Aba Formação Acadêmica
+│           ├── certificacoes-grid/      # Aba Cursos & Certificações
+│           ├── item-timeline/           # Item da timeline de experiência
+│           ├── item-formacao/           # Item da timeline de formação
+│           ├── card-certificacao/       # Card de certificação
+│           ├── chip-filtro/             # Chip de filtro
+│           ├── meta-chip/               # Chip de metadados (local, modelo, tipo)
+│           └── experiencias-page-skeleton/
 ├── hooks/
 │   ├── use-acessar-link-externo/        # Hook para links externos (window.open)
 │   ├── use-configuracao/                # Hook SWR para config do site
 │   ├── use-experiencias/                # Hook SWR para experiências
+│   ├── use-certificacoes/               # Hook SWR para certificações
+│   ├── use-formacao/                    # Hook SWR para formação acadêmica
 │   ├── use-habilidades/                 # Hook SWR para habilidades
 │   └── use-scroll-suave/               # Navegação interna suave
 ├── lib/
 │   ├── env.ts                           # Variáveis de ambiente centralizadas
+│   ├── lazy-com-retry.ts                # React.lazy com retry em falha de chunk
+│   ├── latencia.ts                      # simularLatencia (usada no fallback de stub)
 │   ├── logger.ts                        # Logger estruturado (prod-aware)
 │   ├── rate-limiter.ts                  # Rate limiting client-side
 │   ├── validacao.ts                     # Validação e sanitização de inputs
@@ -114,20 +136,32 @@ src/
 │   ├── not-found/                       # NotFound.tsx + spec
 │   └── index.ts                         # Lazy exports (React.lazy)
 ├── routes/                              # AppRoutes com Suspense + lazy loading
-├── services/
+├── schemas/                             # Schemas Zod do formato bruto da fonte (validação na borda)
+│   ├── experiencia/                     # experiencia.schema.ts + spec
+│   ├── certificacao/                    # certificacao.schema.ts + spec
+│   ├── formacao/                        # formacao.schema.ts + spec
+│   ├── habilidade/                      # habilidade.schema.ts + spec (valida só campos serializáveis)
+│   └── configuracao/                    # configuracao.schema.ts + spec
+├── services/                            # fonte → validação (schema) → mapper → domínio
 │   ├── configuracao/                    # Serviço de configuração do site
 │   ├── contato/                         # Serviço de envio de mensagem
-│   ├── experiencia/                     # Serviço de experiências profissionais
+│   ├── experiencia/                     # experiencia.service.ts + experiencia.mapper.ts + specs
+│   ├── certificacao/                    # certificacao.service.ts + certificacao.mapper.ts + specs
+│   ├── formacao/                        # formacao.service.ts + formacao.mapper.ts + specs
 │   └── habilidade/                      # Serviço de habilidades técnicas
 ├── stubs/
 │   ├── configuracao.stub.ts             # Mock de configuração (redes sociais, cargo)
-│   ├── experiencias.stub.ts             # Mock de experiências profissionais
-│   └── habilidades.stub.ts             # Mock de habilidades (6 categorias)
+│   ├── experiencias.stub.ts             # Mock de experiências (formato bruto, snake_case)
+│   ├── certificacoes.stub.ts            # Mock de certificações (formato bruto)
+│   ├── formacao.stub.ts                 # Mock de formação acadêmica (formato bruto)
+│   └── habilidades.stub.ts             # Mock de habilidades (6 categorias, com IconType do cliente)
 ├── tests/                               # Setup + helpers (renderComProviders)
 └── types/
     ├── configuracao.ts                  # ConfiguracaoSite, RedeSocial
     ├── contato.ts
     ├── experiencia.ts
+    ├── certificacao.ts                  # Certificacao, CategoriaCertificacao
+    ├── formacao.ts                      # FormacaoAcademica, GrauFormacao
     └── habilidade.ts                    # CategoriaHabilidade, Habilidade
 ```
 
@@ -165,16 +199,37 @@ Status possíveis: `skeleton`, `error`, ou partes composicionais (`header`, `foo
 | ----------------------- | ------------------------------------------------------------- |
 | `useHabilidades`        | Busca categorias de habilidades via SWR                       |
 | `useExperiencias`       | Busca experiências profissionais via SWR                      |
+| `useCertificacoes`      | Busca cursos e certificações via SWR                          |
+| `useFormacao`           | Busca formação acadêmica via SWR                              |
 | `useConfiguracao`       | Busca configuração do site (redes, cargo, disponibilidade)    |
 | `useAcessarLinkExterno` | Abre links externos com `window.open` + `noopener,noreferrer` |
 | `useScrollSuave`        | Scroll suave para âncoras internas                            |
 
-### Fonte Única de Dados
+### Fonte de Dados e Contrato
 
-- **Stubs** (`src/stubs/`): dados mock que simulam o retorno futuro do Supabase
-- **Services**: importam dos stubs e aplicam delay (simula latência de rede)
-- **Hooks**: consomem services via SWR (cache, revalidação, deduplicação)
-- **Componentes**: consomem hooks — nunca importam stubs diretamente
+O fluxo de dados é blindado por um contrato validado em runtime, o que mantém a
+fronteira fina o suficiente para trocar de fonte (stub → Supabase → backend
+próprio) sem tocar em hooks ou componentes:
+
+- **Schemas** (`src/schemas/`): descrevem o formato **bruto** da fonte
+  (snake_case, datas ISO), validado com Zod na borda do service. Dado
+  malformado é logado e descartado — nunca chega à UI.
+- **Mappers** (`services/<dominio>/<dominio>.mapper.ts`): ponto único de
+  conversão fonte → domínio (snake_case/ISO → camelCase/`DateTime`). Isolar a
+  conversão aqui evita que o formato bruto vaze para as camadas superiores.
+- **Services**: buscam da fonte, validam pelo schema e mapeiam. A fonte é o
+  **Supabase** quando as variáveis de ambiente estão configuradas, com
+  **fallback sinalizado** (log) para o stub local quando não há configuração ou
+  a consulta falha — sem fallback silencioso.
+- **Stubs** (`src/stubs/`): dados no mesmo formato bruto do Supabase, usados
+  como fallback e para desenvolvimento local.
+- **Hooks**: consomem services via SWR (cache, revalidação, deduplicação).
+- **Componentes**: consomem hooks — nunca importam stubs ou tocam na fonte.
+
+> **Habilidades** permanece client-owned (stub): o tipo mistura dado com
+> apresentação (`IconType` e tokens de cor, não serializáveis). O schema valida
+> os campos serializáveis; a migração para dados remotos (com resolvedor de
+> ícone/cor via allowlist) fica documentada no próprio service como evolução.
 
 ## Design System
 
@@ -205,11 +260,12 @@ transition={transicao.elevacao}
 
 ## Páginas
 
-| Rota           | Componente  | Descrição                                 |
-| -------------- | ----------- | ----------------------------------------- |
-| `/`            | Home        | Hero + Habilidades + Trajetória + Contato |
-| `/habilidades` | Habilidades | Todas as 6 categorias com tags completas  |
-| `*`            | NotFound    | Página 404                                |
+| Rota            | Componente   | Descrição                                                           |
+| --------------- | ------------ | ------------------------------------------------------------------- |
+| `/`             | Home         | Hero + Habilidades + Trajetória + Serviços + Contato                |
+| `/habilidades`  | Habilidades  | Todas as 6 categorias com tags completas                            |
+| `/experiencias` | Experiencias | Trajetória & Formação em abas: Experiência, Formação, Certificações |
+| `*`             | NotFound     | Página 404                                                          |
 
 ### Navegação
 
@@ -299,15 +355,18 @@ npm run test:coverage
 - **Padrão de arquivos:** `*.spec.tsx` / `*.spec.ts` colocado na mesma pasta do componente
 - **Helper:** `renderComProviders` encapsula MemoryRouter + ChakraProvider
 - **Mocks:** Services mockados via `vi.mock()` nos testes de hooks e componentes
+- **Contrato e fonte:** schemas (válido/inválido), mappers (bruto → domínio) e
+  services com o cliente Supabase mockado (sucesso remoto, erro → fallback,
+  sem env → fallback, resposta malformada → descarte)
 
 ## Quality Gates
 
-| Camada             | Quando         | O que valida                      |
-| ------------------ | -------------- | --------------------------------- |
-| Husky `commit-msg` | Todo commit    | Formato Conventional Commits      |
-| Husky `pre-push`   | Antes de push  | Cobertura ≥ 80% + Build sem erros |
-| GitHub Actions CI  | Pull Requests  | Lint → Audit → Coverage → Build   |
-| Cloudflare Pages   | Push em `main` | Build de produção                 |
+| Camada             | Quando         | O que valida                                  |
+| ------------------ | -------------- | --------------------------------------------- |
+| Husky `commit-msg` | Todo commit    | Formato Conventional Commits                  |
+| Husky `pre-push`   | Antes de push  | Lint + Cobertura ≥ 80% + Build (espelha o CI) |
+| GitHub Actions CI  | Pull Requests  | Lint → Audit → Coverage → Build               |
+| Cloudflare Pages   | Push em `main` | Build de produção                             |
 
 ## Branching Strategy
 
@@ -318,12 +377,12 @@ feature/minha-feature
       stage ──── CI: lint + audit + coverage + build
         │         Cloudflare: deploy preview em stage.*
         ▼ (PR → main)
-       main ──── Cloudflare: deploy produção em imsantt.dev
+       main ──── Cloudflare: deploy produção em imsantt.tech
 ```
 
 | Branch  | Ambiente | URL                                   |
 | ------- | -------- | ------------------------------------- |
-| `main`  | Produção | `imsantt.dev`                         |
+| `main`  | Produção | `imsantt.tech`                        |
 | `stage` | Preview  | `stage.imsantt-tech-webapp.pages.dev` |
 
 - Features criam branch a partir de `stage`
@@ -377,8 +436,10 @@ As garantias de segurança **reais** do fluxo de contato ficam nessa função se
 - impor os mesmos limites de tamanho de `nome` / `email` / `mensagem`;
 - expor apenas erros genéricos ao cliente, sem vazar detalhes internos.
 
-O código da Edge Function e as policies (RLS) do Supabase devem ser versionados em `docker/supabase/`
-para permitir auditoria e reprodução.
+A postura de segurança de dados (RLS por padrão, leitura pública/escrita
+restrita, chave anônima não é autorização, escrita validada no servidor) está
+documentada em `SECURITY.md`. O DDL/RLS e o código da Edge Function pertencem ao
+repositório de backend/banco quando existir — não ao repositório do frontend.
 
 ### CI/CD
 
@@ -463,6 +524,7 @@ ci: configurar threshold de cobertura 80%
 - [x] Hero section com foto e download de currículo (via Cloudflare R2)
 - [x] Seção de Habilidades com ícones e tags (6 categorias, max 6 tags na Home)
 - [x] Página /habilidades com todas as tags completas
+- [x] Página /experiencias (Trajetória & Formação em abas: experiência, formação, certificações)
 - [x] Seção Trajetória (timeline de experiências profissionais)
 - [x] Formulário de contato (UI + banner "em desenvolvimento")
 - [x] Navbar responsiva com scroll suave e menu mobile
@@ -490,12 +552,17 @@ ci: configurar threshold de cobertura 80%
 - [x] Testes unitários com cobertura ≥ 80%
 - [x] Husky + Commitlint + pre-push (coverage + build)
 - [x] CI com lint + audit + coverage + build
+- [x] Husky `pre-push` alinhado ao CI (lint + coverage + build)
 - [x] Code splitting (vendor-react, vendor-ui)
 - [x] Documentação técnica e auditorias de segurança
+- [x] Contrato de dados validado em runtime com Zod na borda dos services
+- [x] Mappers isolados (fonte bruta → domínio) por área
+- [x] Integração Supabase para dados dinâmicos (experiências, certificações, formação, configuração) com fallback sinalizado para stub
+- [x] Postura de segurança de dados documentada (RLS, deny-by-default, server-side)
 - [ ] Seção Projetos (portfolio)
 - [ ] Seção Impacto Social (Potenc[IA], Guardiões Digitais)
 - [ ] Integração Supabase para formulário de contato
-- [ ] Integração Supabase para dados dinâmicos (habilidades, experiências)
+- [ ] Migração de Habilidades para dados remotos (resolvedor de ícone/cor via allowlist)
 - [ ] Docker Compose para desenvolvimento local (MinIO + Supabase)
 - [ ] Painel Admin (/admin)
 - [ ] Animações avançadas com Framer Motion
@@ -503,12 +570,12 @@ ci: configurar threshold de cobertura 80%
 
 ## Documentação
 
-| Documento           | Descrição                                   |
-| ------------------- | ------------------------------------------- |
-| `docs/BRANCHING.md` | Estratégia de branches e ambientes          |
-| `docs/seguranca/`   | Auditorias de segurança (14/08, 17/08/2026) |
-| `docs/analises/`    | Avaliação técnica e roadmap do projeto      |
-| `SECURITY.md`       | Política de reporte de vulnerabilidades     |
+| Documento           | Descrição                                                   |
+| ------------------- | ----------------------------------------------------------- |
+| `docs/BRANCHING.md` | Estratégia de branches e ambientes                          |
+| `docs/seguranca/`   | Auditorias de segurança (14/08, 17/08/2026)                 |
+| `docs/analises/`    | Avaliação técnica e roadmap do projeto                      |
+| `SECURITY.md`       | Postura de segurança de dados + reporte de vulnerabilidades |
 
 ## Licença
 
