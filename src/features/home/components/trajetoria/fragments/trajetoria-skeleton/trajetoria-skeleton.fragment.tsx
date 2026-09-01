@@ -11,7 +11,7 @@ export function TrajetoriaSkeleton() {
       as="section"
       py={{ base: "16", md: "24" }}
       px={{ base: "6", md: "12", lg: "24" }}
-      bg={cores.bg.base}
+      bg={cores.background.base}
       role="status"
       aria-label="Carregando trajetória..."
     >
@@ -20,21 +20,21 @@ export function TrajetoriaSkeleton() {
           <Box
             h="0.75rem"
             w="80px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.4}
           />
           <Box
             h="2.5rem"
             w="60%"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.md}
             opacity={0.3}
           />
           <Box
             h="1rem"
             w="40%"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.25}
           />

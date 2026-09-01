@@ -19,8 +19,8 @@ export function NavbarSimples() {
       right={0}
       zIndex={100}
       py="3"
-      borderBottom={`1px solid ${cores.borda.DEFAULT}`}
-      bg={cores.bg.overlay}
+      borderBottom={`1px solid ${cores.border.DEFAULT}`}
+      bg={cores.background.overlay}
       backdropFilter="blur(16px)"
       transition={transicao.lenta}
     >
@@ -46,13 +46,13 @@ export function NavbarSimples() {
             display: "inline-flex",
             alignItems: "center",
             gap: "6px",
-            color: cores.texto.corpo,
+            color: cores.text.body,
             fontWeight: 500,
             fontSize: "14px",
             padding: "8px 16px",
             borderRadius: raio.lg,
-            border: `1px solid ${cores.borda.DEFAULT}`,
-            backgroundColor: cores.transparente,
+            border: `1px solid ${cores.border.DEFAULT}`,
+            backgroundColor: cores.transparent,
             textDecoration: "none",
             transition: transicao.padrao,
           }}

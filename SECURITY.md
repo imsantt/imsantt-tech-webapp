@@ -12,7 +12,7 @@ Se você encontrou uma vulnerabilidade de segurança neste projeto, **NÃO** abr
 
 Entre em contato diretamente:
 
-- **Email:** robertsantosti@outlook.com
+- **Email:** contato@imsantt.tech
 - **Assunto:** [SECURITY] Descrição breve
 
 ### O que incluir no report:

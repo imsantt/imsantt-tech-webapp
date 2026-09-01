@@ -10,7 +10,7 @@ export function ContatoSkeleton() {
       as="section"
       py={{ base: "16", md: "24" }}
       px="6"
-      bg={cores.bg.base}
+      bg={cores.background.base}
       role="status"
       aria-label="Carregando contato..."
     >
@@ -19,7 +19,7 @@ export function ContatoSkeleton() {
           <Box
             h="0.75rem"
             w="70px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.sm}
             opacity={0.4}
             mx="auto"
@@ -27,7 +27,7 @@ export function ContatoSkeleton() {
           <Box
             h="2rem"
             w="180px"
-            bg={cores.borda.DEFAULT}
+            bg={cores.border.DEFAULT}
             borderRadius={raio.md}
             opacity={0.3}
             mx="auto"
@@ -35,8 +35,8 @@ export function ContatoSkeleton() {
         </VStack>
 
         <Box
-          bg={cores.bg.card}
-          border={`1px solid ${cores.borda.DEFAULT}`}
+          bg={cores.background.card}
+          border={`1px solid ${cores.border.DEFAULT}`}
           borderRadius={raio["2xl"]}
           p={{ base: "6", md: "10" }}
         >
@@ -44,28 +44,28 @@ export function ContatoSkeleton() {
             <Box
               h="2.5rem"
               w="100%"
-              bg={cores.borda.DEFAULT}
+              bg={cores.border.DEFAULT}
               borderRadius={raio.xl}
               opacity={0.25}
             />
             <Box
               h="2.5rem"
               w="100%"
-              bg={cores.borda.DEFAULT}
+              bg={cores.border.DEFAULT}
               borderRadius={raio.xl}
               opacity={0.2}
             />
             <Box
               h="7rem"
               w="100%"
-              bg={cores.borda.DEFAULT}
+              bg={cores.border.DEFAULT}
               borderRadius={raio.xl}
               opacity={0.2}
             />
             <Box
               h="2.75rem"
               w="160px"
-              bg={cores.borda.DEFAULT}
+              bg={cores.border.DEFAULT}
               borderRadius={raio.xl}
               opacity={0.3}
             />

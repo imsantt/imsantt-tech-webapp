@@ -2,88 +2,144 @@
  * Design System — Tokens centralizados
  * Fonte única de verdade para cores, tipografia, espaçamentos, raios e sombras.
  * Importar em qualquer componente: import { tokens } from "@/lib/tema/tokens"
+ *
+ * Linguagem visual: "Editorial Tech Minimalism".
+ * Paleta quase monocromática (tinta profunda), bordas em fio de cabelo,
+ * um único acento disciplinado e um sistema tipográfico mono para metadados.
+ * Sem glows radiais, gradientes de texto ou ornamentos genéricos.
  */
 export const tokens = {
   // ─── Cores ───────────────────────────────────────────────────────────────────
 
   cores: {
-    // Primária (marca / ações principais)
-    primaria: {
-      DEFAULT: "#7c3aed",
-      hover: "#9333ea",
-      claro: "#a855f7",
-      escuro: "#6d28d9",
-      sutil: "rgba(124, 58, 237, 0.1)",
-      borda: "rgba(124, 58, 237, 0.35)",
-      bordaForte: "rgba(124, 58, 237, 0.6)",
+    // Primary (ênfase neutra / ação principal — usado com parcimônia)
+    primary: {
+      DEFAULT: "#e4e4e7",
+      hover: "#ffffff",
+      light: "#fafafa",
+      dark: "#a1a1aa",
+      subtle: "rgba(255, 255, 255, 0.04)",
+      border: "rgba(255, 255, 255, 0.14)",
+      borderStrong: "rgba(255, 255, 255, 0.28)",
     },
 
-    // Secundária (ações alternativas / acentos complementares)
-    secundaria: {
-      DEFAULT: "#818cf8",
-      hover: "#6366f1",
-      claro: "#a5b4fc",
-      sutil: "rgba(99, 102, 241, 0.15)",
+    // Accent de sinalização (link/foco/estado ativo) — âmbar frio, discreto
+    accent: {
+      DEFAULT: "#c8b68f",
+      hover: "#dccca6",
+      light: "#e8dcc0",
+      subtle: "rgba(200, 182, 143, 0.08)",
+      border: "rgba(200, 182, 143, 0.28)",
     },
 
-    // Sucesso
-    sucesso: {
-      DEFAULT: "#22c55e",
-      claro: "#4ade80",
-      sutil: "rgba(34, 197, 94, 0.15)",
+    // Secondary (ações alternativas / acentos complementares)
+    secondary: {
+      DEFAULT: "#a1a1aa",
+      hover: "#d4d4d8",
+      light: "#e4e4e7",
+      subtle: "rgba(161, 161, 170, 0.1)",
     },
 
-    // Alerta
-    alerta: {
-      DEFAULT: "#eab308",
-      claro: "#facc15",
-      sutil: "rgba(234, 179, 8, 0.15)",
+    // Success
+    success: {
+      DEFAULT: "#34d399",
+      light: "#6ee7b7",
+      subtle: "rgba(52, 211, 153, 0.12)",
     },
 
-    // Erro
-    erro: {
-      DEFAULT: "#ef4444",
-      claro: "#f87171",
-      sutil: "rgba(239, 68, 68, 0.15)",
+    // Warning
+    warning: {
+      DEFAULT: "#d4b062",
+      light: "#e5c983",
+      subtle: "rgba(212, 176, 98, 0.12)",
+    },
+
+    // Danger
+    danger: {
+      DEFAULT: "#e5675f",
+      light: "#f0938c",
+      subtle: "rgba(229, 103, 95, 0.12)",
     },
 
     // Info
     info: {
-      DEFAULT: "#06b6d4",
-      claro: "#22d3ee",
-      sutil: "rgba(6, 182, 212, 0.15)",
+      DEFAULT: "#7aa2c4",
+      light: "#a3c2dc",
+      subtle: "rgba(122, 162, 196, 0.12)",
     },
 
-    // Background (camadas de profundidade)
-    bg: {
-      base: "#0a0a0f",
-      sutil: "#111118",
-      card: "#16161f",
-      elevado: "#1e1e2a",
-      overlay: "rgba(10, 10, 15, 0.88)",
-      overlayForte: "rgba(10, 10, 15, 0.97)",
+    // Background (camadas de profundidade — tinta neutra fria)
+    background: {
+      base: "#0b0b0c",
+      subtle: "#0f0f11",
+      card: "#141416",
+      elevated: "#1a1a1d",
+      overlay: "rgba(11, 11, 12, 0.72)",
+      overlayStrong: "rgba(11, 11, 12, 0.96)",
     },
 
-    // Texto
-    texto: {
-      titulo: "#f3f4f6",
-      corpo: "#9ca3af",
-      sutil: "rgba(156, 163, 175, 0.6)",
-      invertido: "#0a0a0f",
+    // Text
+    text: {
+      heading: "#fafafa",
+      body: "#a1a1aa",
+      subtle: "rgba(161, 161, 170, 0.55)",
+      inverted: "#0b0b0c",
     },
 
-    // Bordas
-    borda: {
-      DEFAULT: "#2a2a3a",
-      sutil: "#1e1e2e",
-      hover: "rgba(255, 255, 255, 0.2)",
-      hoverForte: "rgba(255, 255, 255, 0.35)",
+    // Border — fio de cabelo, quase invisíveis em repouso
+    border: {
+      DEFAULT: "rgba(255, 255, 255, 0.09)",
+      subtle: "rgba(255, 255, 255, 0.05)",
+      hover: "rgba(255, 255, 255, 0.18)",
+      hoverStrong: "rgba(255, 255, 255, 0.3)",
     },
 
     // Neutros (auxiliares)
-    branco: "#ffffff",
-    preto: "#000000",
-    transparente: "transparent",
+    white: "#ffffff",
+    black: "#000000",
+    transparent: "transparent",
+
+    // ─── Acentos por categoria ──────────────────────────────────────────────
+    // Tons dessaturados e sóbrios — cor como sinal, não como preenchimento.
+    // Cada categoria expõe: base (ícone/tag/texto), bg (chip), border e glow.
+    category: {
+      violet: {
+        base: "#a99be0",
+        bg: "rgba(139, 122, 214, 0.08)",
+        border: "rgba(139, 122, 214, 0.24)",
+        glow: "rgba(139, 122, 214, 0.14)",
+      },
+      emerald: {
+        base: "#7fc9a6",
+        bg: "rgba(88, 178, 138, 0.08)",
+        border: "rgba(88, 178, 138, 0.24)",
+        glow: "rgba(88, 178, 138, 0.14)",
+      },
+      cyan: {
+        base: "#7bbcca",
+        bg: "rgba(92, 168, 184, 0.08)",
+        border: "rgba(92, 168, 184, 0.24)",
+        glow: "rgba(92, 168, 184, 0.14)",
+      },
+      amber: {
+        base: "#d3b483",
+        bg: "rgba(200, 165, 110, 0.08)",
+        border: "rgba(200, 165, 110, 0.26)",
+        glow: "rgba(200, 165, 110, 0.16)",
+      },
+      gold: {
+        base: "#cdbd7c",
+        bg: "rgba(191, 170, 95, 0.08)",
+        border: "rgba(191, 170, 95, 0.24)",
+        glow: "rgba(191, 170, 95, 0.14)",
+      },
+      rose: {
+        base: "#d69ba0",
+        bg: "rgba(198, 122, 130, 0.08)",
+        border: "rgba(198, 122, 130, 0.24)",
+        glow: "rgba(198, 122, 130, 0.14)",
+      },
+    },
   },
 
   // ─── Tipografia ──────────────────────────────────────────────────────────────
@@ -91,7 +147,7 @@ export const tokens = {
   tipografia: {
     familia: {
       sans: "'Inter', system-ui, sans-serif",
-      mono: "'JetBrains Mono', 'Fira Code', monospace",
+      mono: "'JetBrains Mono', 'Fira Code', ui-monospace, monospace",
     },
     tamanho: {
       xs: "0.75rem", // 12px
@@ -118,9 +174,17 @@ export const tokens = {
     },
     alturaLinha: {
       apertada: 1.0,
-      titulo: 1.2,
+      titulo: 1.1,
       corpo: 1.6,
-      relaxada: 1.7,
+      relaxada: 1.75,
+    },
+    // Espaçamento entre letras para eyebrows/labels técnicos
+    tracking: {
+      normal: "0",
+      titulo: "-0.02em",
+      tituloAmplo: "-0.03em",
+      label: "0.18em",
+      labelAmplo: "0.28em",
     },
   },
 
@@ -156,28 +220,30 @@ export const tokens = {
     "4xl-res": "20rem", // 320px
   },
 
-  // ─── Raios de borda ──────────────────────────────────────────────────────────
+  // ─── Raios de borda — cantos contidos, arquitetônicos ────────────────────────
 
   raio: {
     none: "0",
-    sm: "0.25rem", // 4px
-    md: "0.375rem", // 6px
-    lg: "0.5rem", // 8px
-    xl: "0.75rem", // 12px
-    "2xl": "1rem", // 16px
-    "3xl": "1.25rem", // 20px
+    sm: "0.125rem", // 2px
+    md: "0.1875rem", // 3px
+    lg: "0.25rem", // 4px
+    xl: "0.375rem", // 6px
+    "2xl": "0.5rem", // 8px
+    "3xl": "0.75rem", // 12px
     full: "9999px",
   },
 
-  // ─── Sombras ─────────────────────────────────────────────────────────────────
+  // ─── Sombras — profundidade sóbria, sem glow colorido ────────────────────────
 
   sombras: {
-    card: "0 4px 24px rgba(0, 0, 0, 0.4)",
-    destaque: "0 0 40px rgba(124, 58, 237, 0.15)",
-    destaqueForte: "0 0 40px rgba(124, 58, 237, 0.25)",
-    botao: "0 8px 30px rgba(124, 58, 237, 0.4)",
-    botaoForte: "0 8px 30px rgba(124, 58, 237, 0.45)",
-    input: "0 0 0 3px rgba(124, 58, 237, 0.15)",
+    card: "0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.24)",
+    destaque:
+      "0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 12px 40px rgba(0, 0, 0, 0.5)",
+    destaqueForte:
+      "0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 20px 60px rgba(0, 0, 0, 0.6)",
+    botao: "0 1px 2px rgba(0, 0, 0, 0.5)",
+    botaoForte: "0 2px 8px rgba(0, 0, 0, 0.55)",
+    input: "0 0 0 1px rgba(200, 182, 143, 0.35)",
   },
 
   // ─── Breakpoints ─────────────────────────────────────────────────────────────
@@ -193,12 +259,13 @@ export const tokens = {
   // ─── Transições ──────────────────────────────────────────────────────────────
 
   transicao: {
-    rapida: "all 0.15s ease",
-    padrao: "all 0.2s ease",
-    lenta: "all 0.3s ease",
-    cor: "background 0.2s, color 0.2s",
-    transformar: "transform 0.2s ease",
-    elevacao: "background 0.2s, transform 0.2s, box-shadow 0.2s",
+    rapida: "all 0.18s cubic-bezier(0.4, 0, 0.2, 1)",
+    padrao: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+    lenta: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+    cor: "background 0.25s ease, color 0.25s ease, border-color 0.25s ease",
+    transformar: "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+    elevacao:
+      "background 0.25s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.25s ease",
   },
 
   // ─── Layout ──────────────────────────────────────────────────────────────────
@@ -217,7 +284,7 @@ export const tokens = {
       altura: "23.75rem", // 380px
       tituloMinAltura: "2.6em",
       descricaoMaxChars: 750,
-      descricaoMaxLinhas: 5,
+      descricaoMaxLinhas: 4,
       tituloMaxLinhas: 2,
       maxTags: 6,
     },

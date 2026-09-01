@@ -51,4 +51,24 @@ export const STUB_EXPERIENCIAS: Experiencia[] = [
       "Desenvolvimento fullstack com Angular, React, Node.js e PHP, além de modelagem e otimização de bancos de dados relacionais.",
     tecnologias: ["Angular", "React", "Node.js", "PHP", "MySQL"],
   },
+  {
+    id: "framework",
+    empresa: "framework",
+    cargo: "Analista Desenvolvedor Front-End",
+    dataInicio: DateTime.fromObject({ year: 2020, month: 11 }),
+    dataTermino: DateTime.fromObject({ year: 2021, month: 7 }),
+    descricao:
+      "Atuação no desenvolvimento e manutenção de plataformas de alta escala, com foco nos projetos Portal B2B e Portal Seminovos. Responsável por interfaces dinâmicas de alta performance em Angular, fluxos de checkout e busca avançada, consumo de APIs em tempo real e componentização para acelerar entregas em ecossistemas de e-commerce.",
+    tecnologias: ["Angular", "JWT", "DDD", "Scrum"],
+  },
+  {
+    id: "spm-365",
+    empresa: "SPM 365",
+    cargo: "Desenvolvedor Fullstack",
+    dataInicio: DateTime.fromObject({ year: 2019, month: 9 }),
+    dataTermino: DateTime.fromObject({ year: 2020, month: 11 }),
+    descricao:
+      "Desenvolvimento e sustentação de uma plataforma de jogos de alto tráfego, participando de todo o ciclo de vida do produto. Construção de APIs robustas com PHP e Laravel, modernização de frontend com AngularJS e Angular, modelagem e otimização de bancos MySQL e interfaces responsivas de alta fidelidade visual.",
+    tecnologias: ["PHP", "Laravel", "AngularJS", "Angular", "MySQL", "Git"],
+  },
 ];

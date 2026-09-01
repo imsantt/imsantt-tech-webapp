@@ -13,21 +13,21 @@ export function HeroError() {
       alignItems="center"
       justifyContent="center"
       px="6"
-      bg={cores.bg.base}
+      bg={cores.background.base}
     >
       <Box
         maxW={layout.maxWidthEstrito}
         p="10"
-        bg={cores.bg.card}
-        border={`1px solid ${cores.borda.DEFAULT}`}
+        bg={cores.background.card}
+        border={`1px solid ${cores.border.DEFAULT}`}
         borderRadius={raio["2xl"]}
         textAlign="center"
       >
         <VStack gap="3">
-          <Heading as="h2" fontSize="lg" color={cores.texto.titulo}>
+          <Heading as="h2" fontSize="lg" color={cores.text.heading}>
             Não foi possível carregar
           </Heading>
-          <Text fontSize="sm" color={cores.texto.corpo}>
+          <Text fontSize="sm" color={cores.text.body}>
             Ocorreu um erro ao carregar a seção principal. Tente recarregar a
             página.
           </Text>
