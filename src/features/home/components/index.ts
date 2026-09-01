@@ -14,6 +14,10 @@ export const HabilidadesSecao = lazyComRetry(() =>
   })),
 );
 
+export const Servicos = lazyComRetry(() =>
+  import("./servicos/Servicos").then((m) => ({ default: m.Servicos })),
+);
+
 export const Contato = lazyComRetry(() =>
   import("./contato/Contato").then((m) => ({ default: m.Contato })),
 );
