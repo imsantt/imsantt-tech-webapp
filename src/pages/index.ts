@@ -16,6 +16,14 @@ export const Experiencias = lazyComRetry(() =>
   })),
 );
 
+export const Login = lazyComRetry(() =>
+  import("./login/Login").then((m) => ({ default: m.Login })),
+);
+
+export const Painel = lazyComRetry(() =>
+  import("./painel/Painel").then((m) => ({ default: m.Painel })),
+);
+
 export const NotFound = lazyComRetry(() =>
   import("./not-found/NotFound").then((m) => ({ default: m.NotFound })),
 );

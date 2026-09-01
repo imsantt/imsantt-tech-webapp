@@ -32,6 +32,7 @@ Aplicação web moderna construída com foco em performance, acessibilidade e ex
 | Datas           | Luxon                                                        |
 | Ícones          | React Icons (fa6, si, tb, ti, gr, md, di, pi, fi)            |
 | Dados / Backend | Supabase (leitura de dados, com fallback para stub)          |
+| Autenticação    | GitHub OAuth via Cloudflare Pages Functions (allowlist)      |
 | Storage         | Cloudflare R2 (currículo PDF)                                |
 | Observabilidade | Sentry (tracing, replay, logs, release tracking)             |
 | Testes          | Vitest + React Testing Library                               |
@@ -43,6 +44,17 @@ Aplicação web moderna construída com foco em performance, acessibilidade e ex
 ## Estrutura do Projeto
 
 ```
+functions/                               # Cloudflare Pages Functions (server-side)
+├── _lib/
+│   ├── config.ts                        # Env + allowlist (deny-by-default) + APP_ORIGIN
+│   └── sessao.ts                        # Sessão HMAC, state assinado, cookies (Web Crypto)
+└── auth/
+    ├── github/
+    │   ├── login.ts                     # GET /auth/github/login (inicia OAuth)
+    │   └── callback.ts                  # GET /auth/github/callback (token, allowlist, sessão)
+    ├── me.ts                            # GET /auth/me (sessão atual)
+    └── logout.ts                        # POST /auth/logout
+
 src/
 ├── assets/                              # Imagens otimizadas (WebP)
 ├── components/
@@ -117,6 +129,7 @@ src/
 │   ├── use-certificacoes/               # Hook SWR para certificações
 │   ├── use-formacao/                    # Hook SWR para formação acadêmica
 │   ├── use-habilidades/                 # Hook SWR para habilidades
+│   ├── use-sessao/                      # Hook SWR para a sessão (/auth/me)
 │   └── use-scroll-suave/               # Navegação interna suave
 ├── lib/
 │   ├── env.ts                           # Variáveis de ambiente centralizadas
@@ -133,6 +146,8 @@ src/
 │       ├── index.ts                     # createSystem
 │       └── tokens.spec.ts
 ├── pages/
+│   ├── login/                           # Login.tsx (GitHub OAuth) + styles + spec
+│   ├── painel/                          # Painel.tsx (área restrita, guard de sessão)
 │   ├── not-found/                       # NotFound.tsx + spec
 │   └── index.ts                         # Lazy exports (React.lazy)
 ├── routes/                              # AppRoutes com Suspense + lazy loading
@@ -143,6 +158,7 @@ src/
 │   ├── habilidade/                      # habilidade.schema.ts + spec (valida só campos serializáveis)
 │   └── configuracao/                    # configuracao.schema.ts + spec
 ├── services/                            # fonte → validação (schema) → mapper → domínio
+│   ├── autenticacao/                    # Cliente de auth (login GitHub, /auth/me, logout) + spec
 │   ├── configuracao/                    # Serviço de configuração do site
 │   ├── contato/                         # Serviço de envio de mensagem
 │   ├── experiencia/                     # experiencia.service.ts + experiencia.mapper.ts + specs
@@ -157,6 +173,7 @@ src/
 │   └── habilidades.stub.ts             # Mock de habilidades (6 categorias, com IconType do cliente)
 ├── tests/                               # Setup + helpers (renderComProviders)
 └── types/
+    ├── autenticacao.ts                  # UsuarioAutenticado, RespostaSessao
     ├── configuracao.ts                  # ConfiguracaoSite, RedeSocial
     ├── contato.ts
     ├── experiencia.ts
@@ -265,12 +282,15 @@ transition={transicao.elevacao}
 | `/`             | Home         | Hero + Habilidades + Trajetória + Serviços + Contato                |
 | `/habilidades`  | Habilidades  | Todas as 6 categorias com tags completas                            |
 | `/experiencias` | Experiencias | Trajetória & Formação em abas: Experiência, Formação, Certificações |
+| `/login`        | Login        | Acesso via GitHub OAuth (standalone, sem navbar/footer)             |
+| `/painel`       | Painel       | Área restrita ao proprietário (guard de sessão) — standalone        |
 | `*`             | NotFound     | Página 404                                                          |
 
 ### Navegação
 
 - **Home** (`/`): Navbar completa com links de âncora + menu mobile
 - **Páginas internas**: NavbarSimples com logo + botão "Voltar"
+- **Login / Painel**: rotas standalone (tela cheia, sem navbar/footer)
 
 ## Infraestrutura de Código
 
@@ -331,17 +351,91 @@ npm run dev
 
 ### Scripts disponíveis
 
-| Comando                 | Descrição                                         |
-| ----------------------- | ------------------------------------------------- |
-| `npm run dev`           | Servidor de desenvolvimento com HMR               |
-| `npm run build`         | Type check + build + atualização do sitemap       |
-| `npm run preview`       | Preview local do build de produção                |
-| `npm run lint`          | Lint com ESLint                                   |
-| `npm run test`          | Testes unitários (single run)                     |
-| `npm run test:watch`    | Testes em modo watch                              |
-| `npm run test:coverage` | Testes com relatório de cobertura (threshold 80%) |
-| `npm run commit`        | Commit interativo com Conventional Commits        |
-| `npm run audit:fix`     | Corrige vulnerabilidades de dependências          |
+| Comando                 | Descrição                                              |
+| ----------------------- | ------------------------------------------------------ |
+| `npm run dev`           | Servidor de desenvolvimento com HMR (sem Functions)    |
+| `npm run dev:pages`     | Build + Cloudflare Pages (assets + Functions em :8788) |
+| `npm run build`         | Type check + build + atualização do sitemap            |
+| `npm run preview`       | Preview local do build de produção                     |
+| `npm run lint`          | Lint com ESLint                                        |
+| `npm run test`          | Testes unitários (single run)                          |
+| `npm run test:watch`    | Testes em modo watch                                   |
+| `npm run test:coverage` | Testes com relatório de cobertura (threshold 80%)      |
+| `npm run commit`        | Commit interativo com Conventional Commits             |
+| `npm run audit:fix`     | Corrige vulnerabilidades de dependências               |
+
+### Autenticação (GitHub OAuth via Pages Functions)
+
+O acesso ao `/painel` é feito por **GitHub OAuth** (Authorization Code Flow),
+implementado em **Cloudflare Pages Functions** (`functions/auth/*`) — sem
+Supabase Auth. O acesso é restrito ao proprietário por uma **allowlist**, com
+**deny-by-default**. As páginas `/login` e `/painel` são rotas standalone (sem
+navbar/footer); o formulário de e-mail/senha é apenas demonstrativo — o login
+real é exclusivamente via GitHub.
+
+**Fluxo:**
+
+```
+/login  →  GET /auth/github/login   → gera state (nonce) + cookie assinado → redireciona ao GitHub
+        →  GET /auth/github/callback → valida state, troca code→token (server-side),
+                                        busca usuário, aplica allowlist, emite sessão → /painel
+/painel →  GET /auth/me             → o cliente consulta a sessão (nunca vê segredo)
+        →  POST /auth/logout        → limpa a sessão
+```
+
+**Endpoints (Functions):**
+
+| Rota                    | Método | Responsabilidade                                           |
+| ----------------------- | ------ | ---------------------------------------------------------- |
+| `/auth/github/login`    | GET    | Inicia o OAuth; gera `state` anti-CSRF e redireciona       |
+| `/auth/github/callback` | GET    | Valida `state`, troca `code`→token, allowlist, cria sessão |
+| `/auth/me`              | GET    | Retorna a sessão atual (ou 401)                            |
+| `/auth/logout`          | POST   | Encerra a sessão                                           |
+
+**Garantias de segurança:**
+
+- Client Secret e `SESSION_SECRET` vivem só como env vars no Cloudflare (sem
+  prefixo `VITE_`, nunca no bundle do cliente).
+- **Allowlist deny-by-default** por login e/ou id do GitHub (id é imutável, mais
+  robusto). Sem allowlist configurada, ninguém entra.
+- **CSRF/`state` assinado**: o cookie de `state` guarda `nonce.timestamp.HMAC`,
+  validado com assinatura + frescor + comparação em tempo constante (bloqueia
+  login CSRF / session fixation).
+- **Sessão** em cookie `HttpOnly` + `SameSite=Lax` + `Secure` (em HTTPS),
+  assinada com **HMAC-SHA256** e com expiração (`exp`). O access token do GitHub
+  é usado só para identificar o usuário e **descartado** — nunca persistido nem
+  devolvido ao cliente.
+- **`SESSION_VERSION`**: incrementar invalida todas as sessões emitidas (logout
+  global / revogação em massa).
+- **`APP_ORIGIN` obrigatório em produção (HTTPS)**: o `redirect_uri` não é
+  derivado do host da requisição, evitando manipulação de Host header.
+
+**Variáveis de ambiente (server-side, sem `VITE_`):**
+
+| Variável                | Obrigatória | Descrição                                               |
+| ----------------------- | ----------- | ------------------------------------------------------- |
+| `GITHUB_CLIENT_ID`      | sim         | Client ID do GitHub OAuth App                           |
+| `GITHUB_CLIENT_SECRET`  | sim         | Client Secret (segredo — só no servidor)                |
+| `SESSION_SECRET`        | sim         | Segredo HMAC da sessão (`openssl rand -base64 48`)      |
+| `GITHUB_ALLOWED_LOGINS` | um dos dois | Logins autorizados (CSV). Ex.: `imsantt`                |
+| `GITHUB_ALLOWED_IDS`    | um dos dois | IDs numéricos autorizados (CSV). Preferível (imutável)  |
+| `APP_ORIGIN`            | em produção | Origem canônica. Ex.: `https://imsantt.tech`            |
+| `SESSION_VERSION`       | não         | Versão da sessão (padrão `1`); bumpar faz logout global |
+
+**Produção (Cloudflare Pages → Settings → Environment variables):** defina as
+variáveis acima. Callback do OAuth App: `https://imsantt.tech/auth/github/callback`.
+
+**Local (fluxo completo com Functions):**
+
+```bash
+cp .dev.vars.example .dev.vars   # preencha com um OAuth App de dev
+npm run dev:pages                # build + wrangler pages dev em :8788
+```
+
+> O `npm run dev` (Vite puro) **não** executa as Functions — use `dev:pages`
+> para testar o login. As Functions leem `.dev.vars` (não `.env`). Crie um
+> OAuth App de dev com callback `http://localhost:8788/auth/github/callback`.
+> O `.dev.vars` não é versionado.
 
 ## Testes
 
@@ -559,12 +653,14 @@ ci: configurar threshold de cobertura 80%
 - [x] Mappers isolados (fonte bruta → domínio) por área
 - [x] Integração Supabase para dados dinâmicos (experiências, certificações, formação, configuração) com fallback sinalizado para stub
 - [x] Postura de segurança de dados documentada (RLS, deny-by-default, server-side)
+- [x] Autenticação GitHub OAuth via Cloudflare Pages Functions (allowlist do proprietário, sessão HMAC, state assinado)
+- [x] Página de login (`/login`) e painel restrito (`/painel`) com guard de sessão
 - [ ] Seção Projetos (portfolio)
 - [ ] Seção Impacto Social (Potenc[IA], Guardiões Digitais)
 - [ ] Integração Supabase para formulário de contato
 - [ ] Migração de Habilidades para dados remotos (resolvedor de ícone/cor via allowlist)
 - [ ] Docker Compose para desenvolvimento local (MinIO + Supabase)
-- [ ] Painel Admin (/admin)
+- [ ] Módulos de gestão de conteúdo no painel (`/painel`)
 - [ ] Animações avançadas com Framer Motion
 - [ ] GitHub Actions: sync automático do stage após merge na main
 

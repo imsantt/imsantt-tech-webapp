@@ -1,1 +1,5 @@
+# SPA fallback: rotas do cliente servem o index.html com HTTP 200 (sem redirect).
+# Nota: `wrangler pages dev` emite um aviso cosmético de "infinite loop" para esta
+# regra (o wildcard também casa /index.html). É inofensivo — o Cloudflare Pages
+# em produção trata o fallback corretamente e não emite o aviso.
 /* /index.html 200

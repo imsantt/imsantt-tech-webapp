@@ -1,0 +1,30 @@
+# Variáveis de desenvolvimento local para as Cloudflare Pages Functions.
+#
+# O `wrangler pages dev` lê automaticamente um arquivo `.dev.vars` (mesmo
+# formato de um .env) e injeta estas variáveis no runtime das Functions —
+# exatamente como as Environment variables do Cloudflare Pages em produção.
+#
+# Copie este arquivo para `.dev.vars` e preencha com valores reais.
+# O `.dev.vars` NÃO é versionado (está no .gitignore).
+
+# GitHub OAuth App (github.com/settings/developers)
+# Para dev local, crie um OAuth App separado com callback:
+#   http://localhost:8788/auth/github/callback
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+# Segredo de assinatura da sessão. Gere com: openssl rand -base64 48
+SESSION_SECRET=
+
+# Allowlist do proprietário (seu usuário/id do GitHub).
+GITHUB_ALLOWED_LOGINS=
+GITHUB_ALLOWED_IDS=
+
+# Origem local do wrangler pages dev (porta padrão 8788).
+# Em produção (HTTPS) é OBRIGATÓRIA — o redirect_uri não é derivado do host
+# da requisição por segurança.
+APP_ORIGIN=http://localhost:8788
+
+# Versão da sessão. Incremente (2, 3, ...) para invalidar TODAS as sessões
+# já emitidas (logout global). Opcional — padrão 1.
+SESSION_VERSION=1
