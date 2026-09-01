@@ -10,6 +10,12 @@ export const Habilidades = lazyComRetry(() =>
   })),
 );
 
+export const Experiencias = lazyComRetry(() =>
+  import("../features/experiencias/Experiencias").then((m) => ({
+    default: m.Experiencias,
+  })),
+);
+
 export const NotFound = lazyComRetry(() =>
   import("./not-found/NotFound").then((m) => ({ default: m.NotFound })),
 );
