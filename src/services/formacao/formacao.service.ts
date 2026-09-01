@@ -14,7 +14,7 @@ import { logger } from "@/lib/logger";
  * de schema na borda garante que a UI só receba dados válidos.
  */
 
-const TABELA = "formacao";
+const TABELA = "formacoes";
 
 function validarEMapear(brutas: unknown): FormacaoAcademica[] {
   const resultado = formacoesBrutasSchema.safeParse(brutas);
