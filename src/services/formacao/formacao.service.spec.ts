@@ -1,7 +1,13 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { listarFormacao } from "./formacao.service";
 
 describe("formacao.service", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.resetModules();
+    vi.unmock("@/stubs/formacao.stub");
+  });
+
   describe("listarFormacao", () => {
     it("deve retornar array de formacoes", async () => {
       const resultado = await listarFormacao();
@@ -28,6 +34,27 @@ describe("formacao.service", () => {
             resultado[i + 1].dataInicio.toMillis(),
         ).toBe(true);
       }
+    });
+  });
+
+  describe("validação de schema na borda", () => {
+    it("descarta dados malformados, loga erro e retorna lista vazia", async () => {
+      const erroSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+      vi.resetModules();
+      vi.doMock("@/stubs/formacao.stub", () => ({
+        STUB_FORMACAO: [
+          { id: "x", instituicao: "X", grau: "phd", data_inicio: "xxxx" },
+        ],
+      }));
+
+      const { listarFormacao: listarInvalido } =
+        await import("./formacao.service");
+
+      const resultado = await listarInvalido();
+
+      expect(resultado).toEqual([]);
+      expect(erroSpy).toHaveBeenCalled();
     });
   });
 });
