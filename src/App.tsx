@@ -5,6 +5,19 @@ import { AppRoutes } from "./routes";
 function App() {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
+  // Rotas standalone (tela cheia, sem navbar/footer): login, painel e afins.
+  const isStandalone = pathname === "/login" || pathname === "/painel";
+
+  if (isStandalone) {
+    return (
+      <>
+        <a href="#conteudo-principal" className="pular-para-conteudo">
+          Pular para o conteúdo principal
+        </a>
+        <AppRoutes />
+      </>
+    );
+  }
 
   return (
     <>
