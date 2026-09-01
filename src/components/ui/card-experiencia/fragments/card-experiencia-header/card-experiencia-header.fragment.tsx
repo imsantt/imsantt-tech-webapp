@@ -1,7 +1,7 @@
 import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { FaBuilding } from "react-icons/fa6";
 import { DateTime } from "luxon";
-import { cores, raio } from "@/lib/tema/tokens";
+import { cores, raio, tipografia } from "@/lib/tema/tokens";
 
 interface CardExperienciaHeaderProps {
   empresa: string;
@@ -46,40 +46,58 @@ export function CardExperienciaHeader({
           display="flex"
           alignItems="center"
           justifyContent="center"
-          w="38px"
-          h="38px"
-          bg={isAtual ? cores.primaria.sutil : "rgba(99, 102, 241, 0.12)"}
-          borderRadius={raio.lg}
+          w="36px"
+          h="36px"
+          bg={cores.primaria.sutil}
+          border={`1px solid ${cores.borda.DEFAULT}`}
+          borderRadius={raio.md}
           flexShrink={0}
           aria-hidden="true"
         >
           <Box
             as={FaBuilding}
-            fontSize="14px"
-            color={isAtual ? cores.primaria.claro : cores.secundaria.DEFAULT}
+            fontSize="13px"
+            color={isAtual ? cores.acento.claro : cores.texto.corpo}
           />
         </Box>
         <Box>
-          <Text fontSize="sm" fontWeight="700" color={cores.texto.titulo}>
+          <Text fontSize="sm" fontWeight="600" color={cores.texto.titulo}>
             {empresa}
           </Text>
-          <Text fontSize="xs" color={cores.texto.corpo}>
+          <Text
+            fontFamily={tipografia.familia.mono}
+            fontSize="xs"
+            color={cores.texto.sutil}
+            letterSpacing="0.02em"
+          >
             {periodo} · {duracao}
           </Text>
         </Box>
       </HStack>
       {isAtual && (
-        <Box
+        <Flex
+          align="center"
+          gap="1.5"
+          fontFamily={tipografia.familia.mono}
           fontSize="xs"
-          fontWeight="600"
-          color={cores.sucesso.claro}
-          bg={cores.sucesso.sutil}
-          px="2.5"
-          py="0.5"
-          borderRadius={raio.full}
+          fontWeight="500"
+          color={cores.acento.claro}
+          px="2"
+          py="1"
+          border={`1px solid ${cores.acento.borda}`}
+          borderRadius={raio.sm}
+          textTransform="uppercase"
+          letterSpacing="0.08em"
         >
+          <Box
+            w="5px"
+            h="5px"
+            borderRadius={raio.full}
+            bg={cores.acento.DEFAULT}
+            aria-hidden="true"
+          />
           Atual
-        </Box>
+        </Flex>
       )}
     </Flex>
   );
