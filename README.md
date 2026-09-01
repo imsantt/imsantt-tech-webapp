@@ -80,19 +80,36 @@ src/
 │   │   │   │   └── fragments/
 │   │   │   │       ├── trajetoria-skeleton/
 │   │   │   │       └── trajetoria-error/
+│   │   │   ├── servicos/
+│   │   │   │   ├── Servicos.tsx + spec
+│   │   │   │   └── fragments/
+│   │   │   │       ├── servicos-skeleton/
+│   │   │   │       └── servicos-error/
 │   │   │   ├── contato/
 │   │   │   │   ├── Contato.tsx + spec
 │   │   │   │   └── fragments/
 │   │   │   │       ├── contato-skeleton/
 │   │   │   │       └── contato-error/
-│   │   │   └── index.ts                # Lazy exports (React.lazy)
+│   │   │   └── index.ts                # Lazy exports (lazyComRetry)
 │   │   ├── data/                        # Dados estáticos (hero)
 │   │   └── Home.tsx + spec
-│   └── habilidades/
-│       ├── Habilidades.tsx + spec       # Página /habilidades
+│   ├── habilidades/
+│   │   ├── Habilidades.tsx + spec       # Página /habilidades
+│   │   └── fragments/
+│   │       ├── habilidades-page-skeleton/
+│   │       └── habilidades-page-error/
+│   └── experiencias/                    # Página /experiencias (Trajetória & Formação)
+│       ├── Experiencias.tsx + spec      # Navegação por abas (tablist acessível)
 │       └── fragments/
-│           ├── habilidades-page-skeleton/
-│           └── habilidades-page-error/
+│           ├── experiencias-timeline/   # Aba Experiência Profissional
+│           ├── formacao-timeline/       # Aba Formação Acadêmica
+│           ├── certificacoes-grid/      # Aba Cursos & Certificações
+│           ├── item-timeline/           # Item da timeline de experiência
+│           ├── item-formacao/           # Item da timeline de formação
+│           ├── card-certificacao/       # Card de certificação
+│           ├── chip-filtro/             # Chip de filtro
+│           ├── meta-chip/               # Chip de metadados (local, modelo, tipo)
+│           └── experiencias-page-skeleton/
 ├── hooks/
 │   ├── use-acessar-link-externo/        # Hook para links externos (window.open)
 │   ├── use-configuracao/                # Hook SWR para config do site
@@ -103,6 +120,8 @@ src/
 │   └── use-scroll-suave/               # Navegação interna suave
 ├── lib/
 │   ├── env.ts                           # Variáveis de ambiente centralizadas
+│   ├── lazy-com-retry.ts                # React.lazy com retry em falha de chunk
+│   ├── latencia.ts                      # simularLatencia (usada no fallback de stub)
 │   ├── logger.ts                        # Logger estruturado (prod-aware)
 │   ├── rate-limiter.ts                  # Rate limiting client-side
 │   ├── validacao.ts                     # Validação e sanitização de inputs
@@ -241,11 +260,12 @@ transition={transicao.elevacao}
 
 ## Páginas
 
-| Rota           | Componente  | Descrição                                 |
-| -------------- | ----------- | ----------------------------------------- |
-| `/`            | Home        | Hero + Habilidades + Trajetória + Contato |
-| `/habilidades` | Habilidades | Todas as 6 categorias com tags completas  |
-| `*`            | NotFound    | Página 404                                |
+| Rota            | Componente   | Descrição                                                           |
+| --------------- | ------------ | ------------------------------------------------------------------- |
+| `/`             | Home         | Hero + Habilidades + Trajetória + Serviços + Contato                |
+| `/habilidades`  | Habilidades  | Todas as 6 categorias com tags completas                            |
+| `/experiencias` | Experiencias | Trajetória & Formação em abas: Experiência, Formação, Certificações |
+| `*`             | NotFound     | Página 404                                                          |
 
 ### Navegação
 
@@ -504,6 +524,7 @@ ci: configurar threshold de cobertura 80%
 - [x] Hero section com foto e download de currículo (via Cloudflare R2)
 - [x] Seção de Habilidades com ícones e tags (6 categorias, max 6 tags na Home)
 - [x] Página /habilidades com todas as tags completas
+- [x] Página /experiencias (Trajetória & Formação em abas: experiência, formação, certificações)
 - [x] Seção Trajetória (timeline de experiências profissionais)
 - [x] Formulário de contato (UI + banner "em desenvolvimento")
 - [x] Navbar responsiva com scroll suave e menu mobile
