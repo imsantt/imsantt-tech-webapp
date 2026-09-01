@@ -17,6 +17,10 @@ dist-ssr
 .env.local
 .env.*.local
 
+# Cloudflare
+.dev.vars
+.wrangler/
+
 # Coverage
 coverage/
 

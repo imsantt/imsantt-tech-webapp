@@ -36,4 +36,14 @@ export default defineConfig([
       "react-refresh/only-export-components": "off",
     },
   },
+  // Cloudflare Pages Functions rodam no runtime de Workers, não no browser
+  {
+    files: ["functions/**/*.ts"],
+    languageOptions: {
+      globals: { ...globals.worker, ...globals.serviceworker },
+    },
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
 ]);
