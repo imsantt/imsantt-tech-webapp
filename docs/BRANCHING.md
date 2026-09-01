@@ -4,7 +4,7 @@
 
 | Branch  | Ambiente              | URL                                   | Deploy                          |
 | ------- | --------------------- | ------------------------------------- | ------------------------------- |
-| `main`  | Produção (PRD)        | `imsantt.dev`                         | Automático via Cloudflare Pages |
+| `main`  | Produção (PRD)        | `imsantt.tech`                        | Automático via Cloudflare Pages |
 | `stage` | Desenvolvimento (DEV) | `stage.imsantt-tech-webapp.pages.dev` | Automático via Cloudflare Pages |
 
 ## Fluxo de Trabalho
@@ -16,7 +16,7 @@ feature/minha-feature
       stage ──── CI: lint + audit + coverage + build
         │         Cloudflare: deploy preview em stage.*
         ▼ (PR → main)
-       main ──── Cloudflare: deploy produção em imsantt.dev
+       main ──── Cloudflare: deploy produção em imsantt.tech
 ```
 
 ### Regras
