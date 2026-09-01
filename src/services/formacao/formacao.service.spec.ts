@@ -1,60 +1,103 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { listarFormacao } from "./formacao.service";
 
-describe("formacao.service", () => {
+/** Linha bruta válida no formato do Supabase (snake_case, datas ISO). */
+const linhaRecente = {
+  id: "pos",
+  instituicao: "Estácio",
+  curso: "Especialização",
+  grau: "especializacao",
+  data_inicio: "2025-07",
+};
+
+const linhaAntiga = {
+  id: "tecnico",
+  instituicao: "ETI",
+  curso: "Técnico",
+  grau: "tecnico",
+  data_inicio: "2017-01",
+};
+
+function mockSupabaseClient(resposta: { data: unknown; error: unknown }) {
+  const select = vi.fn().mockResolvedValue(resposta);
+  const from = vi.fn().mockReturnValue({ select });
+  return { client: { from }, from, select };
+}
+
+async function importarService() {
+  return import("./formacao.service");
+}
+
+describe("formacao.service (fonte Supabase + fallback)", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
-    vi.unmock("@/stubs/formacao.stub");
+    vi.doUnmock("@/lib/supabase");
   });
 
-  describe("listarFormacao", () => {
-    it("deve retornar array de formacoes", async () => {
-      const resultado = await listarFormacao();
-      expect(Array.isArray(resultado)).toBe(true);
-      expect(resultado.length).toBeGreaterThan(0);
-    });
-
-    it("cada formacao deve ter campos obrigatorios", async () => {
-      const resultado = await listarFormacao();
-      resultado.forEach((f) => {
-        expect(f.id).toBeDefined();
-        expect(f.instituicao).toBeDefined();
-        expect(f.curso).toBeDefined();
-        expect(f.grau).toBeDefined();
-        expect(f.dataInicio).toBeDefined();
+  describe("fonte remota", () => {
+    it("retorna e mapeia os dados do Supabase, ordenados por data", async () => {
+      const { client, from, select } = mockSupabaseClient({
+        data: [linhaAntiga, linhaRecente],
+        error: null,
       });
-    });
-
-    it("formacoes devem estar ordenadas por data (mais recente primeiro)", async () => {
-      const resultado = await listarFormacao();
-      for (let i = 0; i < resultado.length - 1; i++) {
-        expect(
-          resultado[i].dataInicio.toMillis() >=
-            resultado[i + 1].dataInicio.toMillis(),
-        ).toBe(true);
-      }
-    });
-  });
-
-  describe("validação de schema na borda", () => {
-    it("descarta dados malformados, loga erro e retorna lista vazia", async () => {
-      const erroSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-
       vi.resetModules();
-      vi.doMock("@/stubs/formacao.stub", () => ({
-        STUB_FORMACAO: [
-          { id: "x", instituicao: "X", grau: "phd", data_inicio: "xxxx" },
-        ],
-      }));
+      vi.doMock("@/lib/supabase", () => ({ supabase: client }));
 
-      const { listarFormacao: listarInvalido } =
-        await import("./formacao.service");
+      const { listarFormacao } = await importarService();
+      const resultado = await listarFormacao();
 
-      const resultado = await listarInvalido();
+      expect(from).toHaveBeenCalledWith("formacao");
+      expect(select).toHaveBeenCalledWith("*");
+      expect(resultado.map((f) => f.id)).toEqual(["pos", "tecnico"]);
+      expect(resultado[0].dataInicio.year).toBe(2025);
+    });
+
+    it("descarta resposta remota malformada e retorna lista vazia", async () => {
+      const erroSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+      const { client } = mockSupabaseClient({
+        data: [{ id: "x", grau: "phd", data_inicio: "xxxx" }],
+        error: null,
+      });
+      vi.resetModules();
+      vi.doMock("@/lib/supabase", () => ({ supabase: client }));
+
+      const { listarFormacao } = await importarService();
+      const resultado = await listarFormacao();
 
       expect(resultado).toEqual([]);
       expect(erroSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("fallback sinalizado", () => {
+    it("sem Supabase configurado (null), usa o stub e loga aviso", async () => {
+      const avisoSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+      vi.resetModules();
+      vi.doMock("@/lib/supabase", () => ({ supabase: null }));
+
+      const { listarFormacao } = await importarService();
+      const resultado = await listarFormacao();
+
+      expect(resultado.length).toBeGreaterThan(0);
+      expect(avisoSpy).toHaveBeenCalled();
+    });
+
+    it("com erro na consulta, usa o stub e loga erro + aviso", async () => {
+      const erroSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+      const avisoSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+      const { client } = mockSupabaseClient({
+        data: null,
+        error: { message: "falha" },
+      });
+      vi.resetModules();
+      vi.doMock("@/lib/supabase", () => ({ supabase: client }));
+
+      const { listarFormacao } = await importarService();
+      const resultado = await listarFormacao();
+
+      expect(resultado.length).toBeGreaterThan(0);
+      expect(erroSpy).toHaveBeenCalled();
+      expect(avisoSpy).toHaveBeenCalled();
     });
   });
 });
