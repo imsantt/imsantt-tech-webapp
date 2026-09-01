@@ -21,7 +21,9 @@ describe("Footer", () => {
 
   it("deve renderizar o cargo", () => {
     renderComProviders(<Footer />);
-    expect(screen.getByText(/Engenheiro de Software/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Especialista em Arquitetura e Engenharia de Software/),
+    ).toBeInTheDocument();
   });
 
   it("deve renderizar links de redes sociais", () => {

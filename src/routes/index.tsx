@@ -2,7 +2,7 @@ import { Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Home, Habilidades, NotFound } from "../pages";
+import { Home, Habilidades, Experiencias, NotFound } from "../pages";
 import { cores, raio } from "@/lib/tema/tokens";
 
 function CarregandoPagina() {
@@ -59,6 +59,7 @@ export function AppRoutes() {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/habilidades" element={<Habilidades />} />
+            <Route path="/experiencias" element={<Experiencias />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

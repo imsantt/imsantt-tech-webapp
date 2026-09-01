@@ -29,6 +29,6 @@ export const STUB_CONFIGURACAO: ConfiguracaoSite = {
     },
   ],
   nomeAutor: "Robert Santos",
-  cargo: "Engenheiro de Software Sênior & Arquiteto",
+  cargo: "Especialista em Arquitetura e Engenharia de Software",
   disponivel: true,
 };

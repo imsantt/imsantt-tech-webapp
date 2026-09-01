@@ -43,6 +43,34 @@ vi.mock("@/hooks/use-experiencias/useExperiencias.hook", () => ({
   }),
 }));
 
+vi.mock("@/hooks/use-formacao/useFormacao.hook", () => ({
+  useFormacao: () => ({
+    formacoes: [
+      {
+        id: "estacio-especializacao",
+        instituicao: "Estácio",
+        curso: "Pós-graduação Lato Sensu",
+        grau: "especializacao",
+        dataInicio: DateTime.fromObject({ year: 2025, month: 7 }),
+        dataTermino: DateTime.fromObject({ year: 2026, month: 7 }),
+      },
+    ],
+    isLoading: false,
+    isError: false,
+  }),
+}));
+
+vi.mock("@/hooks/use-certificacoes/useCertificacoes.hook", () => ({
+  useCertificacoes: () => ({
+    certificacoes: [
+      { id: "c1", categoria: "cloud" },
+      { id: "c2", categoria: "ia" },
+    ],
+    isLoading: false,
+    isError: false,
+  }),
+}));
+
 function renderTrajetoria() {
   return render(
     <MemoryRouter>
@@ -56,14 +84,22 @@ function renderTrajetoria() {
 describe("Trajetoria", () => {
   it("deve renderizar o titulo da secao", () => {
     renderTrajetoria();
-    expect(screen.getByText("Experiência Profissional")).toBeInTheDocument();
+    expect(screen.getByText("Trajetória & Formação")).toBeInTheDocument();
   });
 
   it("deve renderizar empresas", () => {
     renderTrajetoria();
-    expect(screen.getByText("YDUQS")).toBeInTheDocument();
+    // "YDUQS" aparece na mini-timeline e na estatística "posição atual"
+    expect(screen.getAllByText("YDUQS").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("SENAI/SC")).toBeInTheDocument();
     expect(screen.getByText("JDC")).toBeInTheDocument();
+  });
+
+  it("deve renderizar resumo de formacao e certificacoes", () => {
+    renderTrajetoria();
+    expect(screen.getByText("formação")).toBeInTheDocument();
+    expect(screen.getByText("Especialização")).toBeInTheDocument();
+    expect(screen.getByText("certificações")).toBeInTheDocument();
   });
 
   it("deve renderizar badge Atual para experiencia corrente", () => {
@@ -84,24 +120,26 @@ describe("Trajetoria", () => {
     ).toBeInTheDocument();
   });
 
-  it("deve renderizar tecnologias nos cards", () => {
+  it("deve renderizar link para a trajetoria completa", () => {
     renderTrajetoria();
-    expect(screen.getAllByText("React").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("TypeScript").length).toBeGreaterThanOrEqual(1);
+    const link = screen.getByRole("link", {
+      name: /Ver trajetória completa/i,
+    });
+    expect(link).toHaveAttribute("href", "/experiencias");
   });
 
   it("deve ter heading h2 com id para acessibilidade", () => {
     renderTrajetoria();
     const heading = screen.getByRole("heading", {
       level: 2,
-      name: "Experiência Profissional",
+      name: "Trajetória & Formação",
     });
     expect(heading).toHaveAttribute("id", "trajetoria-titulo");
   });
 
   it("deve renderizar o rotulo Trajetoria", () => {
     renderTrajetoria();
-    expect(screen.getByText("03 — Trajetória")).toBeInTheDocument();
+    expect(screen.getByText("03 — Trajetória & Formação")).toBeInTheDocument();
   });
 
   it("deve renderizar subtitulo com anos dinamicos", () => {

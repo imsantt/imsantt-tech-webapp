@@ -107,7 +107,7 @@ export function Contato() {
         >
           <HStack gap="3" align="center">
             <Box css={s.eyebrowTraco} aria-hidden="true" />
-            <Text css={s.eyebrowTexto}>04 — Contato</Text>
+            <Text css={s.eyebrowTexto}>05 — Contato</Text>
           </HStack>
           <Heading as="h2" id="contato-titulo" css={s.titulo}>
             Vamos conversar
