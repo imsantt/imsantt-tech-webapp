@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import type { Experiencia } from "@/types/experiencia";
-import type { ExperienciaBruta } from "@/schemas/experiencia.schema";
+import type { ExperienciaBruta } from "@/schemas/experiencia/experiencia.schema";
 
 /**
  * Ponto único de conversão fonte -> domínio.

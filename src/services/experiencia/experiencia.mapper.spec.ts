@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { DateTime } from "luxon";
 import { mapearExperiencia, mapearExperiencias } from "./experiencia.mapper";
-import type { ExperienciaBruta } from "@/schemas/experiencia.schema";
+import type { ExperienciaBruta } from "@/schemas/experiencia/experiencia.schema";
 
 const brutaCompleta: ExperienciaBruta = {
   id: "acme",

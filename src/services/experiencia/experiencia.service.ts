@@ -1,6 +1,6 @@
 import type { Experiencia } from "@/types/experiencia";
 import { STUB_EXPERIENCIAS } from "@/stubs/experiencias.stub";
-import { experienciasBrutasSchema } from "@/schemas/experiencia.schema";
+import { experienciasBrutasSchema } from "@/schemas/experiencia/experiencia.schema";
 import { mapearExperiencias } from "./experiencia.mapper";
 import { simularLatencia } from "@/lib/latencia";
 import { logger } from "@/lib/logger";

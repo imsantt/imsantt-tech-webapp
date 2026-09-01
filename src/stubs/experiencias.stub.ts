@@ -1,4 +1,4 @@
-import type { ExperienciaBruta } from "@/schemas/experiencia.schema";
+import type { ExperienciaBruta } from "@/schemas/experiencia/experiencia.schema";
 
 /**
  * Dados simulados de experiências no formato BRUTO da fonte
