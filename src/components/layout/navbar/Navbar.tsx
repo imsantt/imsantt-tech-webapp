@@ -8,7 +8,8 @@ import { cores, layout, raio, tipografia, transicao } from "@/lib/tema/tokens";
 const itensNavegacao = [
   { rotulo: "Home", ancora: "home" },
   { rotulo: "Habilidades", ancora: "habilidades" },
-  { rotulo: "Trajetória", ancora: "trajetoria" },
+  { rotulo: "Trajetória & Formação", ancora: "trajetoria" },
+  { rotulo: "Serviços", ancora: "servicos" },
   { rotulo: "Projetos", ancora: "projetos" },
   { rotulo: "Impacto Social", ancora: "impacto-social" },
 ];

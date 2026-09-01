@@ -18,8 +18,9 @@ describe("Navbar", () => {
   it("deve renderizar todos os itens de navegação no desktop", () => {
     renderComProviders(<Navbar />);
     expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Trajetória")).toBeInTheDocument();
+    expect(screen.getByText("Trajetória & Formação")).toBeInTheDocument();
     expect(screen.getByText("Habilidades")).toBeInTheDocument();
+    expect(screen.getByText("Serviços")).toBeInTheDocument();
     expect(screen.getByText("Projetos")).toBeInTheDocument();
     expect(screen.getByText("Impacto Social")).toBeInTheDocument();
   });
